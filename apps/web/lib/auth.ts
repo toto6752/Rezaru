@@ -20,15 +20,25 @@ const socialProviders = {
 
 async function sendEmail(message: { to: string; subject: string; text: string }) {
   if (!process.env.SMTP_URL) {
-    if (process.env.NODE_ENV === "development") console.info(`[development email] ${message.subject} → ${message.to}\n${message.text}`);
-    return;
+    if (process.env.NODE_ENV !== "production") {
+      console.info(`[development email] ${message.subject} → ${message.to}\n${message.text}`);
+      return;
+    }
+    // Silently dropping verification mail in production strands every account
+    // at the unverified stage with no way forward. Fail loudly instead.
+    throw new Error("Email delivery is not configured: set SMTP_URL");
   }
   const response = await fetch(process.env.SMTP_URL, {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: {
+      "content-type": "application/json",
+      ...(process.env.EMAIL_API_KEY ? { authorization: `Bearer ${process.env.EMAIL_API_KEY}` } : {})
+    },
     body: JSON.stringify({ ...message, from: process.env.EMAIL_FROM ?? "OutcomeOS <hello@localhost>" })
   });
-  if (!response.ok) throw new Error("Email delivery failed");
+  if (!response.ok) {
+    throw new Error(`Email delivery failed (${response.status}): ${await response.text()}`);
+  }
 }
 
 export const auth = betterAuth({

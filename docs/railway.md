@@ -82,6 +82,28 @@ Healthcheck `web` отдаёт 503, пока Postgres или Redis недост�
 railway run --service web pnpm db:seed
 ```
 
+## Почта и подтверждение адреса
+
+При `NODE_ENV=production` вход требует подтверждённого email
+(`requireEmailVerification` в `apps/web/lib/auth.ts`). Без рабочей отправки
+почты аккаунт невозможно ни подтвердить, ни войти под ним — поэтому почта
+здесь не опциональна, а обязательна.
+
+`SMTP_URL` — вопреки имени, **не** строка `smtp://...`. Приложение делает
+`POST` с телом `{to, subject, text, from}` на указанный URL и передаёт
+`EMAIL_API_KEY` как bearer-токен. Под это подходит Resend без переходников:
+
+```text
+SMTP_URL=https://api.resend.com/emails
+EMAIL_API_KEY=<ключ из Resend>
+EMAIL_FROM=OutcomeOS <onboarding@resend.dev>
+```
+
+Адрес `onboarding@resend.dev` — песочница Resend: письма уходят только на
+почту владельца аккаунта, домен подтверждать не нужно. Для реальных
+пользователей нужен свой домен, подтверждённый в Resend, и `EMAIL_FROM` на
+этом домене.
+
 ## Что осталось опциональным
 
 - **S3 / артефакты.** `S3CompatibleArtifactStore` задаёт границу хранилища, но
