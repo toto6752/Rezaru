@@ -18,7 +18,7 @@ Dockerfile'ами — `docker/web.railway.Dockerfile` и
 `BETTER_AUTH_SECRET` (строка 32+ символов):
 
 ```bash
-powershell -Command "[Convert]::ToBase64String([System.Security.Cryptography.RandomNumberGenerator]::GetBytes(32))"
+powershell -Command "$b=New-Object byte[] 32; ([System.Security.Cryptography.RNGCryptoServiceProvider]::new()).GetBytes($b); [Convert]::ToBase64String($b)"
 ```
 
 `APP_ENCRYPTION_KEY` (base64 от ровно 32 байт) — генерируется той же командой,
