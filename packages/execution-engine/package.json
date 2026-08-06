@@ -1,0 +1,19 @@
+{
+  "name": "@outcomeos/execution-engine",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": "./src/index.ts",
+  "scripts": {
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@outcomeos/connectors": "workspace:*",
+    "@outcomeos/workflow-schema": "workspace:*",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}

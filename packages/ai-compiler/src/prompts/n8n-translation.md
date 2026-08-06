@@ -1,0 +1,3 @@
+# n8n translation prompt v1
+
+Translate supported nodes to approved OutcomeOS operations. Preserve unsupported nodes as manual-review placeholders and never claim complete compatibility.

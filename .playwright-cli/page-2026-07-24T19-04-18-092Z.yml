@@ -1,0 +1,416 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "OutcomeOS home" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e10]: OutcomeOS
+      - navigation "Primary navigation" [ref=e11]:
+        - link "Product" [ref=e12] [cursor=pointer]:
+          - /url: "#product"
+        - link "How it works" [ref=e13] [cursor=pointer]:
+          - /url: "#how"
+        - link "Templates" [ref=e14] [cursor=pointer]:
+          - /url: "#templates"
+        - link "Migration" [ref=e15] [cursor=pointer]:
+          - /url: "#migration"
+        - link "Pricing" [ref=e16] [cursor=pointer]:
+          - /url: "#pricing"
+      - generic [ref=e17]:
+        - link "Sign in" [ref=e18] [cursor=pointer]:
+          - /url: /login
+        - link "Start free" [ref=e19] [cursor=pointer]:
+          - /url: /register
+  - main [ref=e22]:
+    - generic [ref=e23]:
+      - generic [ref=e24]: Automation without workflows
+      - heading [level=1] [ref=e26]:
+        - text: Describe the outcome.
+        - emphasis [ref=e27]: AI builds the automation.
+      - paragraph [ref=e28]: OutcomeOS creates, runs, fixes, and improves your business automations. No nodes, no JSON, no workflow engineering.
+      - generic [ref=e29]:
+        - link "Build your first outcome" [ref=e30] [cursor=pointer]:
+          - /url: /register
+        - link "Import from n8n" [ref=e33] [cursor=pointer]:
+          - /url: /app/import/n8n
+      - paragraph [ref=e37]: Free plan · No card required · Demo mode included
+      - generic [ref=e40]:
+        - generic [ref=e41]:
+          - generic [ref=e46]: Outcome Builder
+          - generic [ref=e47]: AI ready
+        - generic [ref=e49]:
+          - generic [ref=e50]:
+            - generic [ref=e51]: What should your business do?
+            - textbox "Describe an outcome" [ref=e55]: "When a new lead arrives, enrich it, add it to HubSpot, and notify #sales in Slack."
+            - generic [ref=e56]:
+              - button "Route new leads" [ref=e57] [cursor=pointer]
+              - button "Review invoices" [ref=e58] [cursor=pointer]
+              - button "Weekly sales brief" [ref=e59] [cursor=pointer]
+            - button "Generate plan" [ref=e60] [cursor=pointer]
+          - generic [ref=e64]:
+            - generic [ref=e65]:
+              - generic [ref=e66]:
+                - text: GENERATED PLAN
+                - heading "Route new leads" [level=3] [ref=e67]
+              - generic [ref=e68]: Validated
+            - list [ref=e72]:
+              - listitem [ref=e73]:
+                - generic [ref=e74]: "1"
+                - paragraph [ref=e75]: Receive and validate the lead
+              - listitem [ref=e77]:
+                - generic [ref=e78]: "2"
+                - paragraph [ref=e79]: Enrich company information
+              - listitem [ref=e81]:
+                - generic [ref=e82]: "3"
+                - paragraph [ref=e83]: Create or update HubSpot contact
+              - listitem [ref=e85]:
+                - generic [ref=e86]: "4"
+                - paragraph [ref=e87]: "Notify #sales in Slack"
+              - listitem [ref=e89]:
+                - generic [ref=e90]: "5"
+                - paragraph [ref=e91]: Record the result
+            - generic [ref=e92]:
+              - generic [ref=e93]: Connections
+              - generic [ref=e94]:
+                - generic [ref=e95]: HS
+                - generic [ref=e96]: SL
+                - generic [ref=e97]: AI
+                - generic [ref=e98]: 3 ready
+        - generic [ref=e99]:
+          - generic [ref=e100]: "Estimated setup: 3 minutes"
+          - generic [ref=e104]: Test with sample data
+          - button "Review & activate" [ref=e107] [cursor=pointer]
+    - generic [ref=e110]:
+      - generic [ref=e111]: Built for operations teams
+      - generic [ref=e113]: Designed for technical reliability
+      - generic [ref=e115]: Compatible with your stack
+      - generic [ref=e117]: Importable from n8n
+    - generic [ref=e118]:
+      - generic [ref=e119]: A BETTER ABSTRACTION
+      - heading "You should not need to become an automation engineer." [level=2] [ref=e120]: You should not need to becomean automation engineer.
+      - paragraph [ref=e121]: Traditional builders expose the machinery. OutcomeOS gives your team a reliable operator that handles it.
+      - generic [ref=e122]:
+        - generic [ref=e123]:
+          - text: THE OLD PROCESS
+          - generic [ref=e124]:
+            - generic [ref=e125]:
+              - generic [ref=e126]: "1"
+              - text: Triggers
+            - generic [ref=e129]:
+              - generic [ref=e130]: "2"
+              - text: Nodes
+            - generic [ref=e133]:
+              - generic [ref=e134]: "3"
+              - text: Conditions
+            - generic [ref=e137]:
+              - generic [ref=e138]: "4"
+              - text: JSON
+            - generic [ref=e141]:
+              - generic [ref=e142]: "5"
+              - text: Debugging
+            - generic [ref=e145]:
+              - generic [ref=e146]: "6"
+              - text: Maintenance
+          - paragraph [ref=e147]: More time maintaining tools than improving operations
+        - generic [ref=e151]:
+          - text: THE OUTCOMEOS PROCESS
+          - generic [ref=e152]:
+            - generic [ref=e153]:
+              - generic [ref=e154]: "1"
+              - text: Describe
+            - generic [ref=e157]:
+              - generic [ref=e158]: "2"
+              - text: Review
+            - generic [ref=e161]:
+              - generic [ref=e162]: "3"
+              - text: Activate
+          - paragraph [ref=e163]: AI builds and operates the workflow underneath
+    - generic [ref=e166]:
+      - generic [ref=e167]: HOW IT WORKS
+      - heading "From intent to reliable operation." [level=2] [ref=e168]
+      - paragraph [ref=e169]: Three steps for you. Every technical detail handled behind the scenes.
+      - generic [ref=e170]:
+        - generic [ref=e171]:
+          - generic [ref=e172]: "01"
+          - heading "Describe the result." [level=3] [ref=e175]
+          - paragraph [ref=e176]: Say what should happen in business language. OutcomeOS asks only what it truly needs.
+        - generic [ref=e177]:
+          - generic [ref=e178]: "02"
+          - heading "Connect your tools." [level=3] [ref=e183]
+          - paragraph [ref=e184]: Review the generated plan and securely connect the applications it needs.
+        - generic [ref=e185]:
+          - generic [ref=e186]: "03"
+          - heading "Let OutcomeOS run it." [level=3] [ref=e189]
+          - paragraph [ref=e190]: Test, activate, and follow every execution while AI watches for improvements.
+    - generic [ref=e191]:
+      - generic [ref=e192]:
+        - generic [ref=e193]:
+          - generic [ref=e194]: BUILT TO OPERATE
+          - heading "Everything between intent and outcome." [level=2] [ref=e195]
+        - paragraph [ref=e196]: The expressive power of a workflow platform, without forcing every user to think like a workflow engineer.
+      - generic [ref=e197]:
+        - article [ref=e198]:
+          - heading "AI Outcome Builder" [level=3] [ref=e202]
+          - paragraph [ref=e203]: Turn a plain-language objective into a validated, executable plan.
+        - article [ref=e204]:
+          - heading "Self-healing automations" [level=3] [ref=e210]
+          - paragraph [ref=e211]: Detect recurring failures and propose a safer fix for approval.
+        - article [ref=e212]:
+          - heading "Plain-language debugging" [level=3] [ref=e220]
+          - paragraph [ref=e221]: Understand what failed, why it matters, and what to do next.
+        - article [ref=e222]:
+          - heading "n8n workflow importer" [level=3] [ref=e226]
+          - paragraph [ref=e227]: Translate supported nodes and clearly flag what needs review.
+        - article [ref=e228]:
+          - heading "Execution monitoring" [level=3] [ref=e232]
+          - paragraph [ref=e233]: Follow every run, retry, pause, cost, and output in one timeline.
+        - article [ref=e234]:
+          - heading "Secure credentials" [level=3] [ref=e239]
+          - paragraph [ref=e240]: Keep encrypted connection secrets out of browsers and logs.
+        - article [ref=e241]:
+          - heading "Team workspaces" [level=3] [ref=e246]
+          - paragraph [ref=e247]: Use role-based access for builders, operators, approvers, and viewers.
+        - article [ref=e248]:
+          - heading "Reusable templates" [level=3] [ref=e252]
+          - paragraph [ref=e253]: Start from business outcomes—not generic node recipes.
+        - article [ref=e254]:
+          - heading "Human approval steps" [level=3] [ref=e258]
+          - paragraph [ref=e259]: Pause sensitive actions until the right person approves them.
+        - article [ref=e260]:
+          - heading "Webhooks and API" [level=3] [ref=e265]
+          - paragraph [ref=e266]: Trigger outcomes from your product with signed endpoints and API keys.
+    - generic [ref=e267]:
+      - generic [ref=e268]:
+        - generic [ref=e269]: MIGRATION, WITHOUT THE REBUILD
+        - heading "Bring your n8n workflows with you." [level=2] [ref=e270]: Bring your n8nworkflows with you.
+        - paragraph [ref=e271]: Upload your export. OutcomeOS maps supported nodes, identifies gaps, and creates a testable outcome while preserving the original workflow for reference.
+        - list [ref=e272]:
+          - listitem [ref=e273]: Upload an n8n JSON export
+          - listitem [ref=e276]: Map existing credentials securely
+          - listitem [ref=e279]: Identify unsupported or partial nodes
+          - listitem [ref=e282]: Convert and test before activation
+        - link "Analyze my n8n workflow" [ref=e285] [cursor=pointer]:
+          - /url: /app/import/n8n
+      - generic [ref=e288]:
+        - generic [ref=e289]:
+          - generic [ref=e290]: Lead routing.json
+          - generic [ref=e295]: ANALYZED
+        - generic [ref=e296]:
+          - strong [ref=e297]: 92%
+          - generic [ref=e298]:
+            - generic [ref=e299]: Ready to convert
+            - generic [ref=e300]: 12 of 13 nodes supported
+        - generic [ref=e303]:
+          - paragraph [ref=e308]:
+            - generic [ref=e309]: 10 supported nodes
+            - generic [ref=e310]: Webhook, IF, Slack, HubSpot, Set…
+          - generic [ref=e314]:
+            - generic [ref=e315]: "!"
+            - paragraph [ref=e316]:
+              - generic [ref=e317]: 2 partially supported
+              - generic [ref=e318]: Expressions require review
+          - generic [ref=e321]:
+            - generic [ref=e322]: "?"
+            - paragraph [ref=e323]:
+              - generic [ref=e324]: 1 manual review
+              - generic [ref=e325]: Custom Code node is isolated
+        - generic [ref=e328]: Your original JSON is preserved. Nothing runs until you approve and activate it.
+    - generic [ref=e334]:
+      - generic [ref=e335]: OUTCOME TEMPLATES
+      - heading "Start with work worth automating." [level=2] [ref=e336]
+      - paragraph [ref=e337]: Real operating patterns, ready to adapt to your team and stack.
+      - generic [ref=e338]:
+        - link [ref=e339] [cursor=pointer]:
+          - /url: /app/templates
+          - text: Sales
+          - heading "Qualify and route inbound leads" [level=3] [ref=e340]
+          - paragraph [ref=e341]: HubSpot · Slack
+          - generic [ref=e342]: Saves 4 hrs / week
+        - link [ref=e349] [cursor=pointer]:
+          - /url: /app/templates
+          - text: Finance
+          - heading "Process high-value invoices" [level=3] [ref=e350]
+          - paragraph [ref=e351]: Stripe · AI · Approvals
+          - generic [ref=e352]: Saves 6 hrs / week
+        - link [ref=e359] [cursor=pointer]:
+          - /url: /app/templates
+          - text: Support
+          - heading "Triage customer support requests" [level=3] [ref=e360]
+          - paragraph [ref=e361]: Gmail · Notion · AI
+          - generic [ref=e362]: Saves 8 hrs / week
+        - link [ref=e369] [cursor=pointer]:
+          - /url: /app/templates
+          - text: Operations
+          - heading "Onboard a new employee" [level=3] [ref=e370]
+          - paragraph [ref=e371]: Google Sheets · Gmail
+          - generic [ref=e372]: Saves 3 hrs / hire
+        - link [ref=e379] [cursor=pointer]:
+          - /url: /app/templates
+          - text: Revenue
+          - heading "Recover failed payments" [level=3] [ref=e380]
+          - paragraph [ref=e381]: Stripe · Gmail · HubSpot
+          - generic [ref=e382]: Saves 5 hrs / week
+        - link [ref=e389] [cursor=pointer]:
+          - /url: /app/templates
+          - text: Marketing
+          - heading "Monitor important company mentions" [level=3] [ref=e390]
+          - paragraph [ref=e391]: HTTP · Slack · AI
+          - generic [ref=e392]: Saves 2 hrs / week
+      - link "Explore all templates" [ref=e399] [cursor=pointer]:
+        - /url: /app/templates
+    - generic [ref=e402]:
+      - generic [ref=e403]: COMPARE APPROACHES
+      - heading "Same power. A better starting point." [level=2] [ref=e404]
+      - table "Traditional workflow builders compared with OutcomeOS" [ref=e405]:
+        - row "Traditional builders O OutcomeOS" [ref=e406]:
+          - generic [ref=e408]: Traditional builders
+          - strong [ref=e409]:
+            - generic [ref=e410]: O
+            - text: OutcomeOS
+        - row "Setup Configure nodes and fields Describe the outcome" [ref=e411]:
+          - generic [ref=e412]: Setup
+          - generic [ref=e413]: Configure nodes and fields
+          - strong [ref=e417]: Describe the outcome
+        - row "Maintenance Manual workflow upkeep AI-monitored improvements" [ref=e420]:
+          - generic [ref=e421]: Maintenance
+          - generic [ref=e422]: Manual workflow upkeep
+          - strong [ref=e426]: AI-monitored improvements
+        - row "Debugging Inspect technical logs Plain-language diagnosis" [ref=e429]:
+          - generic [ref=e430]: Debugging
+          - generic [ref=e431]: Inspect technical logs
+          - strong [ref=e435]: Plain-language diagnosis
+        - row "Technical knowledge Workflow concepts required Business context is enough" [ref=e438]:
+          - generic [ref=e439]: Technical knowledge
+          - generic [ref=e440]: Workflow concepts required
+          - strong [ref=e444]: Business context is enough
+        - row "Optimization Manual analysis and edits Suggested fixes with impact" [ref=e447]:
+          - generic [ref=e448]: Optimization
+          - generic [ref=e449]: Manual analysis and edits
+          - strong [ref=e453]: Suggested fixes with impact
+        - row "Migration Often rebuilt by hand n8n compatibility analysis" [ref=e456]:
+          - generic [ref=e457]: Migration
+          - generic [ref=e458]: Often rebuilt by hand
+          - strong [ref=e462]: n8n compatibility analysis
+        - row "Business access Best for specialists Designed for operators" [ref=e465]:
+          - generic [ref=e466]: Business access
+          - generic [ref=e467]: Best for specialists
+          - strong [ref=e471]: Designed for operators
+    - generic [ref=e474]:
+      - generic [ref=e475]: SIMPLE PRICING
+      - heading "Start free. Scale by outcomes." [level=2] [ref=e476]
+      - generic [ref=e477]:
+        - button "Monthly" [ref=e478] [cursor=pointer]
+        - button "Annual Save 20%" [ref=e479] [cursor=pointer]
+      - generic [ref=e480]:
+        - article [ref=e481]:
+          - heading "Free" [level=3] [ref=e482]
+          - paragraph [ref=e483]: For trying your first outcomes
+          - generic [ref=e484]:
+            - superscript: $
+            - strong [ref=e485]: "0"
+            - generic [ref=e486]: / month
+          - link "Start free" [ref=e487] [cursor=pointer]:
+            - /url: /register
+          - list [ref=e488]:
+            - listitem [ref=e489]: 3 active outcomes
+            - listitem [ref=e492]: 500 monthly executions
+            - listitem [ref=e495]: Basic integrations
+            - listitem [ref=e498]: Community support
+        - article [ref=e501]:
+          - generic [ref=e502]: MOST POPULAR
+          - heading "Pro" [level=3] [ref=e503]
+          - paragraph [ref=e504]: For operators automating real work
+          - generic [ref=e505]:
+            - superscript: $
+            - strong [ref=e506]: "39"
+            - generic [ref=e507]: / month
+          - link "Choose Pro" [ref=e508] [cursor=pointer]:
+            - /url: /register
+          - list [ref=e509]:
+            - listitem [ref=e510]: 20 active outcomes
+            - listitem [ref=e513]: 10,000 monthly executions
+            - listitem [ref=e516]: AI workflow builder
+            - listitem [ref=e519]: Advanced execution history
+            - listitem [ref=e522]: n8n import
+            - listitem [ref=e525]: Email support
+        - article [ref=e528]:
+          - heading "Team" [level=3] [ref=e529]
+          - paragraph [ref=e530]: For teams running shared operations
+          - generic [ref=e531]:
+            - superscript: $
+            - strong [ref=e532]: "149"
+            - generic [ref=e533]: / month
+          - link "Choose Team" [ref=e534] [cursor=pointer]:
+            - /url: /register
+          - list [ref=e535]:
+            - listitem [ref=e536]: 100 active outcomes
+            - listitem [ref=e539]: 50,000 monthly executions
+            - listitem [ref=e542]: Team workspaces
+            - listitem [ref=e545]: Approval steps
+            - listitem [ref=e548]: Shared connections
+            - listitem [ref=e551]: Priority support
+        - article [ref=e554]:
+          - heading "Business" [level=3] [ref=e555]
+          - paragraph [ref=e556]: For scale, control, and deployment choice
+          - strong [ref=e558]: Custom
+          - link "Contact sales" [ref=e559] [cursor=pointer]:
+            - /url: /register
+          - list [ref=e560]:
+            - listitem [ref=e561]: Higher execution limits
+            - listitem [ref=e564]: Private cloud options
+            - listitem [ref=e567]: SSO and audit logs
+            - listitem [ref=e570]: Custom integrations
+            - listitem [ref=e573]: SLA
+    - generic [ref=e576]:
+      - generic [ref=e577]:
+        - generic [ref=e578]: FAQ
+        - heading "Questions, answered." [level=2] [ref=e579]
+        - paragraph [ref=e580]:
+          - text: Need something more specific?
+          - link "Talk to us." [ref=e581] [cursor=pointer]:
+            - /url: mailto:hello@outcomeos.dev
+      - generic [ref=e582]:
+        - button [expanded] [ref=e583] [cursor=pointer]:
+          - generic [ref=e584]: How is OutcomeOS different from n8n?
+          - paragraph: n8n starts from a workflow canvas. OutcomeOS starts from the business result, creates the technical workflow for you, and keeps it healthy. Developers can still inspect the generated flow.
+        - button [ref=e587] [cursor=pointer]
+        - button [ref=e591] [cursor=pointer]
+        - button [ref=e595] [cursor=pointer]
+        - button [ref=e599] [cursor=pointer]
+        - button [ref=e603] [cursor=pointer]
+        - button [ref=e607] [cursor=pointer]
+        - button [ref=e611] [cursor=pointer]
+    - generic [ref=e615]:
+      - generic [ref=e617]: YOUR NEXT AUTOMATION STARTS WITH A SENTENCE
+      - heading "Stop building workflows. Start defining outcomes." [level=2] [ref=e618]: Stop building workflows.Start defining outcomes.
+      - paragraph [ref=e619]: Describe what your business needs. OutcomeOS handles everything between the idea and the result.
+      - link "Create your first outcome" [ref=e620] [cursor=pointer]:
+        - /url: /register
+  - contentinfo [ref=e623]:
+    - generic [ref=e624]:
+      - link "OutcomeOS home" [ref=e625] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e630]: OutcomeOS
+      - paragraph [ref=e631]: Automation without workflows.
+    - generic [ref=e632]:
+      - link "Product" [ref=e633] [cursor=pointer]:
+        - /url: "#product"
+      - link "Templates" [ref=e634] [cursor=pointer]:
+        - /url: "#templates"
+      - link "Documentation" [ref=e635] [cursor=pointer]:
+        - /url: "#product"
+      - link "Security" [ref=e636] [cursor=pointer]:
+        - /url: "#product"
+      - link "Status" [ref=e637] [cursor=pointer]:
+        - /url: "#product"
+    - generic [ref=e638]:
+      - link "Pricing" [ref=e639] [cursor=pointer]:
+        - /url: "#pricing"
+      - link "Privacy" [ref=e640] [cursor=pointer]:
+        - /url: "#"
+      - link "Terms" [ref=e641] [cursor=pointer]:
+        - /url: "#"
+      - link "Contact" [ref=e642] [cursor=pointer]:
+        - /url: mailto:hello@outcomeos.dev
+      - link "GitHub" [ref=e643] [cursor=pointer]:
+        - /url: "#"
+    - paragraph [ref=e644]: © 2026 OutcomeOS. Built for better operations.

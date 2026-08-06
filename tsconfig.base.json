@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@outcomeos/database": ["packages/database/src/index.ts"],
+      "@outcomeos/workflow-schema": ["packages/workflow-schema/src/index.ts"],
+      "@outcomeos/execution-engine": ["packages/execution-engine/src/index.ts"],
+      "@outcomeos/ai-compiler": ["packages/ai-compiler/src/index.ts"],
+      "@outcomeos/connectors": ["packages/connectors/src/index.ts"],
+      "@outcomeos/ui": ["packages/ui/src/index.ts"],
+      "@outcomeos/config": ["packages/config/src/index.ts"],
+      "@outcomeos/observability": ["packages/observability/src/index.ts"]
+    }
+  }
+}

@@ -1,0 +1,100 @@
+- generic [active] [ref=f2e1]:
+  - generic [ref=f2e2]:
+    - complementary [ref=f2e3]:
+      - link "OutcomeOS home" [ref=f2e5] [cursor=pointer]:
+        - /url: /app
+        - generic [ref=f2e10]: OutcomeOS
+      - button "NO Northstar Operations owner" [ref=f2e11] [cursor=pointer]:
+        - generic [ref=f2e12]: "NO"
+        - generic [ref=f2e13]:
+          - generic [ref=f2e14]: Northstar Operations
+          - generic [ref=f2e15]: owner
+      - navigation [ref=f2e18]:
+        - generic [ref=f2e19]: WORKSPACE
+        - link "Overview" [ref=f2e20] [cursor=pointer]:
+          - /url: /app
+        - link "Outcomes" [ref=f2e28] [cursor=pointer]:
+          - /url: /app/outcomes
+        - link "Executions" [ref=f2e32] [cursor=pointer]:
+          - /url: /app/executions
+        - link "Connections" [ref=f2e36] [cursor=pointer]:
+          - /url: /app/connections
+        - link "Templates" [ref=f2e40] [cursor=pointer]:
+          - /url: /app/templates
+        - link "Import from n8n" [ref=f2e52] [cursor=pointer]:
+          - /url: /app/import/n8n
+        - generic [ref=f2e58]: MANAGE
+        - link "Team" [ref=f2e59] [cursor=pointer]:
+          - /url: /app/team
+        - link "Usage" [ref=f2e66] [cursor=pointer]:
+          - /url: /app/usage
+        - link "Billing" [ref=f2e71] [cursor=pointer]:
+          - /url: /app/billing
+        - link "Settings" [ref=f2e75] [cursor=pointer]:
+          - /url: /app/settings
+      - generic [ref=f2e80]:
+        - generic [ref=f2e81]: Free plan
+        - paragraph [ref=f2e86]: Unlock more outcomes and advanced history.
+        - link "View plans" [ref=f2e87] [cursor=pointer]:
+          - /url: /app/billing
+      - generic [ref=f2e91]:
+        - generic [ref=f2e92]: DE
+        - generic [ref=f2e93]:
+          - generic [ref=f2e94]: Demo operator
+          - generic [ref=f2e95]: Signed in
+        - button "Account menu" [ref=f2e96] [cursor=pointer]
+    - generic [ref=f2e99]:
+      - banner [ref=f2e100]:
+        - generic [ref=f2e101]:
+          - generic [ref=f2e104]: Search outcomes, executions, and docs…
+          - generic [ref=f2e105]: ⌘ K
+        - generic [ref=f2e106]:
+          - link [ref=f2e107] [cursor=pointer]:
+            - /url: /app/settings/api-keys
+          - link [ref=f2e111] [cursor=pointer]:
+            - /url: /app/settings/webhooks
+          - link "Create outcome" [ref=f2e116] [cursor=pointer]:
+            - /url: /app/outcomes/new
+      - main [ref=f2e119]:
+        - generic [ref=f2e332]:
+          - generic [ref=f2e333]:
+            - generic [ref=f2e334]:
+              - text: AI OUTCOME BUILDER
+              - heading "Build an outcome" [level=1] [ref=f2e335]
+            - generic [ref=f2e336]:
+              - generic [ref=f2e337]: Draft saved locally
+              - button "Save outcome" [disabled] [ref=f2e339] [cursor=pointer]
+          - generic [ref=f2e344]:
+            - generic [ref=f2e345]:
+              - generic [ref=f2e346]:
+                - generic [ref=f2e352]:
+                  - generic [ref=f2e353]: Outcome architect
+                  - generic [ref=f2e354]: Compiles only approved operations
+                - generic [ref=f2e355]: ONLINE
+              - generic [ref=f2e356]:
+                - generic [ref=f2e362]:
+                  - generic [ref=f2e363]: OutcomeOS
+                  - paragraph [ref=f2e364]: Describe the business result you want. I’ll identify the trigger, actions, required connections, and only ask questions that block a safe plan.
+                - generic [ref=f2e365]:
+                  - generic [ref=f2e366]: TRY AN EXAMPLE
+                  - button "Send every new website lead to Slack and HubSpot." [ref=f2e367] [cursor=pointer]
+                  - button "Every Monday, summarize sales performance and email the report to the CEO." [ref=f2e371] [cursor=pointer]
+                  - button "Check invoices over $5,000 for anomalies and notify finance." [ref=f2e375] [cursor=pointer]
+                  - button "When a customer cancels, create a retention task and send a personalized email." [ref=f2e379] [cursor=pointer]
+              - generic [ref=f2e383]:
+                - textbox "Describe what you want your business to do…" [ref=f2e384]
+                - generic [ref=f2e385]:
+                  - generic [ref=f2e386]: "Try: “Retry failures three times”"
+                  - button "Send message" [disabled] [ref=f2e390]
+            - generic [ref=f2e394]:
+              - tablist [ref=f2e395]:
+                - tab "Plan" [selected] [ref=f2e396] [cursor=pointer]
+                - tab "Technical flow" [ref=f2e399] [cursor=pointer]
+                - tab "Test data" [ref=f2e404] [cursor=pointer]
+                - tab "Settings" [ref=f2e408] [cursor=pointer]
+                - tab "Versions" [ref=f2e412] [cursor=pointer]
+              - generic [ref=f2e418]:
+                - heading "Your plan will appear here" [level=2] [ref=f2e423]
+                - paragraph [ref=f2e424]: OutcomeOS will translate the business objective into a human-readable plan, connection requirements, and a validated technical workflow.
+  - button "Open Next.js Dev Tools" [ref=f2e327] [cursor=pointer]
+  - alert [ref=f2e321]

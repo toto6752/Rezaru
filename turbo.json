@@ -1,0 +1,39 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalPassThroughEnv": [
+    "NODE_ENV",
+    "DATABASE_URL",
+    "REDIS_URL",
+    "BETTER_AUTH_SECRET",
+    "BETTER_AUTH_URL",
+    "APP_ENCRYPTION_KEY",
+    "DEMO_MODE",
+    "DEMO_AUTH_BYPASS",
+    "AI_PROVIDER",
+    "AI_API_KEY",
+    "AI_BASE_URL",
+    "AI_MODEL",
+    "STRIPE_SECRET_KEY",
+    "STRIPE_WEBHOOK_SECRET",
+    "WORKER_CONCURRENCY",
+    "WORKER_HEALTH_PORT"
+  ],
+  "tasks": {
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "@outcomeos/web#build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+      "outputs": []
+    }
+  }
+}

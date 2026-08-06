@@ -1,0 +1,543 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum WorkspaceRole {
+  OWNER
+  ADMIN
+  BUILDER
+  OPERATOR
+  VIEWER
+}
+
+enum Plan {
+  FREE
+  PRO
+  TEAM
+  BUSINESS
+}
+
+enum OutcomeStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  ARCHIVED
+  NEEDS_ATTENTION
+}
+
+enum WorkflowVersionStatus {
+  DRAFT
+  ACTIVE
+  SUPERSEDED
+  ARCHIVED
+}
+
+enum ExecutionStatus {
+  QUEUED
+  RUNNING
+  WAITING
+  WAITING_FOR_APPROVAL
+  SUCCEEDED
+  FAILED
+  CANCELLED
+  TIMED_OUT
+}
+
+enum ExecutionStepStatus {
+  PENDING
+  RUNNING
+  SUCCEEDED
+  FAILED
+  SKIPPED
+  WAITING
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  EXPIRED
+}
+
+enum ConnectionStatus {
+  CONNECTED
+  NEEDS_ATTENTION
+  DISCONNECTED
+}
+
+enum UsageType {
+  EXECUTION
+  SUCCESSFUL_EXECUTION
+  FAILED_EXECUTION
+  AI_INPUT_TOKEN
+  AI_OUTPUT_TOKEN
+  AI_CREDIT
+  CONNECTOR_OPERATION
+  STORAGE_BYTE
+}
+
+model User {
+  id            String            @id @default(uuid())
+  name          String?
+  email         String            @unique
+  emailVerified Boolean           @default(false)
+  image         String?
+  passwordHash  String?
+  accounts      Account[]
+  sessions      Session[]
+  memberships   WorkspaceMember[]
+  invitations   WorkspaceInvitation[] @relation("InvitedBy")
+  apiKeys       ApiKey[]
+  auditLogs     AuditLog[]        @relation("AuditActor")
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+}
+
+model Account {
+  id                    String   @id @default(uuid())
+  accountId             String
+  providerId            String
+  userId                String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  @@unique([providerId, accountId])
+  @@index([userId])
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  expiresAt DateTime
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  id         String   @id @default(uuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([identifier, value])
+}
+
+model Workspace {
+  id                     String                  @id @default(uuid())
+  name                   String
+  slug                   String                  @unique
+  onboardingCompletedAt  DateTime?
+  department             String?
+  companySize            String?
+  tools                   String[]
+  members                 WorkspaceMember[]
+  invitations             WorkspaceInvitation[]
+  subscription            Subscription?
+  usageRecords            UsageRecord[]
+  connections             Connection[]
+  outcomes                Outcome[]
+  executions              Execution[]
+  templates               OutcomeTemplate[]
+  imports                 N8nImport[]
+  apiKeys                 ApiKey[]
+  webhooks                WebhookEndpoint[]
+  auditLogs               AuditLog[]
+  aiUsage                 AiUsage[]
+  suggestions             ImprovementSuggestion[]
+  notifications           Notification[]
+  createdAt               DateTime                @default(now())
+  updatedAt               DateTime                @updatedAt
+  deletedAt               DateTime?
+}
+
+model WorkspaceMember {
+  id          String        @id @default(uuid())
+  workspaceId String
+  userId      String
+  role        WorkspaceRole @default(BUILDER)
+  workspace   Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  joinedAt    DateTime      @default(now())
+
+  @@unique([workspaceId, userId])
+  @@index([userId])
+}
+
+model WorkspaceInvitation {
+  id          String        @id @default(uuid())
+  workspaceId String
+  email       String
+  role        WorkspaceRole
+  tokenHash   String        @unique
+  expiresAt   DateTime
+  acceptedAt  DateTime?
+  invitedById String
+  workspace   Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  invitedBy   User          @relation("InvitedBy", fields: [invitedById], references: [id])
+  createdAt   DateTime      @default(now())
+
+  @@index([workspaceId, email])
+}
+
+model Subscription {
+  id                   String    @id @default(uuid())
+  workspaceId          String    @unique
+  plan                 Plan      @default(FREE)
+  stripeCustomerId     String?   @unique
+  stripeSubscriptionId String?   @unique
+  stripePriceId        String?
+  status               String    @default("development")
+  currentPeriodEnd     DateTime?
+  cancelAtPeriodEnd    Boolean   @default(false)
+  workspace            Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+}
+
+model UsageRecord {
+  id          String    @id @default(uuid())
+  workspaceId String
+  type        UsageType
+  quantity    BigInt
+  metadata    Json?
+  recordedAt  DateTime  @default(now())
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId, type, recordedAt])
+}
+
+model Connection {
+  id          String            @id @default(uuid())
+  workspaceId String
+  name        String
+  connectorKey String
+  status      ConnectionStatus  @default(DISCONNECTED)
+  metadata    Json?
+  lastTestedAt DateTime?
+  lastError   String?
+  workspace   Workspace         @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  credential  ConnectionCredential?
+  outcomes    OutcomeConnection[]
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  deletedAt   DateTime?
+
+  @@unique([workspaceId, name])
+  @@index([workspaceId, connectorKey])
+}
+
+model ConnectionCredential {
+  id            String     @id @default(uuid())
+  connectionId  String     @unique
+  encryptedData String
+  keyVersion    Int        @default(1)
+  connection    Connection @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+}
+
+model Outcome {
+  id                       String            @id @default(uuid())
+  workspaceId              String
+  name                     String
+  description              String
+  status                   OutcomeStatus     @default(DRAFT)
+  activeWorkflowVersionId  String?           @unique
+  createdById              String
+  tags                     String[]
+  estimatedMinutesSaved    Int               @default(0)
+  workspace                Workspace         @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workflowVersions         WorkflowVersion[] @relation("OutcomeVersions")
+  activeWorkflowVersion    WorkflowVersion?  @relation("ActiveWorkflow", fields: [activeWorkflowVersionId], references: [id], onDelete: SetNull)
+  executions               Execution[]
+  connections              OutcomeConnection[]
+  suggestions              ImprovementSuggestion[]
+  webhooks                 WebhookEndpoint[]
+  createdAt                DateTime          @default(now())
+  updatedAt                DateTime          @updatedAt
+  deletedAt                DateTime?
+
+  @@index([workspaceId, status])
+}
+
+model OutcomeConnection {
+  outcomeId    String
+  connectionId String
+  outcome      Outcome    @relation(fields: [outcomeId], references: [id], onDelete: Cascade)
+  connection   Connection @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+
+  @@id([outcomeId, connectionId])
+}
+
+model WorkflowVersion {
+  id              String                @id @default(uuid())
+  outcomeId       String
+  version         Int
+  status          WorkflowVersionStatus @default(DRAFT)
+  definition      Json
+  explanation     Json
+  compilerVersion String
+  checksum        String
+  activatedAt     DateTime?
+  outcome         Outcome               @relation("OutcomeVersions", fields: [outcomeId], references: [id], onDelete: Cascade)
+  activeForOutcome Outcome?             @relation("ActiveWorkflow")
+  steps           WorkflowStepDefinition[]
+  executions      Execution[]
+  createdAt       DateTime              @default(now())
+
+  @@unique([outcomeId, version])
+  @@index([outcomeId, status])
+}
+
+model WorkflowStepDefinition {
+  id                String          @id @default(uuid())
+  workflowVersionId String
+  stepId            String
+  position          Int
+  definition        Json
+  workflowVersion   WorkflowVersion @relation(fields: [workflowVersionId], references: [id], onDelete: Cascade)
+
+  @@unique([workflowVersionId, stepId])
+}
+
+model Execution {
+  id                String          @id @default(uuid())
+  workspaceId       String
+  outcomeId         String
+  workflowVersionId String
+  status            ExecutionStatus @default(QUEUED)
+  mode              String          @default("production")
+  idempotencyKey    String?
+  triggerInput      Json
+  output            Json?
+  error             Json?
+  startedAt         DateTime?
+  completedAt       DateTime?
+  cancelledAt       DateTime?
+  durationMs        Int?
+  costCents         Int             @default(0)
+  aiInputTokens     Int             @default(0)
+  aiOutputTokens    Int             @default(0)
+  workspace         Workspace       @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  outcome           Outcome         @relation(fields: [outcomeId], references: [id], onDelete: Cascade)
+  workflowVersion   WorkflowVersion @relation(fields: [workflowVersionId], references: [id])
+  steps             ExecutionStep[]
+  logs              ExecutionLog[]
+  approvals         ApprovalRequest[]
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  @@unique([workspaceId, idempotencyKey])
+  @@index([workspaceId, createdAt])
+  @@index([outcomeId, status])
+}
+
+model ExecutionStep {
+  id              String              @id @default(uuid())
+  executionId     String
+  stepId          String
+  name            String
+  status          ExecutionStepStatus @default(PENDING)
+  attempt         Int                 @default(0)
+  input           Json?
+  output          Json?
+  error           Json?
+  startedAt       DateTime?
+  completedAt     DateTime?
+  durationMs      Int?
+  execution       Execution           @relation(fields: [executionId], references: [id], onDelete: Cascade)
+  logs            ExecutionLog[]
+  approvals       ApprovalRequest[]
+
+  @@unique([executionId, stepId])
+  @@index([executionId, status])
+}
+
+model ExecutionLog {
+  id              String         @id @default(uuid())
+  executionId     String
+  executionStepId String?
+  level           String
+  message         String
+  data            Json?
+  execution       Execution      @relation(fields: [executionId], references: [id], onDelete: Cascade)
+  executionStep   ExecutionStep? @relation(fields: [executionStepId], references: [id], onDelete: Cascade)
+  createdAt       DateTime       @default(now())
+
+  @@index([executionId, createdAt])
+}
+
+model ApprovalRequest {
+  id              String         @id @default(uuid())
+  executionId     String
+  executionStepId String
+  status          ApprovalStatus @default(PENDING)
+  title           String
+  description     String
+  context         Json
+  comment         String?
+  resolvedById    String?
+  resolvedAt      DateTime?
+  expiresAt       DateTime?
+  execution       Execution      @relation(fields: [executionId], references: [id], onDelete: Cascade)
+  executionStep   ExecutionStep  @relation(fields: [executionStepId], references: [id], onDelete: Cascade)
+  createdAt       DateTime       @default(now())
+
+  @@index([executionId, status])
+}
+
+model OutcomeTemplate {
+  id                    String     @id @default(uuid())
+  workspaceId           String?
+  slug                  String
+  title                 String
+  description           String
+  department            String
+  useCase               String
+  requiredIntegrations  String[]
+  setupMinutes          Int
+  monthlyMinutesSaved   Int
+  definitionTemplate    Json
+  configurableVariables Json
+  published             Boolean    @default(true)
+  workspace             Workspace? @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+
+  @@unique([workspaceId, slug])
+  @@index([department, published])
+}
+
+model N8nImport {
+  id            String    @id @default(uuid())
+  workspaceId   String
+  name          String
+  originalJson  Json
+  report        Json
+  outcomeId     String?
+  workspace     Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  createdAt     DateTime  @default(now())
+
+  @@index([workspaceId, createdAt])
+}
+
+model ApiKey {
+  id          String    @id @default(uuid())
+  workspaceId String
+  createdById String
+  name        String
+  prefix      String
+  keyHash     String    @unique
+  scopes      String[]
+  lastUsedAt  DateTime?
+  expiresAt   DateTime?
+  revokedAt   DateTime?
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  createdBy   User      @relation(fields: [createdById], references: [id])
+  createdAt   DateTime  @default(now())
+
+  @@index([workspaceId])
+}
+
+model WebhookEndpoint {
+  id              String    @id @default(uuid())
+  workspaceId     String
+  outcomeId       String
+  pathTokenHash   String    @unique
+  pathPrefix      String
+  secretHash      String?
+  mode            String
+  enabled         Boolean   @default(true)
+  samplePayload   Json?
+  workspace       Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  outcome         Outcome   @relation(fields: [outcomeId], references: [id], onDelete: Cascade)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([outcomeId, mode])
+}
+
+model AuditLog {
+  id          String    @id @default(uuid())
+  workspaceId String
+  actorId     String?
+  action      String
+  entityType  String
+  entityId    String?
+  metadata    Json?
+  ipAddress   String?
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  actor       User?     @relation("AuditActor", fields: [actorId], references: [id], onDelete: SetNull)
+  createdAt   DateTime  @default(now())
+
+  @@index([workspaceId, createdAt])
+}
+
+model AiUsage {
+  id            String    @id @default(uuid())
+  workspaceId   String
+  purpose       String
+  provider      String
+  model         String
+  inputTokens   Int
+  outputTokens  Int
+  estimatedCost Int
+  workspace     Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  createdAt     DateTime  @default(now())
+
+  @@index([workspaceId, createdAt])
+}
+
+model ImprovementSuggestion {
+  id              String    @id @default(uuid())
+  workspaceId     String
+  outcomeId       String
+  type            String
+  title           String
+  description     String
+  impact          Json
+  proposedPatch   Json
+  status          String    @default("PENDING")
+  workspace       Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  outcome         Outcome   @relation(fields: [outcomeId], references: [id], onDelete: Cascade)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([workspaceId, status])
+}
+
+model Notification {
+  id          String    @id @default(uuid())
+  workspaceId String
+  userId      String?
+  type        String
+  title       String
+  body        String
+  link        String?
+  readAt      DateTime?
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+
+  @@index([workspaceId, readAt, createdAt])
+}

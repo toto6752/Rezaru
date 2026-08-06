@@ -1,0 +1,101 @@
+"use client";
+
+import type { WorkflowDefinition } from "@outcomeos/workflow-schema";
+import {
+  Background, Controls, Handle, MarkerType, Position, ReactFlow, type Edge, type Node, type NodeProps
+} from "@xyflow/react";
+import { BadgeCheck, Bot, Braces, Clock3, GitBranch, Play, Plug, ShieldCheck } from "lucide-react";
+import { useMemo } from "react";
+
+const icons = {
+  trigger: Play,
+  action: Plug,
+  condition: GitBranch,
+  transform: Braces,
+  delay: Clock3,
+  approval: ShieldCheck,
+  ai_task: Bot
+};
+
+function WorkflowNode({ data }: NodeProps<Node<{ label: string; description: string; type: string; status?: string }>>) {
+  const Icon = icons[data.type as keyof typeof icons] ?? BadgeCheck;
+  return <div className={`flow-node ${data.status ? `flow-${data.status.toLowerCase()}` : ""}`}>
+    <Handle type="target" position={Position.Left} />
+    <div className="flow-icon"><Icon size={15} /></div>
+    <div><span>{data.type.replace("_", " ")}</span><b>{data.label}</b><small>{data.description}</small></div>
+    <Handle type="source" position={Position.Right} />
+  </div>;
+}
+
+function buildGraph(workflow: WorkflowDefinition, statuses: Record<string, string>): { nodes: Node[]; edges: Edge[] } {
+  const triggerNode: Node = {
+    id: "trigger",
+    type: "workflow",
+    position: { x: 0, y: 40 },
+    data: { label: `${workflow.trigger.type} trigger`, description: workflow.trigger.operationKey, type: "trigger" }
+  };
+  const depth = new Map<string, number>();
+  const incoming = new Map<string, number>();
+  for (const step of workflow.steps) incoming.set(step.id, 0);
+  for (const step of workflow.steps) {
+    for (const next of [...step.next, ...(step.condition?.trueNext ?? []), ...(step.condition?.falseNext ?? [])]) {
+      incoming.set(next, (incoming.get(next) ?? 0) + 1);
+    }
+  }
+  const roots = workflow.steps.filter((step) => (incoming.get(step.id) ?? 0) === 0);
+  roots.forEach((step) => depth.set(step.id, 1));
+  for (let round = 0; round < workflow.steps.length; round += 1) {
+    for (const step of workflow.steps) {
+      const currentDepth = depth.get(step.id);
+      if (currentDepth === undefined) continue;
+      for (const next of [...step.next, ...(step.condition?.trueNext ?? []), ...(step.condition?.falseNext ?? [])]) {
+        depth.set(next, Math.max(depth.get(next) ?? 0, currentDepth + 1));
+      }
+    }
+  }
+  const rows = new Map<number, number>();
+  const nodes = [triggerNode, ...workflow.steps.map((step) => {
+    const column = depth.get(step.id) ?? 1;
+    const row = rows.get(column) ?? 0;
+    rows.set(column, row + 1);
+    return {
+      id: step.id,
+      type: "workflow",
+      position: { x: column * 275, y: row * 135 + 20 },
+      data: { label: step.name, description: step.description, type: step.type, status: statuses[step.id] }
+    } satisfies Node;
+  })];
+  const edges: Edge[] = [];
+  roots.forEach((step) => edges.push({
+    id: `trigger-${step.id}`,
+    source: "trigger",
+    target: step.id,
+    markerEnd: { type: MarkerType.ArrowClosed },
+    style: { stroke: "#a9aaa3" }
+  }));
+  for (const step of workflow.steps) {
+    const append = (target: string, label?: string) => edges.push({
+      id: `${step.id}-${target}-${label ?? ""}`,
+      source: step.id,
+      target,
+      label,
+      markerEnd: { type: MarkerType.ArrowClosed },
+      style: { stroke: label === "yes" ? "#18865d" : label === "no" ? "#a9670d" : "#a9aaa3" },
+      labelStyle: { fontSize: 9, fontWeight: 650 }
+    });
+    step.next.forEach((next) => append(next));
+    step.condition?.trueNext.forEach((next) => append(next, "yes"));
+    step.condition?.falseNext.forEach((next) => append(next, "no"));
+  }
+  return { nodes, edges };
+}
+
+export function TechnicalWorkflowView({ workflow, statuses = {} }: { workflow: WorkflowDefinition; statuses?: Record<string, string> }) {
+  const graph = useMemo(() => buildGraph(workflow, statuses), [workflow, statuses]);
+  return <div className="technical-flow" aria-label="Read-only technical workflow graph">
+    <ReactFlow nodes={graph.nodes} edges={graph.edges} nodeTypes={{ workflow: WorkflowNode }} fitView nodesDraggable={false} nodesConnectable={false} elementsSelectable minZoom={0.35} maxZoom={1.5}>
+      <Background color="#deded6" gap={18} size={1} />
+      <Controls showInteractive={false} />
+    </ReactFlow>
+  </div>;
+}

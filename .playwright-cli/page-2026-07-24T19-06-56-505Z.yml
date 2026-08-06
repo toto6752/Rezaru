@@ -1,0 +1,140 @@
+- generic [active] [ref=f2e1]:
+  - generic [ref=f2e2]:
+    - complementary [ref=f2e3]:
+      - link "OutcomeOS home" [ref=f2e5] [cursor=pointer]:
+        - /url: /app
+        - generic [ref=f2e10]: OutcomeOS
+      - button "NO Northstar Operations owner" [ref=f2e11] [cursor=pointer]:
+        - generic [ref=f2e12]: "NO"
+        - generic [ref=f2e13]:
+          - generic [ref=f2e14]: Northstar Operations
+          - generic [ref=f2e15]: owner
+      - navigation [ref=f2e18]:
+        - generic [ref=f2e19]: WORKSPACE
+        - link "Overview" [ref=f2e20] [cursor=pointer]:
+          - /url: /app
+        - link "Outcomes" [ref=f2e28] [cursor=pointer]:
+          - /url: /app/outcomes
+        - link "Executions" [ref=f2e32] [cursor=pointer]:
+          - /url: /app/executions
+        - link "Connections" [ref=f2e36] [cursor=pointer]:
+          - /url: /app/connections
+        - link "Templates" [ref=f2e40] [cursor=pointer]:
+          - /url: /app/templates
+        - link "Import from n8n" [ref=f2e52] [cursor=pointer]:
+          - /url: /app/import/n8n
+        - generic [ref=f2e58]: MANAGE
+        - link "Team" [ref=f2e59] [cursor=pointer]:
+          - /url: /app/team
+        - link "Usage" [ref=f2e66] [cursor=pointer]:
+          - /url: /app/usage
+        - link "Billing" [ref=f2e71] [cursor=pointer]:
+          - /url: /app/billing
+        - link "Settings" [ref=f2e75] [cursor=pointer]:
+          - /url: /app/settings
+      - generic [ref=f2e80]:
+        - generic [ref=f2e81]: Free plan
+        - paragraph [ref=f2e86]: Unlock more outcomes and advanced history.
+        - link "View plans" [ref=f2e87] [cursor=pointer]:
+          - /url: /app/billing
+      - generic [ref=f2e91]:
+        - generic [ref=f2e92]: DE
+        - generic [ref=f2e93]:
+          - generic [ref=f2e94]: Demo operator
+          - generic [ref=f2e95]: Signed in
+        - button "Account menu" [ref=f2e96] [cursor=pointer]
+    - generic [ref=f2e99]:
+      - banner [ref=f2e100]:
+        - generic [ref=f2e101]:
+          - generic [ref=f2e104]: Search outcomes, executions, and docs…
+          - generic [ref=f2e105]: ⌘ K
+        - generic [ref=f2e106]:
+          - link [ref=f2e107] [cursor=pointer]:
+            - /url: /app/settings/api-keys
+          - link [ref=f2e111] [cursor=pointer]:
+            - /url: /app/settings/webhooks
+          - link "Create outcome" [ref=f2e116] [cursor=pointer]:
+            - /url: /app/outcomes/new
+      - main [ref=f2e119]:
+        - generic [ref=f2e332]:
+          - generic [ref=f2e333]:
+            - generic [ref=f2e334]:
+              - text: AI OUTCOME BUILDER
+              - heading "Build an outcome" [level=1] [ref=f2e335]
+            - generic [ref=f2e336]:
+              - generic [ref=f2e337]: Draft saved locally
+              - button "Save outcome" [ref=f2e339] [cursor=pointer]
+          - generic [ref=f2e344]:
+            - generic [ref=f2e345]:
+              - generic [ref=f2e346]:
+                - generic [ref=f2e352]:
+                  - generic [ref=f2e353]: Outcome architect
+                  - generic [ref=f2e354]: Compiles only approved operations
+                - generic [ref=f2e355]: ONLINE
+              - generic [ref=f2e356]:
+                - generic [ref=f2e362]:
+                  - generic [ref=f2e363]: OutcomeOS
+                  - paragraph [ref=f2e364]: Describe the business result you want. I’ll identify the trigger, actions, required connections, and only ask questions that block a safe plan.
+                - generic [ref=f2e430]:
+                  - generic [ref=f2e431]: You
+                  - paragraph [ref=f2e432]: When a customer submits a support request, classify urgency with AI, add it to Notion, and notify Slack.
+                - generic [ref=f2e438]:
+                  - generic [ref=f2e439]: OutcomeOS
+                  - paragraph [ref=f2e440]: I understand the outcome. I need one detail before I can create a safe executable version.
+                - generic [ref=f2e492]:
+                  - generic [ref=f2e493]: You
+                  - paragraph [ref=f2e494]: When a customer submits a support request, classify urgency with AI, add it to Notion, and notify Slack.
+                - generic [ref=f2e500]:
+                  - generic [ref=f2e501]: OutcomeOS
+                  - paragraph [ref=f2e502]: "The plan is ready: 3 steps, 1 required connections, and an estimated 250 monthly executions."
+              - generic [ref=f2e383]:
+                - textbox "Add an approval, change a tool, make it cheaper…" [ref=f2e449]
+                - generic [ref=f2e385]:
+                  - generic [ref=f2e386]: "Try: “Retry failures three times”"
+                  - button "Send message" [disabled] [ref=f2e390]
+            - generic [ref=f2e394]:
+              - tablist [ref=f2e395]:
+                - tab "Plan" [selected] [ref=f2e396] [cursor=pointer]
+                - tab "Technical flow" [ref=f2e399] [cursor=pointer]
+                - tab "Test data" [ref=f2e404] [cursor=pointer]
+                - tab "Settings" [ref=f2e408] [cursor=pointer]
+                - tab "Versions" [ref=f2e412] [cursor=pointer]
+              - generic [ref=f2e450]:
+                - generic [ref=f2e451]:
+                  - generic [ref=f2e452]:
+                    - text: OUTCOME
+                    - heading "When a customer submits a support request, classify urgen…" [level=2] [ref=f2e453]
+                  - generic [ref=f2e454]: Validated
+                - list [ref=f2e458]:
+                  - listitem [ref=f2e459]:
+                    - generic [ref=f2e460]: "1"
+                    - generic [ref=f2e461]:
+                      - generic [ref=f2e462]: Receive and validate the input
+                      - paragraph [ref=f2e463]: Validate and normalize the incoming business data.
+                      - generic [ref=f2e464]: transform
+                  - listitem [ref=f2e505]:
+                    - generic [ref=f2e506]: "2"
+                    - generic [ref=f2e507]:
+                      - generic [ref=f2e508]: Notify the sales team in Slack
+                      - paragraph [ref=f2e509]: "Send a concise result to #support-ops."
+                      - generic [ref=f2e510]: slack
+                  - listitem [ref=f2e468]:
+                    - generic [ref=f2e469]: "3"
+                    - generic [ref=f2e470]:
+                      - generic [ref=f2e471]: Record the result
+                      - paragraph [ref=f2e472]: Store the result and execution metadata for monitoring.
+                      - generic [ref=f2e473]: transform
+                - generic [ref=f2e514]:
+                  - generic [ref=f2e518]:
+                    - generic [ref=f2e519]: 1 connection required
+                    - generic [ref=f2e520]: Connect securely during review. Secrets never enter this plan.
+                  - generic [ref=f2e521]: Slack
+                - generic [ref=f2e476]:
+                  - text: ASSUMPTIONS
+                  - paragraph [ref=f2e477]: Times use Asia/Dushanbe.
+                  - paragraph [ref=f2e480]: External writes are retried only when the connector supports idempotency.
+              - generic [ref=f2e483]:
+                - generic [ref=f2e484]: ≈ 250 runs / month
+                - button "Save and review" [ref=f2e488] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=f2e327] [cursor=pointer]
+  - alert [ref=f2e321]

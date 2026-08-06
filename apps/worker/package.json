@@ -1,0 +1,27 @@
+{
+  "name": "@outcomeos/worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc --noEmit",
+    "start": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@outcomeos/config": "workspace:*",
+    "@outcomeos/database": "workspace:*",
+    "@outcomeos/execution-engine": "workspace:*",
+    "@outcomeos/observability": "workspace:*",
+    "@outcomeos/workflow-schema": "workspace:*",
+    "@prisma/client": "6.19.3",
+    "bullmq": "^5.58.5",
+    "ioredis": "^5.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.2"
+  }
+}
