@@ -108,6 +108,7 @@ See [Security overview](docs/security.md).
 - [Workflow schema](docs/workflow-schema.md)
 - [Connector development](docs/connectors.md)
 - [Deployment](docs/deployment.md)
+- [Railway deployment](docs/railway.md)
 - [Security](docs/security.md)
 - [n8n limitations](docs/n8n-importer.md)
 - [Billing](docs/billing.md)
