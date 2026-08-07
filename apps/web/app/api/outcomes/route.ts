@@ -3,8 +3,8 @@ import { withApi } from "@/lib/api";
 import { writeAuditLog } from "@/lib/audit";
 import { getWorkspaceUsage } from "@/lib/limits";
 import { assertPermission, requireWorkspace } from "@/lib/workspace";
-import { prisma, Prisma } from "@outcomeos/database";
-import { CompilationResultSchema } from "@outcomeos/workflow-schema";
+import { prisma, Prisma } from "@rezaru/database";
+import { CompilationResultSchema } from "@rezaru/workflow-schema";
 import { z } from "zod";
 
 const createSchema = z.object({

@@ -1,5 +1,5 @@
-import type { WorkflowDefinition } from "@outcomeos/workflow-schema";
-import { prisma } from "@outcomeos/database";
+import type { WorkflowDefinition } from "@rezaru/workflow-schema";
+import { prisma } from "@rezaru/database";
 import { ArrowRight, Clock3, Plug, Settings2, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";

@@ -6,7 +6,7 @@
   },
   "deploy": {
     "preDeployCommand": "pnpm db:migrate",
-    "startCommand": "pnpm --filter @outcomeos/web start",
+    "startCommand": "pnpm --filter @rezaru/web start",
     "healthcheckPath": "/api/health",
     "healthcheckTimeout": 300,
     "restartPolicyType": "ON_FAILURE",

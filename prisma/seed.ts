@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
-import { encryptSecretRecord } from "@outcomeos/config";
-import { prisma } from "@outcomeos/database";
-import { seedTemplates, type WorkflowDefinition } from "@outcomeos/workflow-schema";
+import { encryptSecretRecord } from "@rezaru/config";
+import { prisma } from "@rezaru/database";
+import { seedTemplates, type WorkflowDefinition } from "@rezaru/workflow-schema";
 
 const compilerVersion = "seed-v1";
 
@@ -116,9 +116,9 @@ async function seed() {
   }
 
   const user = await prisma.user.upsert({
-    where: { email: "demo@outcomeos.local" },
+    where: { email: "demo@rezaru.local" },
     update: { name: "Alex Morgan", emailVerified: true },
-    create: { email: "demo@outcomeos.local", name: "Alex Morgan", emailVerified: true }
+    create: { email: "demo@rezaru.local", name: "Alex Morgan", emailVerified: true }
   });
   const workspace = await prisma.workspace.upsert({
     where: { slug: "northstar-operations" },

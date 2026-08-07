@@ -1,7 +1,7 @@
 import { withApi } from "@/lib/api";
 import { writeAuditLog } from "@/lib/audit";
 import { assertPermission, requireWorkspace } from "@/lib/workspace";
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 
 export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
   return withApi(async () => {

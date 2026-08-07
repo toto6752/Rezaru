@@ -1,5 +1,5 @@
 import { getWorkspaceContext } from "@/lib/workspace";
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 
 export const dynamic = "force-dynamic";
 

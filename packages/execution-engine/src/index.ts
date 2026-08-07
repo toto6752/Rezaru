@@ -1,11 +1,11 @@
-import { getOperation } from "@outcomeos/connectors";
+import { getOperation } from "@rezaru/connectors";
 import {
   maskSecrets,
   resolveVariables,
   type RetryPolicy,
   type WorkflowDefinition,
   type WorkflowStep
-} from "@outcomeos/workflow-schema";
+} from "@rezaru/workflow-schema";
 
 export * from "./artifacts";
 

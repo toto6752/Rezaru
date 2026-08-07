@@ -1,9 +1,9 @@
 - generic [active] [ref=f2e1]:
   - generic [ref=f2e2]:
     - complementary [ref=f2e3]:
-      - link "OutcomeOS home" [ref=f2e5] [cursor=pointer]:
+      - link "Rezaru home" [ref=f2e5] [cursor=pointer]:
         - /url: /app
-        - generic [ref=f2e10]: OutcomeOS
+        - generic [ref=f2e10]: Rezaru
       - button "NO Northstar Operations owner" [ref=f2e11] [cursor=pointer]:
         - generic [ref=f2e12]: "NO"
         - generic [ref=f2e13]:
@@ -61,7 +61,7 @@
             - generic [ref=f2e122]:
               - text: OPERATIONS OVERVIEW
               - heading "Good morning." [level=1] [ref=f2e123]
-              - paragraph [ref=f2e124]: Northstar Operations is operating normally. Here’s what OutcomeOS handled.
+              - paragraph [ref=f2e124]: Northstar Operations is operating normally. Here’s what Rezaru handled.
             - link "Create outcome" [ref=f2e125] [cursor=pointer]:
               - /url: /app/outcomes/new
           - generic [ref=f2e128]:

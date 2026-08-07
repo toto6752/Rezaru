@@ -2,7 +2,7 @@ import { randomBytes } from "node:crypto";
 import { withApi } from "@/lib/api";
 import { hashSecret } from "@/lib/encryption";
 import { assertPermission, requireWorkspace } from "@/lib/workspace";
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 import { z } from "zod";
 
 const schema = z.object({

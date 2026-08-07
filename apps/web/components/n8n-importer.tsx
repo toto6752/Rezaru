@@ -1,6 +1,6 @@
 "use client";
 
-import type { N8nImportReport } from "@outcomeos/workflow-schema";
+import type { N8nImportReport } from "@rezaru/workflow-schema";
 import { AlertTriangle, ArrowRight, Check, FileJson, Loader2, Upload, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -59,7 +59,7 @@ export function N8nImporter() {
         <div className="score-ring"><strong>{Math.round(((report.supportedNodes + report.partiallySupportedNodes * .5) / report.totalNodes) * 100)}%</strong><span>convertible</span></div>
       </div>
       <div className="report-counts"><article className="success"><Check size={18} /><b>{report.supportedNodes}</b><span>Supported</span></article><article className="warning"><AlertTriangle size={18} /><b>{report.partiallySupportedNodes}</b><span>Partial</span></article><article className="danger"><X size={18} /><b>{report.unsupportedNodes}</b><span>Manual review</span></article></div>
-      <div className="dashboard-panel report-nodes"><div className="table-head"><span>Node</span><span>n8n type</span><span>OutcomeOS operation</span><span>Compatibility</span></div>{report.nodes.map((node) => <div key={`${node.name}-${node.sourceType}`}><b>{node.name}</b><code>{node.sourceType}</code><span>{node.outcomeOperation ?? "Manual review placeholder"}</span><i className={node.compatibility}>{node.compatibility}</i>{node.note && <small>{node.note}</small>}</div>)}</div>
+      <div className="dashboard-panel report-nodes"><div className="table-head"><span>Node</span><span>n8n type</span><span>Rezaru operation</span><span>Compatibility</span></div>{report.nodes.map((node) => <div key={`${node.name}-${node.sourceType}`}><b>{node.name}</b><code>{node.sourceType}</code><span>{node.outcomeOperation ?? "Manual review placeholder"}</span><i className={node.compatibility}>{node.compatibility}</i>{node.note && <small>{node.note}</small>}</div>)}</div>
       <div className="report-warnings">{report.warnings.map((warning) => <p key={warning}><AlertTriangle size={14} />{warning}</p>)}</div>
       <div className="report-actions"><button className="button button-secondary" onClick={() => setReport(null)}>Back to source</button><button className="button button-primary" onClick={convert} disabled={loading === "convert"}>{loading === "convert" ? <Loader2 className="spin" size={15} /> : null} Convert to draft outcome <ArrowRight size={15} /></button></div>
     </section>}

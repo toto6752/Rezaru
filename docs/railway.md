@@ -96,7 +96,7 @@ railway run --service web pnpm db:seed
 ```text
 SMTP_URL=https://api.resend.com/emails
 EMAIL_API_KEY=<ключ из Resend>
-EMAIL_FROM=OutcomeOS <onboarding@resend.dev>
+EMAIL_FROM=Rezaru <onboarding@resend.dev>
 ```
 
 Адрес `onboarding@resend.dev` — песочница Resend: письма уходят только на

@@ -1,4 +1,4 @@
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 import { WebhookManager } from "@/components/webhook-manager";
 import { requireWorkspace } from "@/lib/workspace";
 

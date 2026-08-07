@@ -1,5 +1,5 @@
 {
-  "name": "@outcomeos/ai-compiler",
+  "name": "@rezaru/ai-compiler",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -9,9 +9,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@outcomeos/config": "workspace:*",
-    "@outcomeos/connectors": "workspace:*",
-    "@outcomeos/workflow-schema": "workspace:*",
+    "@rezaru/config": "workspace:*",
+    "@rezaru/connectors": "workspace:*",
+    "@rezaru/workflow-schema": "workspace:*",
     "zod": "^3.25.76"
   },
   "devDependencies": {

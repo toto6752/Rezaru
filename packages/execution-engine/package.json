@@ -1,5 +1,5 @@
 {
-  "name": "@outcomeos/execution-engine",
+  "name": "@rezaru/execution-engine",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -9,8 +9,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@outcomeos/connectors": "workspace:*",
-    "@outcomeos/workflow-schema": "workspace:*",
+    "@rezaru/connectors": "workspace:*",
+    "@rezaru/workflow-schema": "workspace:*",
     "zod": "^3.25.76"
   },
   "devDependencies": {

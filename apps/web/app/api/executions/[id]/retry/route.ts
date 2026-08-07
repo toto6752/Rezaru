@@ -1,7 +1,7 @@
 import { withApi } from "@/lib/api";
 import { enqueueExecution } from "@/lib/queue";
 import { assertPermission, requireWorkspace } from "@/lib/workspace";
-import { prisma, Prisma } from "@outcomeos/database";
+import { prisma, Prisma } from "@rezaru/database";
 
 export async function POST(_request: Request, { params }: { params: Promise<{ id: string }> }) {
   return withApi(async () => {

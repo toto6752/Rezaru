@@ -1,4 +1,4 @@
-import { cn } from "@outcomeos/ui";
+import { cn } from "@rezaru/ui";
 import type { ButtonHTMLAttributes, HTMLAttributes } from "react";
 
 export function Button({ className, variant = "primary", ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "primary" | "secondary" | "ghost" | "danger" }) {

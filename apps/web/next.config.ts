@@ -10,14 +10,14 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true
   },
   transpilePackages: [
-    "@outcomeos/ai-compiler",
-    "@outcomeos/config",
-    "@outcomeos/connectors",
-    "@outcomeos/database",
-    "@outcomeos/execution-engine",
-    "@outcomeos/observability",
-    "@outcomeos/ui",
-    "@outcomeos/workflow-schema"
+    "@rezaru/ai-compiler",
+    "@rezaru/config",
+    "@rezaru/connectors",
+    "@rezaru/database",
+    "@rezaru/execution-engine",
+    "@rezaru/observability",
+    "@rezaru/ui",
+    "@rezaru/workflow-schema"
   ],
   poweredByHeader: false,
   experimental: {

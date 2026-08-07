@@ -1,8 +1,8 @@
 import { withApi } from "@/lib/api";
 import { decryptCredentials } from "@/lib/encryption";
 import { assertPermission, requireWorkspace } from "@/lib/workspace";
-import { getConnector } from "@outcomeos/connectors";
-import { prisma } from "@outcomeos/database";
+import { getConnector } from "@rezaru/connectors";
+import { prisma } from "@rezaru/database";
 
 export async function POST(_request: Request, { params }: { params: Promise<{ id: string }> }) {
   return withApi(async () => {

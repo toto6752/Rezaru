@@ -13,28 +13,28 @@
       "@/*": [
         "./*"
       ],
-      "@outcomeos/database": [
+      "@rezaru/database": [
         "../../packages/database/src/index.ts"
       ],
-      "@outcomeos/workflow-schema": [
+      "@rezaru/workflow-schema": [
         "../../packages/workflow-schema/src/index.ts"
       ],
-      "@outcomeos/execution-engine": [
+      "@rezaru/execution-engine": [
         "../../packages/execution-engine/src/index.ts"
       ],
-      "@outcomeos/ai-compiler": [
+      "@rezaru/ai-compiler": [
         "../../packages/ai-compiler/src/index.ts"
       ],
-      "@outcomeos/connectors": [
+      "@rezaru/connectors": [
         "../../packages/connectors/src/index.ts"
       ],
-      "@outcomeos/ui": [
+      "@rezaru/ui": [
         "../../packages/ui/src/index.ts"
       ],
-      "@outcomeos/config": [
+      "@rezaru/config": [
         "../../packages/config/src/index.ts"
       ],
-      "@outcomeos/observability": [
+      "@rezaru/observability": [
         "../../packages/observability/src/index.ts"
       ]
     },

@@ -1,4 +1,4 @@
-import { prisma, Prisma } from "@outcomeos/database";
+import { prisma, Prisma } from "@rezaru/database";
 
 export async function writeAuditLog(input: {
   workspaceId: string;

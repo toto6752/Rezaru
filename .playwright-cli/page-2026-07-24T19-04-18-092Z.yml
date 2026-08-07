@@ -1,9 +1,9 @@
 - generic [ref=e2]:
   - banner [ref=e3]:
     - generic [ref=e4]:
-      - link "OutcomeOS home" [ref=e5] [cursor=pointer]:
+      - link "Rezaru home" [ref=e5] [cursor=pointer]:
         - /url: /
-        - generic [ref=e10]: OutcomeOS
+        - generic [ref=e10]: Rezaru
       - navigation "Primary navigation" [ref=e11]:
         - link "Product" [ref=e12] [cursor=pointer]:
           - /url: "#product"
@@ -26,7 +26,7 @@
       - heading [level=1] [ref=e26]:
         - text: Describe the outcome.
         - emphasis [ref=e27]: AI builds the automation.
-      - paragraph [ref=e28]: OutcomeOS creates, runs, fixes, and improves your business automations. No nodes, no JSON, no workflow engineering.
+      - paragraph [ref=e28]: Rezaru creates, runs, fixes, and improves your business automations. No nodes, no JSON, no workflow engineering.
       - generic [ref=e29]:
         - link "Build your first outcome" [ref=e30] [cursor=pointer]:
           - /url: /register
@@ -87,7 +87,7 @@
     - generic [ref=e118]:
       - generic [ref=e119]: A BETTER ABSTRACTION
       - heading "You should not need to become an automation engineer." [level=2] [ref=e120]: You should not need to becomean automation engineer.
-      - paragraph [ref=e121]: Traditional builders expose the machinery. OutcomeOS gives your team a reliable operator that handles it.
+      - paragraph [ref=e121]: Traditional builders expose the machinery. Rezaru gives your team a reliable operator that handles it.
       - generic [ref=e122]:
         - generic [ref=e123]:
           - text: THE OLD PROCESS
@@ -112,7 +112,7 @@
               - text: Maintenance
           - paragraph [ref=e147]: More time maintaining tools than improving operations
         - generic [ref=e151]:
-          - text: THE OUTCOMEOS PROCESS
+          - text: THE REZARU PROCESS
           - generic [ref=e152]:
             - generic [ref=e153]:
               - generic [ref=e154]: "1"
@@ -132,14 +132,14 @@
         - generic [ref=e171]:
           - generic [ref=e172]: "01"
           - heading "Describe the result." [level=3] [ref=e175]
-          - paragraph [ref=e176]: Say what should happen in business language. OutcomeOS asks only what it truly needs.
+          - paragraph [ref=e176]: Say what should happen in business language. Rezaru asks only what it truly needs.
         - generic [ref=e177]:
           - generic [ref=e178]: "02"
           - heading "Connect your tools." [level=3] [ref=e183]
           - paragraph [ref=e184]: Review the generated plan and securely connect the applications it needs.
         - generic [ref=e185]:
           - generic [ref=e186]: "03"
-          - heading "Let OutcomeOS run it." [level=3] [ref=e189]
+          - heading "Let Rezaru run it." [level=3] [ref=e189]
           - paragraph [ref=e190]: Test, activate, and follow every execution while AI watches for improvements.
     - generic [ref=e191]:
       - generic [ref=e192]:
@@ -182,7 +182,7 @@
       - generic [ref=e268]:
         - generic [ref=e269]: MIGRATION, WITHOUT THE REBUILD
         - heading "Bring your n8n workflows with you." [level=2] [ref=e270]: Bring your n8nworkflows with you.
-        - paragraph [ref=e271]: Upload your export. OutcomeOS maps supported nodes, identifies gaps, and creates a testable outcome while preserving the original workflow for reference.
+        - paragraph [ref=e271]: Upload your export. Rezaru maps supported nodes, identifies gaps, and creates a testable outcome while preserving the original workflow for reference.
         - list [ref=e272]:
           - listitem [ref=e273]: Upload an n8n JSON export
           - listitem [ref=e276]: Map existing credentials securely
@@ -260,12 +260,12 @@
     - generic [ref=e402]:
       - generic [ref=e403]: COMPARE APPROACHES
       - heading "Same power. A better starting point." [level=2] [ref=e404]
-      - table "Traditional workflow builders compared with OutcomeOS" [ref=e405]:
-        - row "Traditional builders O OutcomeOS" [ref=e406]:
+      - table "Traditional workflow builders compared with Rezaru" [ref=e405]:
+        - row "Traditional builders O Rezaru" [ref=e406]:
           - generic [ref=e408]: Traditional builders
           - strong [ref=e409]:
             - generic [ref=e410]: O
-            - text: OutcomeOS
+            - text: Rezaru
         - row "Setup Configure nodes and fields Describe the outcome" [ref=e411]:
           - generic [ref=e412]: Setup
           - generic [ref=e413]: Configure nodes and fields
@@ -367,11 +367,11 @@
         - paragraph [ref=e580]:
           - text: Need something more specific?
           - link "Talk to us." [ref=e581] [cursor=pointer]:
-            - /url: mailto:hello@outcomeos.dev
+            - /url: mailto:hello@rezaru.dev
       - generic [ref=e582]:
         - button [expanded] [ref=e583] [cursor=pointer]:
-          - generic [ref=e584]: How is OutcomeOS different from n8n?
-          - paragraph: n8n starts from a workflow canvas. OutcomeOS starts from the business result, creates the technical workflow for you, and keeps it healthy. Developers can still inspect the generated flow.
+          - generic [ref=e584]: How is Rezaru different from n8n?
+          - paragraph: n8n starts from a workflow canvas. Rezaru starts from the business result, creates the technical workflow for you, and keeps it healthy. Developers can still inspect the generated flow.
         - button [ref=e587] [cursor=pointer]
         - button [ref=e591] [cursor=pointer]
         - button [ref=e595] [cursor=pointer]
@@ -382,14 +382,14 @@
     - generic [ref=e615]:
       - generic [ref=e617]: YOUR NEXT AUTOMATION STARTS WITH A SENTENCE
       - heading "Stop building workflows. Start defining outcomes." [level=2] [ref=e618]: Stop building workflows.Start defining outcomes.
-      - paragraph [ref=e619]: Describe what your business needs. OutcomeOS handles everything between the idea and the result.
+      - paragraph [ref=e619]: Describe what your business needs. Rezaru handles everything between the idea and the result.
       - link "Create your first outcome" [ref=e620] [cursor=pointer]:
         - /url: /register
   - contentinfo [ref=e623]:
     - generic [ref=e624]:
-      - link "OutcomeOS home" [ref=e625] [cursor=pointer]:
+      - link "Rezaru home" [ref=e625] [cursor=pointer]:
         - /url: /
-        - generic [ref=e630]: OutcomeOS
+        - generic [ref=e630]: Rezaru
       - paragraph [ref=e631]: Automation without workflows.
     - generic [ref=e632]:
       - link "Product" [ref=e633] [cursor=pointer]:
@@ -410,7 +410,7 @@
       - link "Terms" [ref=e641] [cursor=pointer]:
         - /url: "#"
       - link "Contact" [ref=e642] [cursor=pointer]:
-        - /url: mailto:hello@outcomeos.dev
+        - /url: mailto:hello@rezaru.dev
       - link "GitHub" [ref=e643] [cursor=pointer]:
         - /url: "#"
-    - paragraph [ref=e644]: © 2026 OutcomeOS. Built for better operations.
+    - paragraph [ref=e644]: © 2026 Rezaru. Built for better operations.

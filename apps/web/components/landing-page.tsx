@@ -51,12 +51,12 @@ const templates = [
 ];
 
 const faqs = [
-  ["How is OutcomeOS different from n8n?", "n8n starts from a workflow canvas. OutcomeOS starts from the business result, creates the technical workflow for you, and keeps it healthy. Developers can still inspect the generated flow."],
+  ["How is Rezaru different from n8n?", "n8n starts from a workflow canvas. Rezaru starts from the business result, creates the technical workflow for you, and keeps it healthy. Developers can still inspect the generated flow."],
   ["Can I import my existing workflows?", "Yes. Upload an n8n JSON export to get a compatibility report, credential mapping, converted plan, and a safe test before activation."],
   ["Do I still control what the automation does?", "Always. You review the plan before activation, sensitive changes require approval, and every active workflow version is immutable and auditable."],
-  ["What happens when an execution fails?", "OutcomeOS retries safe failures, preserves step-level evidence, explains the error in plain language, and can propose a repair for your approval."],
+  ["What happens when an execution fails?", "Rezaru retries safe failures, preserves step-level evidence, explains the error in plain language, and can propose a repair for your approval."],
   ["How are credentials protected?", "Connection credentials are encrypted with authenticated encryption, stored separately from metadata, masked in logs, and never returned to the browser."],
-  ["Can OutcomeOS run inside our infrastructure?", "The Business plan supports private cloud and self-hosted deployment patterns. The repository includes a web service, durable worker, PostgreSQL, Redis, and S3-compatible storage."],
+  ["Can Rezaru run inside our infrastructure?", "The Business plan supports private cloud and self-hosted deployment patterns. The repository includes a web service, durable worker, PostgreSQL, Redis, and S3-compatible storage."],
   ["Which applications are supported?", "The starter connector set includes webhook, schedule, HTTP, Slack, Gmail, Sheets, PostgreSQL, AI, Notion, Stripe, HubSpot, delay, conditions, and transformations."],
   ["Can developers inspect the generated workflow?", "Yes. A read-only technical flow and versioned JSON representation are available behind the outcome-first plan."]
 ];
@@ -111,7 +111,7 @@ export function LandingPage() {
         <section className="hero" id="product">
           <div className="eyebrow"><span className="eyebrow-dot" /> Automation without workflows</div>
           <h1>Describe the outcome.<br /><em>AI builds the automation.</em></h1>
-          <p className="hero-copy">OutcomeOS creates, runs, fixes, and improves your business automations. No nodes, no JSON, no workflow engineering.</p>
+          <p className="hero-copy">Rezaru creates, runs, fixes, and improves your business automations. No nodes, no JSON, no workflow engineering.</p>
           <div className="hero-actions">
             <Link className="button button-primary button-large" href="/register">Build your first outcome <ArrowRight size={17} /></Link>
             <Link className="button button-secondary button-large" href="/app/import/n8n"><Import size={17} /> Import from n8n</Link>
@@ -172,7 +172,7 @@ export function LandingPage() {
         <section className="problem-section section">
           <div className="section-kicker">A BETTER ABSTRACTION</div>
           <h2>You should not need to become<br />an automation engineer.</h2>
-          <p>Traditional builders expose the machinery. OutcomeOS gives your team a reliable operator that handles it.</p>
+          <p>Traditional builders expose the machinery. Rezaru gives your team a reliable operator that handles it.</p>
           <div className="process-compare">
             <div className="old-process">
               <span>THE OLD PROCESS</span>
@@ -180,7 +180,7 @@ export function LandingPage() {
               <p><X size={15} /> More time maintaining tools than improving operations</p>
             </div>
             <div className="new-process">
-              <span>THE OUTCOMEOS PROCESS</span>
+              <span>THE REZARU PROCESS</span>
               <div>{["Describe", "Review", "Activate"].map((label, index) => <div key={label}><i>{index + 1}</i>{label}{index < 2 && <ArrowRight size={18} />}</div>)}</div>
               <p><Check size={15} /> AI builds and operates the workflow underneath</p>
             </div>
@@ -193,9 +193,9 @@ export function LandingPage() {
           <p>Three steps for you. Every technical detail handled behind the scenes.</p>
           <div className="how-grid">
             {[
-              [MessageSquare, "01", "Describe the result.", "Say what should happen in business language. OutcomeOS asks only what it truly needs."],
+              [MessageSquare, "01", "Describe the result.", "Say what should happen in business language. Rezaru asks only what it truly needs."],
               [GitBranch, "02", "Connect your tools.", "Review the generated plan and securely connect the applications it needs."],
-              [Play, "03", "Let OutcomeOS run it.", "Test, activate, and follow every execution while AI watches for improvements."]
+              [Play, "03", "Let Rezaru run it.", "Test, activate, and follow every execution while AI watches for improvements."]
             ].map(([Icon, number, title, copy]) => {
               const IconComponent = Icon as typeof MessageSquare;
               return <div className="how-card" key={String(number)}><span>{String(number)}</span><IconComponent size={24} /><h3>{String(title)}</h3><p>{String(copy)}</p></div>;
@@ -217,7 +217,7 @@ export function LandingPage() {
           <div className="migration-copy">
             <div className="section-kicker">MIGRATION, WITHOUT THE REBUILD</div>
             <h2>Bring your n8n<br />workflows with you.</h2>
-            <p>Upload your export. OutcomeOS maps supported nodes, identifies gaps, and creates a testable outcome while preserving the original workflow for reference.</p>
+            <p>Upload your export. Rezaru maps supported nodes, identifies gaps, and creates a testable outcome while preserving the original workflow for reference.</p>
             <ul>
               {["Upload an n8n JSON export", "Map existing credentials securely", "Identify unsupported or partial nodes", "Convert and test before activation"].map((item) => <li key={item}><Check size={15} />{item}</li>)}
             </ul>
@@ -251,8 +251,8 @@ export function LandingPage() {
         <section className="compare-section section">
           <div className="section-kicker">COMPARE APPROACHES</div>
           <h2>Same power. A better starting point.</h2>
-          <div className="comparison-table" role="table" aria-label="Traditional workflow builders compared with OutcomeOS">
-            <div className="comparison-head" role="row"><span /><b>Traditional builders</b><strong><span className="mini-mark">O</span> OutcomeOS</strong></div>
+          <div className="comparison-table" role="table" aria-label="Traditional workflow builders compared with Rezaru">
+            <div className="comparison-head" role="row"><span /><b>Traditional builders</b><strong><span className="mini-mark">O</span> Rezaru</strong></div>
             {[
               ["Setup", "Configure nodes and fields", "Describe the outcome"],
               ["Maintenance", "Manual workflow upkeep", "AI-monitored improvements"],
@@ -288,7 +288,7 @@ export function LandingPage() {
         </section>
 
         <section className="faq-section section">
-          <div><div className="section-kicker">FAQ</div><h2>Questions, answered.</h2><p>Need something more specific? <a href="mailto:hello@outcomeos.dev">Talk to us.</a></p></div>
+          <div><div className="section-kicker">FAQ</div><h2>Questions, answered.</h2><p>Need something more specific? <a href="mailto:hello@rezaru.dev">Talk to us.</a></p></div>
           <div className="faq-list">
             {faqs.map(([question, answer], index) => (
               <button key={question} aria-expanded={openFaq === index} onClick={() => setOpenFaq(openFaq === index ? null : index)}>
@@ -303,7 +303,7 @@ export function LandingPage() {
           <div className="final-pattern" aria-hidden="true" />
           <div className="section-kicker">YOUR NEXT AUTOMATION STARTS WITH A SENTENCE</div>
           <h2>Stop building workflows.<br />Start defining outcomes.</h2>
-          <p>Describe what your business needs. OutcomeOS handles everything between the idea and the result.</p>
+          <p>Describe what your business needs. Rezaru handles everything between the idea and the result.</p>
           <Link className="button button-light button-large" href="/register">Create your first outcome <ArrowRight size={17} /></Link>
         </section>
       </main>
@@ -311,8 +311,8 @@ export function LandingPage() {
       <footer className="landing-footer">
         <div><Logo /><p>Automation without workflows.</p></div>
         <div>{["Product", "Templates", "Documentation", "Security", "Status"].map((item) => <a key={item} href={item === "Templates" ? "#templates" : "#product"}>{item}</a>)}</div>
-        <div>{["Pricing", "Privacy", "Terms", "Contact", "GitHub"].map((item) => <a key={item} href={item === "Pricing" ? "#pricing" : item === "Contact" ? "mailto:hello@outcomeos.dev" : "#"}>{item}</a>)}</div>
-        <p>© {new Date().getFullYear()} OutcomeOS. Built for better operations.</p>
+        <div>{["Pricing", "Privacy", "Terms", "Contact", "GitHub"].map((item) => <a key={item} href={item === "Pricing" ? "#pricing" : item === "Contact" ? "mailto:hello@rezaru.dev" : "#"}>{item}</a>)}</div>
+        <p>© {new Date().getFullYear()} Rezaru. Built for better operations.</p>
       </footer>
     </div>
   );

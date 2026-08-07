@@ -27,7 +27,7 @@
       "dependsOn": ["^build"],
       "outputs": []
     },
-    "@outcomeos/web#build": {
+    "@rezaru/web#build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"]
     },

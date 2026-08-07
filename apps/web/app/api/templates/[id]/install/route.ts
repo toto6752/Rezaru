@@ -2,8 +2,8 @@ import { createHash } from "node:crypto";
 import { withApi } from "@/lib/api";
 import { writeAuditLog } from "@/lib/audit";
 import { assertPermission, requireWorkspace } from "@/lib/workspace";
-import { prisma, Prisma } from "@outcomeos/database";
-import { validateWorkflow } from "@outcomeos/workflow-schema";
+import { prisma, Prisma } from "@rezaru/database";
+import { validateWorkflow } from "@rezaru/workflow-schema";
 import { z } from "zod";
 
 const schema = z.object({ variables: z.record(z.union([z.string(), z.number()])).default({}) });

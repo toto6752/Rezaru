@@ -1,4 +1,4 @@
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 import { BillingPlans } from "@/components/billing-plans";
 import { requireWorkspace } from "@/lib/workspace";
 

@@ -1,5 +1,5 @@
 {
-  "name": "@outcomeos/worker",
+  "name": "@rezaru/worker",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -10,11 +10,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@outcomeos/config": "workspace:*",
-    "@outcomeos/database": "workspace:*",
-    "@outcomeos/execution-engine": "workspace:*",
-    "@outcomeos/observability": "workspace:*",
-    "@outcomeos/workflow-schema": "workspace:*",
+    "@rezaru/config": "workspace:*",
+    "@rezaru/database": "workspace:*",
+    "@rezaru/execution-engine": "workspace:*",
+    "@rezaru/observability": "workspace:*",
+    "@rezaru/workflow-schema": "workspace:*",
     "@prisma/client": "6.19.3",
     "bullmq": "^5.58.5",
     "ioredis": "^5.7.0"

@@ -1,7 +1,7 @@
 import { withApi } from "@/lib/api";
 import { getWorkspaceUsage } from "@/lib/limits";
 import { requireWorkspace } from "@/lib/workspace";
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 
 export async function GET() {
   return withApi(async () => {

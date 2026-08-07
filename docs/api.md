@@ -35,4 +35,4 @@ Trigger bodies accept `input` and an optional `idempotencyKey`.
 
 ## Webhooks
 
-Workspace users create test or production endpoints at `/app/settings/webhooks`. JSON, form data, query parameters, selected headers, GET, and POST are captured. An optional secret is supplied through `x-outcomeos-secret`. Test endpoints capture a sample and create a labeled demo execution.
+Workspace users create test or production endpoints at `/app/settings/webhooks`. JSON, form data, query parameters, selected headers, GET, and POST are captured. An optional secret is supplied through `x-rezaru-secret`. Test endpoints capture a sample and create a labeled demo execution.

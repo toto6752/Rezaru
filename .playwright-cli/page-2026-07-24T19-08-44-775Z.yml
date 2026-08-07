@@ -1,9 +1,9 @@
 - generic [ref=f3e1]:
   - generic [ref=f3e2]:
     - complementary [ref=f3e3]:
-      - link "OutcomeOS home" [ref=f3e5] [cursor=pointer]:
+      - link "Rezaru home" [ref=f3e5] [cursor=pointer]:
         - /url: /app
-        - generic [ref=f3e10]: OutcomeOS
+        - generic [ref=f3e10]: Rezaru
       - button "NO Northstar Operations owner" [ref=f3e11] [cursor=pointer]:
         - generic [ref=f3e12]: "NO"
         - generic [ref=f3e13]:
@@ -73,19 +73,19 @@
                 - generic [ref=f3e143]: ONLINE
               - generic [ref=f3e144]:
                 - generic [ref=f3e150]:
-                  - generic [ref=f3e151]: OutcomeOS
+                  - generic [ref=f3e151]: Rezaru
                   - paragraph [ref=f3e152]: Describe the business result you want. I’ll identify the trigger, actions, required connections, and only ask questions that block a safe plan.
                 - generic [ref=f3e228]:
                   - generic [ref=f3e229]: You
                   - paragraph [ref=f3e230]: When a customer submits a support request, classify urgency with AI, add it to Notion, and notify Slack.
                 - generic [ref=f3e236]:
-                  - generic [ref=f3e237]: OutcomeOS
+                  - generic [ref=f3e237]: Rezaru
                   - paragraph [ref=f3e238]: I understand the outcome. I need 2 details before I can create a safe executable version.
                 - generic [ref=f3e312]:
                   - generic [ref=f3e313]: You
                   - paragraph [ref=f3e314]: When a customer submits a support request, classify urgency with AI, add it to Notion, and notify Slack.
                 - generic [ref=f3e320]:
-                  - generic [ref=f3e321]: OutcomeOS
+                  - generic [ref=f3e321]: Rezaru
                   - paragraph [ref=f3e322]: "The plan is ready: 5 steps, 3 required connections, and an estimated 250 monthly executions."
               - generic [ref=f3e171]:
                 - textbox "Add an approval, change a tool, make it cheaper…" [ref=f3e251]

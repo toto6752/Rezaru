@@ -1,4 +1,4 @@
-import { decryptSecretRecord, encryptSecretRecord, hashSecretValue, verifySecretValue } from "@outcomeos/config";
+import { decryptSecretRecord, encryptSecretRecord, hashSecretValue, verifySecretValue } from "@rezaru/config";
 
 export function encryptCredentials(value: Record<string, string>): string {
   return encryptSecretRecord(value);

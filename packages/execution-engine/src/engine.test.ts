@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { WorkflowDefinition } from "@outcomeos/workflow-schema";
+import type { WorkflowDefinition } from "@rezaru/workflow-schema";
 import { runWorkflow, selectNextSteps } from "./index";
 
 describe("execution engine", () => {

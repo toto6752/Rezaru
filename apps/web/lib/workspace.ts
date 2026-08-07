@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import { prisma, WorkspaceRole } from "@outcomeos/database";
+import { prisma, WorkspaceRole } from "@rezaru/database";
 import { headers } from "next/headers";
 
 export type WorkspaceContext = {
@@ -16,7 +16,7 @@ export async function getWorkspaceContext(): Promise<WorkspaceContext | null> {
   userId = session?.user.id;
 
   if (!userId && process.env.DEMO_AUTH_BYPASS === "true") {
-    userId = (await prisma.user.findUnique({ where: { email: "demo@outcomeos.local" }, select: { id: true } }))?.id;
+    userId = (await prisma.user.findUnique({ where: { email: "demo@rezaru.local" }, select: { id: true } }))?.id;
   }
   if (!userId) return null;
 

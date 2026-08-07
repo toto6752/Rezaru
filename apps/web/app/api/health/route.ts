@@ -1,5 +1,5 @@
 import { executionQueue } from "@/lib/queue";
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 
 export const dynamic = "force-dynamic";
 
@@ -23,7 +23,7 @@ export async function GET() {
   const healthy = Object.values(checks).every((check) => check.status === "ok");
   return Response.json({
     status: healthy ? "ok" : "degraded",
-    service: "outcomeos-web",
+    service: "rezaru-web",
     checks,
     durationMs: Date.now() - started,
     timestamp: new Date().toISOString()

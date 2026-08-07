@@ -38,7 +38,7 @@ const catalog = [
 
 function operationFor(connectorKey: string): { operationKey: string; type: WorkflowDefinition["steps"][number]["type"]; input: Record<string, unknown> } {
   if (connectorKey === "slack") return { operationKey: "send_message", type: "action", input: { channel: "{{variables.channel}}", text: "Outcome result: {{trigger}}" } };
-  if (connectorKey === "gmail") return { operationKey: "send_email", type: "action", input: { to: "{{variables.recipient}}", subject: "OutcomeOS report", body: "{{trigger}}" } };
+  if (connectorKey === "gmail") return { operationKey: "send_email", type: "action", input: { to: "{{variables.recipient}}", subject: "Rezaru report", body: "{{trigger}}" } };
   if (connectorKey === "postgresql") return { operationKey: "query", type: "action", input: { query: "SELECT 1 AS ready", params: [] } };
   if (connectorKey === "openai") return { operationKey: "generate", type: "ai_task", input: { prompt: "Complete this business outcome using the supplied input: {{trigger}}" } };
   if (connectorKey === "hubspot") return { operationKey: "upsert_contact", type: "action", input: { properties: { email: "{{trigger.email}}" } } };

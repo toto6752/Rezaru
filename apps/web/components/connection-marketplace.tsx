@@ -86,7 +86,7 @@ export function ConnectionMarketplace({ connectors, initialConnections }: { conn
   }
 
   return <div className="connections-page">
-    <header className="page-header"><div><span className="page-eyebrow">SECURE INTEGRATIONS</span><h1>Connections</h1><p>Connect the tools OutcomeOS can use on your behalf. Secrets stay encrypted and server-side.</p></div></header>
+    <header className="page-header"><div><span className="page-eyebrow">SECURE INTEGRATIONS</span><h1>Connections</h1><p>Connect the tools Rezaru can use on your behalf. Secrets stay encrypted and server-side.</p></div></header>
     {connections.length > 0 && <section className="connected-section"><div className="section-title"><h2>Your connections</h2><span>{connections.length} configured</span></div><div className="connected-grid">
       {connections.map((connection) => {
         const connector = connectors.find((item) => item.key === connection.connectorKey);

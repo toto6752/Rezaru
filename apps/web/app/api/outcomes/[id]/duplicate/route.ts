@@ -1,8 +1,8 @@
 import { createHash } from "node:crypto";
 import { withApi } from "@/lib/api";
 import { assertPermission, requireWorkspace } from "@/lib/workspace";
-import { prisma, Prisma } from "@outcomeos/database";
-import type { WorkflowDefinition } from "@outcomeos/workflow-schema";
+import { prisma, Prisma } from "@rezaru/database";
+import type { WorkflowDefinition } from "@rezaru/workflow-schema";
 
 export async function POST(_request: Request, { params }: { params: Promise<{ id: string }> }) {
   return withApi(async () => {

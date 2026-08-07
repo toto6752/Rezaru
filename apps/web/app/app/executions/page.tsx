@@ -1,4 +1,4 @@
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 import { Activity, Clock3, Filter, Search } from "lucide-react";
 import Link from "next/link";
 import { requireWorkspace } from "@/lib/workspace";

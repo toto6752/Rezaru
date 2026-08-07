@@ -1,10 +1,10 @@
-import { getEnvironment } from "@outcomeos/config";
-import { listConnectors } from "@outcomeos/connectors";
+import { getEnvironment } from "@rezaru/config";
+import { listConnectors } from "@rezaru/connectors";
 import {
   CompilationResultSchema,
   type CompilationResult,
   type WorkflowDefinition
-} from "@outcomeos/workflow-schema";
+} from "@rezaru/workflow-schema";
 
 export type CompileRequest = {
   instruction: string;
@@ -108,7 +108,7 @@ function makeWorkflow(request: CompileRequest): CompilationResult {
     clarifications.push({
       id: "crm",
       question: "Which CRM should receive the record?",
-      reason: "The destination must be known before OutcomeOS can create a valid contact action.",
+      reason: "The destination must be known before Rezaru can create a valid contact action.",
       required: true,
       type: "select",
       options: [{ label: "HubSpot", value: "hubspot" }, { label: "Other / HTTP API", value: "http" }]
@@ -118,7 +118,7 @@ function makeWorkflow(request: CompileRequest): CompilationResult {
     clarifications.push({
       id: "slackChannel",
       question: "Which Slack channel should receive the notification?",
-      reason: "OutcomeOS will not invent a recipient for an external message.",
+      reason: "Rezaru will not invent a recipient for an external message.",
       required: true,
       type: "text"
     });
@@ -136,7 +136,7 @@ function makeWorkflow(request: CompileRequest): CompilationResult {
     clarifications.push({
       id: "notionDatabaseId",
       question: "Which Notion database should receive the item?",
-      reason: "A Notion page must have an explicit parent database; OutcomeOS will not guess one.",
+      reason: "A Notion page must have an explicit parent database; Rezaru will not guess one.",
       required: true,
       type: "text"
     });
@@ -277,7 +277,7 @@ function makeWorkflow(request: CompileRequest): CompilationResult {
       clarifications.push({
         id: "emailRecipient",
         question: "Who should receive the email?",
-        reason: "OutcomeOS will not invent an email recipient.",
+        reason: "Rezaru will not invent an email recipient.",
         required: true,
         type: "text"
       });
@@ -362,7 +362,7 @@ function contextWarnings(text: string): string[] {
 
 function buildPrompt(request: CompileRequest): string {
   return [
-    "You are the OutcomeOS workflow compiler v1.",
+    "You are the Rezaru workflow compiler v1.",
     "Convert a business outcome into the exact CompilationResult JSON shape.",
     "Use only the approved connector operations below.",
     "Do not invent recipients, credentials, record IDs, channels, or irreversible decisions.",

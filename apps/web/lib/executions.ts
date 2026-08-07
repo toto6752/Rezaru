@@ -1,7 +1,7 @@
 import { assertExecutionLimit } from "@/lib/limits";
 import { enqueueExecution } from "@/lib/queue";
-import { prisma, Prisma } from "@outcomeos/database";
-import type { WorkflowDefinition } from "@outcomeos/workflow-schema";
+import { prisma, Prisma } from "@rezaru/database";
+import type { WorkflowDefinition } from "@rezaru/workflow-schema";
 
 export async function createExecution(input: {
   workspaceId: string;

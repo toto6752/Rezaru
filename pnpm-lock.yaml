@@ -59,28 +59,28 @@ importers:
       '@hookform/resolvers':
         specifier: ^5.2.1
         version: 5.4.0(react-hook-form@7.82.0(react@19.2.8))
-      '@outcomeos/ai-compiler':
+      '@rezaru/ai-compiler':
         specifier: workspace:*
         version: link:../../packages/ai-compiler
-      '@outcomeos/config':
+      '@rezaru/config':
         specifier: workspace:*
         version: link:../../packages/config
-      '@outcomeos/connectors':
+      '@rezaru/connectors':
         specifier: workspace:*
         version: link:../../packages/connectors
-      '@outcomeos/database':
+      '@rezaru/database':
         specifier: workspace:*
         version: link:../../packages/database
-      '@outcomeos/execution-engine':
+      '@rezaru/execution-engine':
         specifier: workspace:*
         version: link:../../packages/execution-engine
-      '@outcomeos/observability':
+      '@rezaru/observability':
         specifier: workspace:*
         version: link:../../packages/observability
-      '@outcomeos/ui':
+      '@rezaru/ui':
         specifier: workspace:*
         version: link:../../packages/ui
-      '@outcomeos/workflow-schema':
+      '@rezaru/workflow-schema':
         specifier: workspace:*
         version: link:../../packages/workflow-schema
       '@prisma/client':
@@ -177,19 +177,19 @@ importers:
 
   apps/worker:
     dependencies:
-      '@outcomeos/config':
+      '@rezaru/config':
         specifier: workspace:*
         version: link:../../packages/config
-      '@outcomeos/database':
+      '@rezaru/database':
         specifier: workspace:*
         version: link:../../packages/database
-      '@outcomeos/execution-engine':
+      '@rezaru/execution-engine':
         specifier: workspace:*
         version: link:../../packages/execution-engine
-      '@outcomeos/observability':
+      '@rezaru/observability':
         specifier: workspace:*
         version: link:../../packages/observability
-      '@outcomeos/workflow-schema':
+      '@rezaru/workflow-schema':
         specifier: workspace:*
         version: link:../../packages/workflow-schema
       '@prisma/client':
@@ -214,13 +214,13 @@ importers:
 
   packages/ai-compiler:
     dependencies:
-      '@outcomeos/config':
+      '@rezaru/config':
         specifier: workspace:*
         version: link:../config
-      '@outcomeos/connectors':
+      '@rezaru/connectors':
         specifier: workspace:*
         version: link:../connectors
-      '@outcomeos/workflow-schema':
+      '@rezaru/workflow-schema':
         specifier: workspace:*
         version: link:../workflow-schema
       zod:
@@ -243,7 +243,7 @@ importers:
 
   packages/connectors:
     dependencies:
-      '@outcomeos/workflow-schema':
+      '@rezaru/workflow-schema':
         specifier: workspace:*
         version: link:../workflow-schema
       pg:
@@ -272,10 +272,10 @@ importers:
 
   packages/execution-engine:
     dependencies:
-      '@outcomeos/connectors':
+      '@rezaru/connectors':
         specifier: workspace:*
         version: link:../connectors
-      '@outcomeos/workflow-schema':
+      '@rezaru/workflow-schema':
         specifier: workspace:*
         version: link:../workflow-schema
       zod:

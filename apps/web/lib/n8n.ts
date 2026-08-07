@@ -1,4 +1,4 @@
-import { N8nImportReportSchema, type N8nImportReport, type WorkflowDefinition, type WorkflowStep } from "@outcomeos/workflow-schema";
+import { N8nImportReportSchema, type N8nImportReport, type WorkflowDefinition, type WorkflowStep } from "@rezaru/workflow-schema";
 
 type N8nNode = {
   id?: string;
@@ -42,7 +42,7 @@ function mapType(type: string): Mapping {
   if (normalized.includes("hubspot")) return { connectorKey: "hubspot", operationKey: "upsert_contact", stepType: "action", compatibility: "supported" };
   if (normalized.includes("wait")) return { connectorKey: "delay", operationKey: "wait", stepType: "delay", compatibility: "supported" };
   if (normalized.includes("merge")) return { connectorKey: "transform", operationKey: "map", stepType: "parallel", compatibility: "partial", note: "Review merge mode and branch completion semantics." };
-  return { connectorKey: "transform", operationKey: "map", stepType: "transform", compatibility: "unsupported", note: "No approved OutcomeOS operation maps to this node." };
+  return { connectorKey: "transform", operationKey: "map", stepType: "transform", compatibility: "unsupported", note: "No approved Rezaru operation maps to this node." };
 }
 
 const stepId = (name: string, index: number) => `${name.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "").slice(0, 45) || "step"}_${index + 1}`;
@@ -137,7 +137,7 @@ export function analyzeN8nWorkflow(value: unknown): N8nImportReport {
       required: !["webhook", "schedule", "condition", "transform", "delay"].includes(mapping.connectorKey)
     }))),
     warnings: [
-      "OutcomeOS does not claim 100% n8n compatibility.",
+      "Rezaru does not claim 100% n8n compatibility.",
       ...(compatibilityCounts.unsupported ? [`${compatibilityCounts.unsupported} unsupported node${compatibilityCounts.unsupported === 1 ? "" : "s"} ${compatibilityCounts.unsupported === 1 ? "requires" : "require"} manual review and cannot run as originally configured.`] : []),
       ...(compatibilityCounts.partial ? [`${compatibilityCounts.partial} partially supported node${compatibilityCounts.partial === 1 ? "" : "s"} ${compatibilityCounts.partial === 1 ? "requires" : "require"} configuration review.`] : [])
     ],
@@ -153,7 +153,7 @@ function normalizeParameters(mapping: Mapping, parameters: Record<string, unknow
     body: parameters.body ?? parameters.jsonBody ?? {}
   };
   if (mapping.connectorKey === "slack") return { channel: parameters.channel ?? "", text: parameters.text ?? parameters.message ?? "{{trigger}}" };
-  if (mapping.connectorKey === "gmail") return { to: parameters.sendTo ?? "", subject: parameters.subject ?? "OutcomeOS result", body: parameters.message ?? "{{trigger}}" };
+  if (mapping.connectorKey === "gmail") return { to: parameters.sendTo ?? "", subject: parameters.subject ?? "Rezaru result", body: parameters.message ?? "{{trigger}}" };
   if (mapping.connectorKey === "delay") return { milliseconds: Number(parameters.amount ?? 1) * 1000 };
   if (mapping.connectorKey === "condition") return { left: parameters.leftValue ?? "{{trigger.value}}", operator: "equals", right: parameters.rightValue ?? true };
   if (mapping.connectorKey === "postgresql") return { query: parameters.query ?? "SELECT 1", params: [] };

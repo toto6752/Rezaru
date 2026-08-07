@@ -3,7 +3,7 @@ import { withApi } from "@/lib/api";
 import { writeAuditLog } from "@/lib/audit";
 import { analyzeN8nWorkflow } from "@/lib/n8n";
 import { assertPermission, requireWorkspace } from "@/lib/workspace";
-import { prisma, Prisma } from "@outcomeos/database";
+import { prisma, Prisma } from "@rezaru/database";
 import { z } from "zod";
 
 const schema = z.object({ workflow: z.unknown() });

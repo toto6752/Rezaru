@@ -1,6 +1,6 @@
 import { withApi } from "@/lib/api";
 import { assertPermission, requireWorkspace } from "@/lib/workspace";
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 import { z } from "zod";
 
 const schema = z.object({
@@ -35,7 +35,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     ].filter((item): item is string => Boolean(item));
     const explanation = question === "plain_language"
       ? `${failed.name} did not complete after ${failed.attempt} attempt${failed.attempt === 1 ? "" : "s"}. ${error?.message ?? "The recorded logs do not include a more specific safe explanation."}`
-      : `The verified failure occurred in “${failed.name}”. ${error?.message ?? "No detailed remote error was recorded."} OutcomeOS is not inferring a root cause beyond this evidence.`;
+      : `The verified failure occurred in “${failed.name}”. ${error?.message ?? "No detailed remote error was recorded."} Rezaru is not inferring a root cause beyond this evidence.`;
     let suggestionCreated = false;
     if (["fix", "add_fallback", "reduce_risk"].includes(question)) {
       await prisma.improvementSuggestion.create({

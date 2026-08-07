@@ -1,6 +1,6 @@
 # Architecture
 
-OutcomeOS separates the user-facing outcome from its executable implementation.
+Rezaru separates the user-facing outcome from its executable implementation.
 
 ```text
 User

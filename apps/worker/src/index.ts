@@ -1,9 +1,9 @@
 import { createServer } from "node:http";
-import { decryptSecretRecord } from "@outcomeos/config";
-import { prisma, type ExecutionStatus, type ExecutionStepStatus, Prisma } from "@outcomeos/database";
-import { runWorkflow, type PersistenceAdapter, type StepUpdate } from "@outcomeos/execution-engine";
-import { logger } from "@outcomeos/observability";
-import { validateWorkflow } from "@outcomeos/workflow-schema";
+import { decryptSecretRecord } from "@rezaru/config";
+import { prisma, type ExecutionStatus, type ExecutionStepStatus, Prisma } from "@rezaru/database";
+import { runWorkflow, type PersistenceAdapter, type StepUpdate } from "@rezaru/execution-engine";
+import { logger } from "@rezaru/observability";
+import { validateWorkflow } from "@rezaru/workflow-schema";
 import { Queue, Worker, type Job } from "bullmq";
 import IORedis from "ioredis";
 

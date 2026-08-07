@@ -1,6 +1,6 @@
 "use client";
 
-import type { CompilationResult } from "@outcomeos/workflow-schema";
+import type { CompilationResult } from "@rezaru/workflow-schema";
 import {
   ArrowRight, Bot, Check, ChevronRight, CircleAlert, Clock3, FlaskConical, GitBranch,
   History, Loader2, MessageSquare, Plug, Save, Send, Settings2, Sparkles, TestTube2
@@ -128,7 +128,7 @@ export function OutcomeComposer({ initialPrompt = "", initialCompilation }: { in
         <div className="messages">
           {messages.map((message, index) => <div className={`message ${message.role}`} key={`${message.role}-${index}`}>
             {message.role === "assistant" && <span className="message-avatar"><Bot size={14} /></span>}
-            <div><small>{message.role === "assistant" ? "OutcomeOS" : "You"}</small><p>{message.text}</p></div>
+            <div><small>{message.role === "assistant" ? "Rezaru" : "You"}</small><p>{message.text}</p></div>
           </div>)}
           {compilation?.clarificationQuestions.map((question) => <div className="clarification-card" key={question.id}>
             <span>REQUIRED DETAIL</span><h3>{question.question}</h3><p>{question.reason}</p>
@@ -156,10 +156,10 @@ export function OutcomeComposer({ initialPrompt = "", initialCompilation }: { in
           {tabs.map(([id, label, Icon]) => <button role="tab" aria-selected={activeTab === id} onClick={() => setActiveTab(id)} key={id}><Icon size={14} />{label}</button>)}
         </div>
         <div className="plan-content">
-          {!compilation && <div className="plan-empty"><span><Sparkles size={24} /></span><h2>Your plan will appear here</h2><p>OutcomeOS will translate the business objective into a human-readable plan, connection requirements, and a validated technical workflow.</p><div><i /><i /><i /></div></div>}
+          {!compilation && <div className="plan-empty"><span><Sparkles size={24} /></span><h2>Your plan will appear here</h2><p>Rezaru will translate the business objective into a human-readable plan, connection requirements, and a validated technical workflow.</p><div><i /><i /><i /></div></div>}
           {compilation && activeTab === "plan" && <GeneratedPlan compilation={compilation} />}
           {workflow && activeTab === "technical" && <TechnicalWorkflowView workflow={workflow} />}
-          {!workflow && activeTab === "technical" && <PanelNotice icon={<GitBranch size={20} />} title="Technical flow pending" copy="Answer required clarification questions before OutcomeOS creates an executable graph." />}
+          {!workflow && activeTab === "technical" && <PanelNotice icon={<GitBranch size={20} />} title="Technical flow pending" copy="Answer required clarification questions before Rezaru creates an executable graph." />}
           {activeTab === "test" && <div className="test-data-panel"><div><h3>Sample trigger data</h3><p>This data is isolated from production and marked as a simulated test.</p></div><textarea value={testData} onChange={(event) => setTestData(event.target.value)} spellCheck={false} /><button className="button button-secondary" disabled={!workflow}><FlaskConical size={15} /> Validate sample data</button></div>}
           {activeTab === "settings" && <div className="settings-preview"><h3>Execution settings</h3><div><span>Concurrency</span><b>{workflow?.settings.concurrency ?? 5} executions</b></div><div><span>Default timeout</span><b>{(workflow?.settings.defaultTimeoutMs ?? 30000) / 1000}s</b></div><div><span>Timezone</span><b>{workflow?.settings.timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone}</b></div><div><span>Retention</span><b>{workflow?.settings.retentionDays ?? 30} days</b></div></div>}
           {activeTab === "versions" && <div className="version-preview"><div><span>v1</span><p><b>Current draft</b><small>Created by the Outcome compiler</small></p><i>Draft</i></div><p>After activation, this version becomes immutable. Future edits create a new draft version.</p></div>}

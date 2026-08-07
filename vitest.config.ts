@@ -9,12 +9,12 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@outcomeos/database": path.resolve("packages/database/src/index.ts"),
-      "@outcomeos/workflow-schema": path.resolve("packages/workflow-schema/src/index.ts"),
-      "@outcomeos/execution-engine": path.resolve("packages/execution-engine/src/index.ts"),
-      "@outcomeos/ai-compiler": path.resolve("packages/ai-compiler/src/index.ts"),
-      "@outcomeos/connectors": path.resolve("packages/connectors/src/index.ts"),
-      "@outcomeos/config": path.resolve("packages/config/src/index.ts")
+      "@rezaru/database": path.resolve("packages/database/src/index.ts"),
+      "@rezaru/workflow-schema": path.resolve("packages/workflow-schema/src/index.ts"),
+      "@rezaru/execution-engine": path.resolve("packages/execution-engine/src/index.ts"),
+      "@rezaru/ai-compiler": path.resolve("packages/ai-compiler/src/index.ts"),
+      "@rezaru/connectors": path.resolve("packages/connectors/src/index.ts"),
+      "@rezaru/config": path.resolve("packages/config/src/index.ts")
     }
   }
 });

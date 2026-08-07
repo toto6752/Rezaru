@@ -1,9 +1,9 @@
 - generic [active] [ref=f3e1]:
   - generic [ref=f3e2]:
     - complementary [ref=f3e3]:
-      - link "OutcomeOS home" [ref=f3e5] [cursor=pointer]:
+      - link "Rezaru home" [ref=f3e5] [cursor=pointer]:
         - /url: /app
-        - generic [ref=f3e10]: OutcomeOS
+        - generic [ref=f3e10]: Rezaru
       - button "NO Northstar Operations owner" [ref=f3e11] [cursor=pointer]:
         - generic [ref=f3e12]: "NO"
         - generic [ref=f3e13]:
@@ -73,23 +73,23 @@
                 - generic [ref=f3e143]: ONLINE
               - generic [ref=f3e144]:
                 - generic [ref=f3e150]:
-                  - generic [ref=f3e151]: OutcomeOS
+                  - generic [ref=f3e151]: Rezaru
                   - paragraph [ref=f3e152]: Describe the business result you want. I’ll identify the trigger, actions, required connections, and only ask questions that block a safe plan.
                 - generic [ref=f3e228]:
                   - generic [ref=f3e229]: You
                   - paragraph [ref=f3e230]: When a customer submits a support request, classify urgency with AI, add it to Notion, and notify Slack.
                 - generic [ref=f3e236]:
-                  - generic [ref=f3e237]: OutcomeOS
+                  - generic [ref=f3e237]: Rezaru
                   - paragraph [ref=f3e238]: I understand the outcome. I need 2 details before I can create a safe executable version.
                 - generic [ref=f3e239]:
                   - text: REQUIRED DETAIL
                   - heading "Which Slack channel should receive the notification?" [level=3] [ref=f3e240]
-                  - paragraph [ref=f3e241]: OutcomeOS will not invent a recipient for an external message.
+                  - paragraph [ref=f3e241]: Rezaru will not invent a recipient for an external message.
                   - textbox "Enter the business destination…" [ref=f3e242]
                 - generic [ref=f3e243]:
                   - text: REQUIRED DETAIL
                   - heading "Which Notion database should receive the item?" [level=3] [ref=f3e244]
-                  - paragraph [ref=f3e245]: A Notion page must have an explicit parent database; OutcomeOS will not guess one.
+                  - paragraph [ref=f3e245]: A Notion page must have an explicit parent database; Rezaru will not guess one.
                   - textbox "Enter the business destination…" [ref=f3e246]
                 - button "Build the executable plan" [disabled] [ref=f3e247] [cursor=pointer]
               - generic [ref=f3e171]:

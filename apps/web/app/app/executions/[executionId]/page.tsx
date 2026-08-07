@@ -1,4 +1,4 @@
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 import { ArrowLeft, CircleDollarSign, Clock3, Cpu, Database } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";

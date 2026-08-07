@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("OutcomeOS core journey", () => {
+test.describe("Rezaru core journey", () => {
   test("landing page explains the outcome-first product and interactive plan", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByRole("heading", { name: /Describe the outcome/i })).toBeVisible();

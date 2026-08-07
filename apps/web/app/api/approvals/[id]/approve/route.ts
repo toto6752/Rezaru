@@ -2,7 +2,7 @@ import { withApi } from "@/lib/api";
 import { writeAuditLog } from "@/lib/audit";
 import { enqueueExecution } from "@/lib/queue";
 import { assertPermission, requireWorkspace } from "@/lib/workspace";
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 import { z } from "zod";
 
 const schema = z.object({ comment: z.string().max(1000).optional() });

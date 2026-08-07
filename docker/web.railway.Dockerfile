@@ -22,9 +22,9 @@ ARG NEXT_PUBLIC_POSTHOG_KEY
 ENV NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL
 ENV NEXT_PUBLIC_POSTHOG_KEY=$NEXT_PUBLIC_POSTHOG_KEY
 
-RUN pnpm --filter @outcomeos/web build
+RUN pnpm --filter @rezaru/web build
 
 ENV NODE_ENV=production
 ENV PORT=3000
 EXPOSE 3000
-CMD ["pnpm", "--filter", "@outcomeos/web", "start"]
+CMD ["pnpm", "--filter", "@rezaru/web", "start"]

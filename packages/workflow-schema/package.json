@@ -1,5 +1,5 @@
 {
-  "name": "@outcomeos/workflow-schema",
+  "name": "@rezaru/workflow-schema",
   "version": "0.1.0",
   "private": true,
   "type": "module",

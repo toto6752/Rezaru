@@ -1,4 +1,4 @@
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 import { SettingsForm } from "@/components/settings-form";
 import { requireWorkspace } from "@/lib/workspace";
 

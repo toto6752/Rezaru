@@ -2,7 +2,7 @@ import { withApi } from "@/lib/api";
 import { writeAuditLog } from "@/lib/audit";
 import { getStripe, stripePrice } from "@/lib/stripe";
 import { assertPermission, requireWorkspace } from "@/lib/workspace";
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 import { z } from "zod";
 
 const schema = z.object({ plan: z.enum(["PRO", "TEAM"]), interval: z.enum(["monthly", "annual"]) });

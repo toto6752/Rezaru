@@ -1,5 +1,5 @@
-import { PLAN_LIMITS, type PlanKey } from "@outcomeos/config";
-import { prisma } from "@outcomeos/database";
+import { PLAN_LIMITS, type PlanKey } from "@rezaru/config";
+import { prisma } from "@rezaru/database";
 
 export async function getWorkspaceUsage(workspaceId: string) {
   const now = new Date();

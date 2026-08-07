@@ -1,6 +1,6 @@
 "use client";
 
-import type { WorkflowDefinition } from "@outcomeos/workflow-schema";
+import type { WorkflowDefinition } from "@rezaru/workflow-schema";
 import {
   Background, Controls, Handle, MarkerType, Position, ReactFlow, type Edge, type Node, type NodeProps
 } from "@xyflow/react";

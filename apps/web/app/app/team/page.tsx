@@ -1,4 +1,4 @@
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 import { TeamManager } from "@/components/team-manager";
 import { requireWorkspace } from "@/lib/workspace";
 

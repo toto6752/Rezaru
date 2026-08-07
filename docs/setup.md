@@ -17,11 +17,11 @@ pnpm db:seed
 pnpm dev
 ```
 
-`docker compose up -d` starts PostgreSQL 16, Redis 7, and MinIO. The `minio-init` service creates the `outcomeos` bucket. `pnpm dev` runs both the Next.js application and BullMQ worker through Turborepo.
+`docker compose up -d` starts PostgreSQL 16, Redis 7, and MinIO. The `minio-init` service creates the `rezaru` bucket. `pnpm dev` runs both the Next.js application and BullMQ worker through Turborepo.
 
 ## Demo workspace
 
-Set `DEMO_AUTH_BYPASS=true` only in local development, then open `/app`. The bypass resolves the seeded `demo@outcomeos.local` membership dynamically. Set it back to `false` to verify registration and session behavior.
+Set `DEMO_AUTH_BYPASS=true` only in local development, then open `/app`. The bypass resolves the seeded `demo@rezaru.local` membership dynamically. Set it back to `false` to verify registration and session behavior.
 
 ## Health checks
 

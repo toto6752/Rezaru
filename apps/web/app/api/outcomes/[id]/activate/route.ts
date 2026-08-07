@@ -2,8 +2,8 @@ import { withApi } from "@/lib/api";
 import { writeAuditLog } from "@/lib/audit";
 import { getWorkspaceUsage } from "@/lib/limits";
 import { assertPermission, requireWorkspace } from "@/lib/workspace";
-import { prisma } from "@outcomeos/database";
-import { validateWorkflow } from "@outcomeos/workflow-schema";
+import { prisma } from "@rezaru/database";
+import { validateWorkflow } from "@rezaru/workflow-schema";
 import { scheduleOutcome } from "@/lib/queue";
 
 export async function POST(_request: Request, { params }: { params: Promise<{ id: string }> }) {

@@ -2,8 +2,8 @@ import { withApi } from "@/lib/api";
 import { writeAuditLog } from "@/lib/audit";
 import { encryptCredentials } from "@/lib/encryption";
 import { assertPermission, requireWorkspace } from "@/lib/workspace";
-import { getConnector } from "@outcomeos/connectors";
-import { prisma } from "@outcomeos/database";
+import { getConnector } from "@rezaru/connectors";
+import { prisma } from "@rezaru/database";
 import { z } from "zod";
 
 const createSchema = z.object({

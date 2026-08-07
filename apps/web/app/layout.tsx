@@ -6,13 +6,13 @@ import { Providers } from "@/components/providers";
 
 export const metadata: Metadata = {
   title: {
-    default: "OutcomeOS — Automation without workflows",
-    template: "%s · OutcomeOS"
+    default: "Rezaru — Automation without workflows",
+    template: "%s · Rezaru"
   },
-  description: "Describe the outcome. OutcomeOS builds, runs, fixes, and improves the automation.",
+  description: "Describe the outcome. Rezaru builds, runs, fixes, and improves the automation.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"),
   openGraph: {
-    title: "OutcomeOS — Automation without workflows",
+    title: "Rezaru — Automation without workflows",
     description: "Describe the outcome. AI builds the automation.",
     type: "website"
   },

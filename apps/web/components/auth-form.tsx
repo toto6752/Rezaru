@@ -100,13 +100,13 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
         </>}
         <p className="auth-switch">
           {mode === "register" ? <>Already have an account? <Link href="/login">Sign in</Link></> :
-           mode === "login" ? <>New to OutcomeOS? <Link href="/register">Start free</Link></> :
+           mode === "login" ? <>New to Rezaru? <Link href="/register">Start free</Link></> :
            <Link href="/login">Return to sign in</Link>}
         </p>
       </section>
       <aside className="auth-aside">
         <div className="auth-quote">
-          <span>OUTCOMEOS</span>
+          <span>REZARU</span>
           <blockquote>“The workflow is implementation detail. The outcome is the product.”</blockquote>
           <div className="auth-mini-plan">
             {["Describe what should happen", "Review the generated plan", "Activate with confidence"].map((item, index) => <div key={item}><i>{index + 1}</i><span>{item}</span></div>)}

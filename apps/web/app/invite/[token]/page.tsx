@@ -1,4 +1,4 @@
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 import { Users } from "lucide-react";
 import Link from "next/link";
 import { Logo } from "@/components/logo";

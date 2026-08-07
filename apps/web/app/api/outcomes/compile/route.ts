@@ -1,4 +1,4 @@
-import { compileOutcome } from "@outcomeos/ai-compiler";
+import { compileOutcome } from "@rezaru/ai-compiler";
 import { withApi } from "@/lib/api";
 import { assertRateLimit } from "@/lib/rate-limit";
 import { assertPermission, requireWorkspace } from "@/lib/workspace";

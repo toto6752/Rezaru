@@ -1,6 +1,6 @@
 # Billing configuration
 
-OutcomeOS uses Stripe Checkout, the customer portal, subscription webhooks, server-side plan enforcement, and usage records.
+Rezaru uses Stripe Checkout, the customer portal, subscription webhooks, server-side plan enforcement, and usage records.
 
 Create monthly and annual recurring prices for Pro and Team, then configure:
 

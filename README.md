@@ -1,6 +1,6 @@
-# OutcomeOS
+# Rezaru
 
-OutcomeOS is an AI-native business automation platform built around one idea:
+Rezaru is an AI-native business automation platform built around one idea:
 
 > Describe the outcome. AI handles the workflow.
 

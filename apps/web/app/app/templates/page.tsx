@@ -1,4 +1,4 @@
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 import { TemplateLibrary } from "@/components/template-library";
 import { requireWorkspace } from "@/lib/workspace";
 

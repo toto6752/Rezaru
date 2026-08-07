@@ -32,7 +32,7 @@ export function OnboardingForm({ workspaceName }: { workspaceName: string }) {
     <div className="onboarding-card">
       <div className="onboarding-icon"><Sparkles size={21} /></div>
       <span className="page-eyebrow">WELCOME TO {workspaceName.toUpperCase()}</span>
-      <h1>Make OutcomeOS useful<br />from the first run.</h1>
+      <h1>Make Rezaru useful<br />from the first run.</h1>
       <p>Tell us a little about your team. We’ll suggest outcomes—not generic workflows.</p>
       <div className="onboarding-fields">
         <label>What do you want to automate?<textarea value={outcome} onChange={(event) => setOutcome(event.target.value)} placeholder="For example: Route new website leads to our CRM and notify sales." /></label>

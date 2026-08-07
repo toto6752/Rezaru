@@ -1,4 +1,4 @@
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 import { KeyRound, LockKeyhole, ScrollText, ShieldCheck } from "lucide-react";
 import { requireWorkspace } from "@/lib/workspace";
 

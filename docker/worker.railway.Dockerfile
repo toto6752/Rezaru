@@ -15,4 +15,4 @@ RUN pnpm db:generate
 ENV NODE_ENV=production
 ENV WORKER_HEALTH_PORT=3001
 EXPOSE 3001
-CMD ["pnpm", "--filter", "@outcomeos/worker", "start"]
+CMD ["pnpm", "--filter", "@rezaru/worker", "start"]

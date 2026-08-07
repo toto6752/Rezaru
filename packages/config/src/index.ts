@@ -3,7 +3,7 @@ import { createCipheriv, createDecipheriv, createHash, randomBytes, timingSafeEq
 
 const environmentSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
-  DATABASE_URL: z.string().min(1).default("postgresql://outcomeos:outcomeos@localhost:5432/outcomeos"),
+  DATABASE_URL: z.string().min(1).default("postgresql://rezaru:rezaru@localhost:5432/rezaru"),
   REDIS_URL: z.string().url().default("redis://localhost:6379"),
   BETTER_AUTH_SECRET: z.string().min(16).default("development-only-secret-change-me"),
   BETTER_AUTH_URL: z.string().url().default("http://localhost:3000"),

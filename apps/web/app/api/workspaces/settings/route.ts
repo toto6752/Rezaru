@@ -1,7 +1,7 @@
 import { withApi } from "@/lib/api";
 import { writeAuditLog } from "@/lib/audit";
 import { assertPermission, requireWorkspace } from "@/lib/workspace";
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 import { z } from "zod";
 
 const schema = z.object({ name: z.string().min(2).max(80), department: z.string().max(50).optional(), companySize: z.string().max(30).optional() });

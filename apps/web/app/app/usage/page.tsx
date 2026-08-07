@@ -1,4 +1,4 @@
-import { usageLevel } from "@outcomeos/config";
+import { usageLevel } from "@rezaru/config";
 import { Activity, Bot, Database, Gauge, Plug, Users, Zap } from "lucide-react";
 import Link from "next/link";
 import { getWorkspaceUsage } from "@/lib/limits";
@@ -22,6 +22,6 @@ export default async function UsagePage() {
       <UsageMeter label="AI credits" used={usage.used.aiCredits} limit={usage.limits.aiCredits} icon={Bot} />
       <UsageMeter label="Team members" used={usage.used.members} limit={usage.limits.members} icon={Users} />
     </div>
-    <div className="usage-notice"><Plug size={17} /><div><b>Plan limits are enforced on the server</b><p>OutcomeOS never deletes outcomes when a limit is reached. New excess executions pause and surface an upgrade request.</p></div></div>
+    <div className="usage-notice"><Plug size={17} /><div><b>Plan limits are enforced on the server</b><p>Rezaru never deletes outcomes when a limit is reached. New excess executions pause and surface an upgrade request.</p></div></div>
   </div>;
 }

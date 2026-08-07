@@ -1,4 +1,4 @@
-import { newRequestId } from "@outcomeos/observability";
+import { newRequestId } from "@rezaru/observability";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 

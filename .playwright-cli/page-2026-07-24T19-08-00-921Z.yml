@@ -1,8 +1,8 @@
 - generic [ref=f3e2]:
   - complementary [ref=f3e3]:
-    - link "OutcomeOS home" [ref=f3e5] [cursor=pointer]:
+    - link "Rezaru home" [ref=f3e5] [cursor=pointer]:
       - /url: /app
-      - generic [ref=f3e10]: OutcomeOS
+      - generic [ref=f3e10]: Rezaru
     - button "NO Northstar Operations owner" [ref=f3e11] [cursor=pointer]:
       - generic [ref=f3e12]: "NO"
       - generic [ref=f3e13]:
@@ -72,7 +72,7 @@
               - generic [ref=f3e143]: ONLINE
             - generic [ref=f3e144]:
               - generic [ref=f3e150]:
-                - generic [ref=f3e151]: OutcomeOS
+                - generic [ref=f3e151]: Rezaru
                 - paragraph [ref=f3e152]: Describe the business result you want. I’ll identify the trigger, actions, required connections, and only ask questions that block a safe plan.
               - generic [ref=f3e153]:
                 - generic [ref=f3e154]: TRY AN EXAMPLE
@@ -94,4 +94,4 @@
               - tab "Versions" [ref=f3e200] [cursor=pointer]
             - generic [ref=f3e206]:
               - heading "Your plan will appear here" [level=2] [ref=f3e211]
-              - paragraph [ref=f3e212]: OutcomeOS will translate the business objective into a human-readable plan, connection requirements, and a validated technical workflow.
+              - paragraph [ref=f3e212]: Rezaru will translate the business objective into a human-readable plan, connection requirements, and a validated technical workflow.

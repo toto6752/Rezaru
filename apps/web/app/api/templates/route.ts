@@ -1,6 +1,6 @@
 import { withApi } from "@/lib/api";
 import { requireWorkspace } from "@/lib/workspace";
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 import { z } from "zod";
 
 const querySchema = z.object({ department: z.string().optional(), search: z.string().optional() });

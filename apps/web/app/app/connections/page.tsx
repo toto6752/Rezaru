@@ -1,5 +1,5 @@
-import { listConnectors } from "@outcomeos/connectors";
-import { prisma } from "@outcomeos/database";
+import { listConnectors } from "@rezaru/connectors";
+import { prisma } from "@rezaru/database";
 import { ConnectionMarketplace } from "@/components/connection-marketplace";
 import { requireWorkspace } from "@/lib/workspace";
 

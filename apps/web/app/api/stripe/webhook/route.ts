@@ -1,5 +1,5 @@
 import { getStripe } from "@/lib/stripe";
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 import type Stripe from "stripe";
 
 export async function POST(request: Request) {

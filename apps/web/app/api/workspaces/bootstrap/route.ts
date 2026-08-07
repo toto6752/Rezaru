@@ -1,7 +1,7 @@
 import { withApi } from "@/lib/api";
 import { auth } from "@/lib/auth";
 import { writeAuditLog } from "@/lib/audit";
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 import { headers } from "next/headers";
 import { z } from "zod";
 

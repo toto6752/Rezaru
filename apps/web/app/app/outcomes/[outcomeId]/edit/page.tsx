@@ -1,5 +1,5 @@
-import type { CompilationResult } from "@outcomeos/workflow-schema";
-import { prisma } from "@outcomeos/database";
+import type { CompilationResult } from "@rezaru/workflow-schema";
+import { prisma } from "@rezaru/database";
 import { notFound } from "next/navigation";
 import { OutcomeComposer } from "@/components/outcome-composer";
 import { requireWorkspace } from "@/lib/workspace";

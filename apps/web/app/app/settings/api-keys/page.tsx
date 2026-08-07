@@ -1,4 +1,4 @@
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 import { ApiKeyManager } from "@/components/api-key-manager";
 import { requireWorkspace } from "@/lib/workspace";
 

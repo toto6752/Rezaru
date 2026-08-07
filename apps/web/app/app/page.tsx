@@ -1,4 +1,4 @@
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 import { ArrowRight, CheckCircle2, Clock3, Sparkles, TriangleAlert, Zap } from "lucide-react";
 import Link from "next/link";
 import { requireWorkspace } from "@/lib/workspace";
@@ -23,7 +23,7 @@ export default async function DashboardPage() {
   return (
     <div className="dashboard">
       <header className="page-header dashboard-header">
-        <div><span className="page-eyebrow">OPERATIONS OVERVIEW</span><h1>Good {new Date().getHours() < 12 ? "morning" : new Date().getHours() < 18 ? "afternoon" : "evening"}.</h1><p>{context.workspaceName} is operating normally. Here’s what OutcomeOS handled.</p></div>
+        <div><span className="page-eyebrow">OPERATIONS OVERVIEW</span><h1>Good {new Date().getHours() < 12 ? "morning" : new Date().getHours() < 18 ? "afternoon" : "evening"}.</h1><p>{context.workspaceName} is operating normally. Here’s what Rezaru handled.</p></div>
         <Link className="button button-primary" href="/app/outcomes/new"><Zap size={15} /> Create outcome</Link>
       </header>
 
@@ -69,7 +69,7 @@ export default async function DashboardPage() {
         <div className="dashboard-panel suggestion-panel">
           <div className="panel-heading"><div><h2>AI improvements</h2><p>Evidence-backed suggestions for your approval.</p></div></div>
           {suggestions.length ? suggestions.map((suggestion) => <div key={suggestion.id}><Sparkles size={16} /><span><b>{suggestion.title}</b><small>{suggestion.description}</small></span></div>) :
-            <div className="all-clear"><Sparkles size={22} /><b>Learning from execution history</b><p>Suggestions appear when OutcomeOS has enough evidence to recommend a change.</p></div>}
+            <div className="all-clear"><Sparkles size={22} /><b>Learning from execution history</b><p>Suggestions appear when Rezaru has enough evidence to recommend a change.</p></div>}
         </div>
       </section>
     </div>

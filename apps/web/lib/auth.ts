@@ -1,4 +1,4 @@
-import { prisma } from "@outcomeos/database";
+import { prisma } from "@rezaru/database";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { magicLink } from "better-auth/plugins";
@@ -34,7 +34,7 @@ async function sendEmail(message: { to: string; subject: string; text: string })
       "content-type": "application/json",
       ...(process.env.EMAIL_API_KEY ? { authorization: `Bearer ${process.env.EMAIL_API_KEY}` } : {})
     },
-    body: JSON.stringify({ ...message, from: process.env.EMAIL_FROM ?? "OutcomeOS <hello@localhost>" })
+    body: JSON.stringify({ ...message, from: process.env.EMAIL_FROM ?? "Rezaru <hello@localhost>" })
   });
   if (!response.ok) {
     throw new Error(`Email delivery failed (${response.status}): ${await response.text()}`);
@@ -42,7 +42,7 @@ async function sendEmail(message: { to: string; subject: string; text: string })
 }
 
 export const auth = betterAuth({
-  appName: "OutcomeOS",
+  appName: "Rezaru",
   baseURL: process.env.BETTER_AUTH_URL ?? "http://localhost:3000",
   secret: process.env.BETTER_AUTH_SECRET ?? "development-only-secret-change-me",
   database: prismaAdapter(prisma, { provider: "postgresql" }),
@@ -52,7 +52,7 @@ export const auth = betterAuth({
     sendResetPassword: async ({ user, url }) => {
       await sendEmail({
         to: user.email,
-        subject: "Reset your OutcomeOS password",
+        subject: "Reset your Rezaru password",
         text: `Reset your password: ${url}`
       });
     }
@@ -62,7 +62,7 @@ export const auth = betterAuth({
     sendVerificationEmail: async ({ user, url }) => {
       await sendEmail({
         to: user.email,
-        subject: "Verify your OutcomeOS email",
+        subject: "Verify your Rezaru email",
         text: `Verify your email: ${url}`
       });
     }
@@ -80,8 +80,8 @@ export const auth = betterAuth({
       sendMagicLink: async ({ email, url }) => {
         await sendEmail({
           to: email,
-          subject: "Your OutcomeOS sign-in link",
-          text: `Sign in to OutcomeOS: ${url}`
+          subject: "Your Rezaru sign-in link",
+          text: `Sign in to Rezaru: ${url}`
         });
       }
     })

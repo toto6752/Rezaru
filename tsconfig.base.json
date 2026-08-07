@@ -14,14 +14,14 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@outcomeos/database": ["packages/database/src/index.ts"],
-      "@outcomeos/workflow-schema": ["packages/workflow-schema/src/index.ts"],
-      "@outcomeos/execution-engine": ["packages/execution-engine/src/index.ts"],
-      "@outcomeos/ai-compiler": ["packages/ai-compiler/src/index.ts"],
-      "@outcomeos/connectors": ["packages/connectors/src/index.ts"],
-      "@outcomeos/ui": ["packages/ui/src/index.ts"],
-      "@outcomeos/config": ["packages/config/src/index.ts"],
-      "@outcomeos/observability": ["packages/observability/src/index.ts"]
+      "@rezaru/database": ["packages/database/src/index.ts"],
+      "@rezaru/workflow-schema": ["packages/workflow-schema/src/index.ts"],
+      "@rezaru/execution-engine": ["packages/execution-engine/src/index.ts"],
+      "@rezaru/ai-compiler": ["packages/ai-compiler/src/index.ts"],
+      "@rezaru/connectors": ["packages/connectors/src/index.ts"],
+      "@rezaru/ui": ["packages/ui/src/index.ts"],
+      "@rezaru/config": ["packages/config/src/index.ts"],
+      "@rezaru/observability": ["packages/observability/src/index.ts"]
     }
   }
 }
