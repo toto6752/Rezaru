@@ -1,13 +1,13 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Check, ChevronDown, Sparkles } from "lucide-react";
+import { ArrowRight, Check, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LangToggle } from "@/components/lang-toggle";
 import { Reveal } from "@/components/reveal";
 import { ChatPreview } from "@/components/chat-preview";
-import { brandIcons, type BrandIconKey } from "@/components/brand-icons";
+import { brandIcons, IconBuild, type BrandIconKey } from "@/components/brand-icons";
 import { copy, focusKeys, teamSizes, LANG_KEY, type FocusKey, type Lang } from "@/components/landing-copy";
 import { useEffect, useState } from "react";
 import { Logo } from "./logo";
@@ -199,7 +199,7 @@ export function LandingPage() {
                   </div>
                 </div>
 
-                <button className="button button-primary demo-generate" onClick={() => rebuild()}><Sparkles size={16} /> {t.builder.generate}</button>
+                <button className="button button-primary demo-generate" onClick={() => rebuild()}><IconBuild size={17} /> {t.builder.generate}</button>
               </div>
 
               <div className="demo-plan">
@@ -218,7 +218,7 @@ export function LandingPage() {
                       ))}
                     </motion.ol>
                   ) : (
-                    <div className="plan-loading"><Sparkles size={20} /><p>{t.builder.generate}…</p></div>
+                    <div className="plan-loading"><IconBuild size={22} /><p>{t.builder.generate}…</p></div>
                   )}
                 </AnimatePresence>
 

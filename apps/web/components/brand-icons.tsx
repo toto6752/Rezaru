@@ -93,6 +93,19 @@ export function IconLearns(props: IconProps) {
   );
 }
 
+/** Build / assemble — a spark forming inside the doorway. Replaces the stock
+ *  "AI sparkle", which every product in the category already uses. */
+export function IconBuild(props: IconProps) {
+  return (
+    <Frame {...props}>
+      <path d="M12 11v6" />
+      <path d="M9 14h6" />
+      <path d="M9.9 11.9l4.2 4.2" opacity=".5" />
+      <path d="M14.1 11.9l-4.2 4.2" opacity=".5" />
+    </Frame>
+  );
+}
+
 export const brandIcons = {
   knows: IconKnows,
   handoff: IconHandoff,
