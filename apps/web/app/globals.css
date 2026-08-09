@@ -2364,3 +2364,199 @@ input:focus, textarea:focus, select:focus {
 @media (min-width: 900px) {
   .pricing-grid article.popular { transform: translateY(-14px); }
 }
+
+/* ═══════════════════════════════════════════
+   Cinematic layer — glass, shine, grain.
+   Palette is Rezaru's own crimson, not the
+   blue of the brief it was adapted from.
+   ═══════════════════════════════════════════ */
+
+/* Fixed backdrop. No third-party video is hotlinked here; drop your own file
+   into /public and swap the gradient for a <video> when you have one. */
+.cinema-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(900px circle at 18% 12%, rgba(161, 16, 36, .20), transparent 60%),
+    radial-gradient(700px circle at 82% 78%, rgba(92, 5, 18, .28), transparent 62%),
+    radial-gradient(1200px circle at 50% 120%, rgba(224, 71, 90, .10), transparent 70%);
+  animation: cinema-drift 24s ease-in-out infinite alternate;
+}
+
+.cinema-bg video { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+
+@keyframes cinema-drift {
+  from { transform: scale(1) translateY(0); }
+  to { transform: scale(1.08) translateY(-2%); }
+}
+
+/* Vertical guide lines at the container edges. */
+.guide-line {
+  display: none;
+  position: fixed;
+  inset-block: 0;
+  width: 1px;
+  background: var(--line);
+  opacity: .55;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.guide-line--left { left: calc(50% - 36rem); }
+.guide-line--right { left: calc(50% + 36rem); }
+
+@media (min-width: 1200px) { .guide-line { display: block; } }
+
+/* Liquid glass: a hairline gradient rim drawn with a masked pseudo-element,
+   so the edge catches light at the top and bottom only. */
+.liquid-glass {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  background: rgba(255, 255, 255, .012);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(6px);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, .10);
+}
+
+.liquid-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, .45) 0%,
+    rgba(255, 255, 255, .15) 20%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, .15) 80%,
+    rgba(255, 255, 255, .45) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+:root[data-theme="light"] .liquid-glass {
+  background: rgba(62, 0, 12, .02);
+  box-shadow: inset 0 1px 1px rgba(62, 0, 12, .06);
+}
+
+:root[data-theme="light"] .liquid-glass::before {
+  background: linear-gradient(180deg,
+    rgba(139, 13, 26, .35) 0%, rgba(139, 13, 26, .12) 20%,
+    transparent 40%, transparent 60%,
+    rgba(139, 13, 26, .12) 80%, rgba(139, 13, 26, .35) 100%);
+}
+
+/* Shiny headline. */
+.shiny-text {
+  background-image: linear-gradient(to right,
+    #1a0509 0%, #5c0512 12.5%, #e0475a 32.5%, #ff7a88 50%,
+    #5c0512 67.5%, #1a0509 87.5%, #1a0509 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: url(#rz-noise);
+  animation: shiny 6s linear infinite;
+}
+
+:root[data-theme="light"] .shiny-text {
+  background-image: linear-gradient(to right,
+    #5c0512 0%, #8b0d1a 12.5%, #c9203a 32.5%, #e0475a 50%,
+    #8b0d1a 67.5%, #5c0512 87.5%, #5c0512 100%);
+}
+
+@keyframes shiny {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shiny-text { animation: none; }
+  .cinema-bg { animation: none; }
+}
+
+/* ── Pricing: watermark headline behind glass cards ── */
+.pricing-section { position: relative; overflow-x: clip; }
+
+.watermark {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 8px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.watermark span {
+  display: block;
+  font-family: var(--font-display-sans), sans-serif;
+  font-size: clamp(2.6rem, 9vw, 9rem);
+  font-weight: 800;
+  line-height: .9;
+  letter-spacing: -.05em;
+  filter: url(#rz-noise-soft);
+}
+
+.watermark .watermark-1 { color: var(--ink); opacity: .16; }
+
+.watermark .watermark-2 {
+  background: linear-gradient(to right, #1a0509 0%, #5c0512 25%, #e0475a 65%, #ff7a88 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  opacity: .5;
+}
+
+@media (max-width: 1024px) {
+  .watermark span { filter: none; }
+  .watermark .watermark-2 { background: none; -webkit-text-fill-color: var(--accent-lite); color: var(--accent-lite); opacity: .35; }
+}
+
+/* Glass pricing cards. */
+.pricing-grid article {
+  background: linear-gradient(135deg, rgba(0, 0, 0, .60), rgba(0, 0, 0, .32));
+  backdrop-filter: blur(14px) brightness(.94);
+  border-radius: 34px;
+  padding: 42px 26px;
+  transition: transform .6s var(--ease), border-color .6s var(--ease), background .6s var(--ease);
+}
+
+.pricing-grid article::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 255, 255, .10) 0%, rgba(255, 255, 255, 0) 50%);
+  pointer-events: none;
+}
+
+.pricing-grid article:hover {
+  border-color: var(--accent-lite);
+  transform: translateY(-12px) scale(1.01);
+}
+
+:root[data-theme="light"] .pricing-grid article {
+  background: linear-gradient(135deg, rgba(255, 248, 236, .82), rgba(255, 248, 236, .55));
+}
+
+/* ── Final CTA as a glass panel with a light well above it ── */
+.final-cta { position: relative; overflow: hidden; border-radius: 34px; }
+
+.final-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(600px circle at 50% 0%, rgba(224, 71, 90, .22), transparent 70%);
+  opacity: .55;
+  pointer-events: none;
+}

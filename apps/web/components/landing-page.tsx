@@ -83,6 +83,27 @@ export function LandingPage() {
 
   return (
     <div className="landing">
+      {/* Grain filters. Two strengths: one bites into the headline, one only
+          veils the watermark. */}
+      <svg width="0" height="0" aria-hidden="true" focusable="false" style={{ position: "absolute" }}>
+        <filter id="rz-noise">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
+          <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.35 0" />
+          <feComposite in2="SourceGraphic" operator="in" result="noise" />
+          <feBlend in="SourceGraphic" in2="noise" mode="multiply" />
+        </filter>
+        <filter id="rz-noise-soft">
+          <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="2" stitchTiles="stitch" />
+          <feComponentTransfer><feFuncA type="linear" slope="0.075" /></feComponentTransfer>
+          <feComposite in2="SourceGraphic" operator="in" result="noise" />
+          <feBlend in="SourceGraphic" in2="noise" mode="overlay" />
+        </filter>
+      </svg>
+
+      <div className="cinema-bg" aria-hidden="true" />
+      <div className="guide-line guide-line--left" aria-hidden="true" />
+      <div className="guide-line guide-line--right" aria-hidden="true" />
+
       <header className="landing-nav">
         <div className="landing-nav-inner">
           <Logo />
@@ -102,7 +123,7 @@ export function LandingPage() {
       <main>
         <section className="hero" id="product">
           <div className="eyebrow"><span className="eyebrow-dot" /> Automation without workflows</div>
-          <h1>Say what you need.<br /><em>It gets done by itself.</em></h1>
+          <h1>Say what you need.<br /><em className="shiny-text">It gets done by itself.</em></h1>
           <p className="hero-copy">Rezaru takes over the routine your team repeats every day — orders, invoices, replies, reminders. You describe the task once in plain words.</p>
           <div className="hero-actions">
             <Link className="button button-primary button-large" href="/register">Try it free <ArrowRight size={17} /></Link>
@@ -217,8 +238,12 @@ export function LandingPage() {
         </section>
 
         <section className="pricing-section section" id="pricing">
+          <div className="watermark" aria-hidden="true">
+            <span className="watermark-1">Say what you need.</span>
+            <span className="watermark-2">It gets done.</span>
+          </div>
           <div className="section-kicker">SIMPLE PRICING</div>
-          <h2>Start free. Scale by outcomes.</h2>
+          <h2>Start free. Pay when it saves you time.</h2>
           <div className="billing-toggle"><button className={!annual ? "active" : ""} onClick={() => setAnnual(false)}>Monthly</button><button className={annual ? "active" : ""} onClick={() => setAnnual(true)}>Annual <span>Save 20%</span></button></div>
           <div className="pricing-grid">
             {[
@@ -250,7 +275,7 @@ export function LandingPage() {
           </div>
         </section>
 
-        <section className="final-cta">
+        <section className="final-cta liquid-glass">
           <div className="final-pattern" aria-hidden="true" />
           <div className="section-kicker">YOUR NEXT AUTOMATION STARTS WITH A SENTENCE</div>
           <h2>Stop building workflows.<br />Start defining outcomes.</h2>
