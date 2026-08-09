@@ -3208,3 +3208,85 @@ input:focus, textarea:focus, select:focus {
   .calculator { padding: 26px 20px; }
   .calculator-volume { font-size: 36px; }
 }
+
+/* ═══════════════════════════════════════════
+   Hero backdrop — the arch that opens on scroll
+   ═══════════════════════════════════════════ */
+
+.hero-plain { position: relative; isolation: isolate; overflow: hidden; }
+.hero-plain > *:not(.hero-backdrop) { position: relative; z-index: 1; }
+
+.hero-backdrop {
+  position: absolute;
+  inset: -10% -10% 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-blobs {
+  position: absolute;
+  inset: 0;
+  will-change: transform, opacity;
+}
+
+/* Blur is declared once and never animated — animating a filter repaints
+   every frame and is what costs the frame budget. */
+.hero-blob {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  filter: blur(90px);
+}
+
+.hero-blob--cherry {
+  top: 6%;
+  left: 50%;
+  width: min(620px, 78vw);
+  aspect-ratio: 1;
+  margin-left: min(-310px, -39vw);
+  background: radial-gradient(circle, rgba(129, 1, 0, .85), transparent 68%);
+}
+
+.hero-blob--maroon {
+  top: 34%;
+  left: 22%;
+  width: min(460px, 62vw);
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(99, 0, 0, .8), transparent 66%);
+}
+
+.hero-blob--cream {
+  top: 30%;
+  right: 18%;
+  width: min(380px, 52vw);
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(237, 235, 221, .13), transparent 70%);
+}
+
+.hero-arch {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: min(720px, 92vw);
+  height: auto;
+  translate: -50% 0;
+  will-change: transform, opacity;
+}
+
+/* No motion: one still, soft wash. Same colours, nothing moves. */
+.hero-backdrop--still {
+  background:
+    radial-gradient(620px circle at 50% 18%, rgba(129, 1, 0, .38), transparent 68%),
+    radial-gradient(460px circle at 24% 52%, rgba(99, 0, 0, .30), transparent 66%),
+    radial-gradient(380px circle at 78% 46%, rgba(237, 235, 221, .07), transparent 70%);
+  filter: blur(40px);
+}
+
+/* The hero already carries its own backdrop, so the page-wide one steps aside
+   here and the headline keeps its contrast. */
+.hero-plain ~ * { position: relative; }
+
+:root[data-theme="light"] .hero-blob--cherry { background: radial-gradient(circle, rgba(129, 1, 0, .26), transparent 68%); }
+:root[data-theme="light"] .hero-blob--maroon { background: radial-gradient(circle, rgba(99, 0, 0, .20), transparent 66%); }
+:root[data-theme="light"] .hero-blob--cream { background: radial-gradient(circle, rgba(27, 23, 23, .06), transparent 70%); }

@@ -8,16 +8,18 @@ import { LangToggle } from "@/components/lang-toggle";
 import { Reveal } from "@/components/reveal";
 import { ChatPreview } from "@/components/chat-preview";
 import { DeviceFrame } from "@/components/device-frame";
+import { HeroBackdrop } from "@/components/hero-backdrop";
 import { demoMedia, howMedia } from "@/components/landing-media";
 import { brandIcons, type BrandIconKey } from "@/components/brand-icons";
 import { copy, plans, volumeStops, LANG_KEY, type Lang } from "@/components/landing-copy";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Logo } from "./logo";
 
 export function LandingPage() {
   const [lang, setLang] = useState<Lang>("ru");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [stop, setStop] = useState(3); // 300 conversations — the Starter ceiling
+  const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     try {
@@ -76,7 +78,8 @@ export function LandingPage() {
 
       <main>
         {/* ── 1. Hero ── */}
-        <section className="hero-plain" id="product">
+        <section className="hero-plain" id="product" ref={heroRef}>
+          <HeroBackdrop target={heroRef} />
           <h1>{t.hero.title1}<br /><em className="shiny-text">{t.hero.title2}</em></h1>
           <p className="hero-copy">{t.hero.copy}</p>
           <Link className="button button-primary button-large" href="/register">{t.hero.cta} <ArrowRight size={17} /></Link>
