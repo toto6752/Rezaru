@@ -6,6 +6,7 @@ import {
   Webhook, X, Zap
 } from "lucide-react";
 import Link from "next/link";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Logo } from "./logo";
@@ -57,7 +58,7 @@ export function AppShell({ children, workspaceName, userName, role, plan }: { ch
         <header className="app-topbar">
           <button className="mobile-menu" onClick={() => setMobileOpen(true)} aria-label="Open navigation"><Menu size={19} /></button>
           <div className="topbar-search"><BookOpen size={15} /><span>Search outcomes, executions, and docs…</span><kbd>⌘ K</kbd></div>
-          <div className="topbar-actions"><Link href="/app/settings/api-keys"><KeyRound size={16} /></Link><Link href="/app/settings/webhooks"><Webhook size={16} /></Link><Link className="button button-primary button-small" href="/app/outcomes/new"><Zap size={14} /> Create outcome</Link></div>
+          <div className="topbar-actions"><ThemeToggle /><Link href="/app/settings/api-keys"><KeyRound size={16} /></Link><Link href="/app/settings/webhooks"><Webhook size={16} /></Link><Link className="button button-primary button-small" href="/app/outcomes/new"><Zap size={14} /> Create outcome</Link></div>
         </header>
         <main className="app-content">{children}</main>
       </div>

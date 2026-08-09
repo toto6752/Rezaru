@@ -7,6 +7,7 @@ import {
   Play, RefreshCw, ShieldCheck, Sparkles, TimerReset, Users2, Webhook, X
 } from "lucide-react";
 import Link from "next/link";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { useMemo, useState } from "react";
 import { Logo } from "./logo";
 
@@ -101,6 +102,7 @@ export function LandingPage() {
             <a href="#pricing">Pricing</a>
           </nav>
           <div className="nav-actions">
+            <ThemeToggle />
             <Link className="nav-signin" href="/login">Sign in</Link>
             <Link className="button button-primary button-small" href="/register">Start free <ArrowRight size={15} /></Link>
           </div>
