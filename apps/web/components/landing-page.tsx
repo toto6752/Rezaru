@@ -2,9 +2,9 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  ArrowRight, BadgeCheck, Braces, Check, ChevronDown, Clock3,
-  GitBranch, Import, LifeBuoy, LockKeyhole, MessageSquare,
-  Play, RefreshCw, ShieldCheck, Sparkles, TimerReset, Users2, Webhook, X
+  ArrowRight, BadgeCheck, Check, ChevronDown, Clock3,
+  GitBranch, LifeBuoy, LockKeyhole, MessageSquare,
+  Play, RefreshCw, ShieldCheck, Sparkles, Users2, X
 } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -31,36 +31,27 @@ const demoExamples = [
 ];
 
 const features = [
-  [Sparkles, "AI Outcome Builder", "Turn a plain-language objective into a validated, executable plan."],
-  [RefreshCw, "Self-healing automations", "Detect recurring failures and propose a safer fix for approval."],
-  [LifeBuoy, "Plain-language debugging", "Understand what failed, why it matters, and what to do next."],
-  [Import, "n8n workflow importer", "Translate supported nodes and clearly flag what needs review."],
-  [TimerReset, "Execution monitoring", "Follow every run, retry, pause, cost, and output in one timeline."],
-  [LockKeyhole, "Secure credentials", "Keep encrypted connection secrets out of browsers and logs."],
-  [Users2, "Team workspaces", "Use role-based access for builders, operators, approvers, and viewers."],
-  [Braces, "Reusable templates", "Start from business outcomes—not generic node recipes."],
-  [BadgeCheck, "Human approval steps", "Pause sensitive actions until the right person approves them."],
-  [Webhook, "Webhooks and API", "Trigger outcomes from your product with signed endpoints and API keys."]
+  [Sparkles, "It builds itself", "Write what you want in a sentence. The automation is ready in minutes, not weeks."],
+  [RefreshCw, "It fixes itself", "When something breaks, Rezaru finds the cause and offers a fix. You just approve it."],
+  [LifeBuoy, "Answers in plain words", "No logs, no error codes. You read what happened the way you'd hear it from a colleague."],
+  [BadgeCheck, "You stay in control", "Payments, letters, anything sensitive waits for your yes before it runs."],
+  [Users2, "Your whole team", "Give each person exactly the access they need — no more, no less."],
+  [LockKeyhole, "Your data stays yours", "Passwords and keys are encrypted and never shown in the browser."]
 ];
 
 const templates = [
-  ["Sales", "Qualify and route inbound leads", "HubSpot · Slack", "4 hrs / week"],
-  ["Finance", "Process high-value invoices", "Stripe · AI · Approvals", "6 hrs / week"],
-  ["Support", "Triage customer support requests", "Gmail · Notion · AI", "8 hrs / week"],
-  ["Operations", "Onboard a new employee", "Google Sheets · Gmail", "3 hrs / hire"],
-  ["Revenue", "Recover failed payments", "Stripe · Gmail · HubSpot", "5 hrs / week"],
-  ["Marketing", "Monitor important company mentions", "HTTP · Slack · AI", "2 hrs / week"]
+  ["Sales", "Never lose an inbound lead", "Every request lands in your CRM and the right person hears about it", "4 hrs / week"],
+  ["Finance", "Catch problem invoices early", "Large or unusual invoices come to you for a decision before they're paid", "6 hrs / week"],
+  ["Support", "Answer customers faster", "Requests are sorted, routed, and the urgent ones surface first", "8 hrs / week"],
+  ["Revenue", "Recover failed payments", "A declined card triggers a polite reminder instead of a silent lost sale", "5 hrs / week"]
 ];
 
 const faqs = [
-  ["How is Rezaru different from n8n?", "n8n starts from a workflow canvas. Rezaru starts from the business result, creates the technical workflow for you, and keeps it healthy. Developers can still inspect the generated flow."],
-  ["Can I import my existing workflows?", "Yes. Upload an n8n JSON export to get a compatibility report, credential mapping, converted plan, and a safe test before activation."],
-  ["Do I still control what the automation does?", "Always. You review the plan before activation, sensitive changes require approval, and every active workflow version is immutable and auditable."],
-  ["What happens when an execution fails?", "Rezaru retries safe failures, preserves step-level evidence, explains the error in plain language, and can propose a repair for your approval."],
-  ["How are credentials protected?", "Connection credentials are encrypted with authenticated encryption, stored separately from metadata, masked in logs, and never returned to the browser."],
-  ["Can Rezaru run inside our infrastructure?", "The Business plan supports private cloud and self-hosted deployment patterns. The repository includes a web service, durable worker, PostgreSQL, Redis, and S3-compatible storage."],
-  ["Which applications are supported?", "The starter connector set includes webhook, schedule, HTTP, Slack, Gmail, Sheets, PostgreSQL, AI, Notion, Stripe, HubSpot, delay, conditions, and transformations."],
-  ["Can developers inspect the generated workflow?", "Yes. A read-only technical flow and versioned JSON representation are available behind the outcome-first plan."]
+  ["Do I need to be technical?", "No. If you can describe the task to a new employee, you can set it up. Everything technical happens out of sight."],
+  ["How long until it works?", "The first automation usually takes a few minutes. You describe the result, check the plan, and switch it on."],
+  ["What if it does something wrong?", "It can't act on its own where it matters. You approve the plan before launch, and anything sensitive waits for your confirmation each time."],
+  ["Will it work with my tools?", "Yes, if you use the usual ones — mail, chat, spreadsheets, CRM, payments. If something is missing, tell us and we'll connect it."],
+  ["How much does it cost to try?", "Nothing. The free plan needs no card and includes enough runs to see whether it fits."]
 ];
 
 export function LandingPage() {
@@ -96,10 +87,8 @@ export function LandingPage() {
         <div className="landing-nav-inner">
           <Logo />
           <nav aria-label="Primary navigation">
-            <a href="#product">Product</a>
             <a href="#how">How it works</a>
-            <a href="#templates">Templates</a>
-            <a href="#migration">Migration</a>
+            <a href="#templates">Examples</a>
             <a href="#pricing">Pricing</a>
           </nav>
           <div className="nav-actions">
@@ -113,13 +102,13 @@ export function LandingPage() {
       <main>
         <section className="hero" id="product">
           <div className="eyebrow"><span className="eyebrow-dot" /> Automation without workflows</div>
-          <h1>Describe the outcome.<br /><em>AI builds the automation.</em></h1>
-          <p className="hero-copy">Rezaru creates, runs, fixes, and improves your business automations. No nodes, no JSON, no workflow engineering.</p>
+          <h1>Say what you need.<br /><em>It gets done by itself.</em></h1>
+          <p className="hero-copy">Rezaru takes over the routine your team repeats every day — orders, invoices, replies, reminders. You describe the task once in plain words.</p>
           <div className="hero-actions">
-            <Link className="button button-primary button-large" href="/register">Build your first outcome <ArrowRight size={17} /></Link>
-            <Link className="button button-secondary button-large" href="/app/import/n8n"><Import size={17} /> Import from n8n</Link>
+            <Link className="button button-primary button-large" href="/register">Try it free <ArrowRight size={17} /></Link>
+            <Link className="button button-secondary button-large" href="#how">See how it works</Link>
           </div>
-          <p className="hero-note"><Check size={14} /> Free plan · No card required · Demo mode included</p>
+          <p className="hero-note"><Check size={14} /> Free to start · No card required</p>
 
           <div className="demo-shell">
             <div className="demo-window-bar">
@@ -166,10 +155,9 @@ export function LandingPage() {
         </section>
 
         <section className="proof-strip">
-          <span>Built for operations teams</span><i />
-          <span>Designed for technical reliability</span><i />
-          <span>Compatible with your stack</span><i />
-          <span>Importable from n8n</span>
+          <span>Set up in minutes</span><i />
+          <span>No developer needed</span><i />
+          <span>Works with the tools you already use</span>
         </section>
 
         <section className="problem-section section">
@@ -207,35 +195,12 @@ export function LandingPage() {
         </section>
 
         <section className="feature-section section">
-          <div className="section-heading-row"><div><div className="section-kicker">BUILT TO OPERATE</div><h2>Everything between intent and outcome.</h2></div><p>The expressive power of a workflow platform, without forcing every user to think like a workflow engineer.</p></div>
+          <div className="section-heading-row"><div><div className="section-kicker">WHAT YOU GET</div><h2>Six things that save your week.</h2></div><p>No settings to learn, no diagrams to draw. You describe the task — the rest is our job.</p></div>
           <div className="feature-grid">
             {features.map(([Icon, title, copy], index) => {
               const IconComponent = Icon as typeof Sparkles;
               return <Reveal as="article" key={String(title)} delay={(index % 4) * 70}><IconComponent size={20} /><h3>{String(title)}</h3><p>{String(copy)}</p></Reveal>;
             })}
-          </div>
-        </section>
-
-        <section className="migration-section section" id="migration">
-          <div className="migration-copy">
-            <div className="section-kicker">MIGRATION, WITHOUT THE REBUILD</div>
-            <h2>Bring your n8n<br />workflows with you.</h2>
-            <p>Upload your export. Rezaru maps supported nodes, identifies gaps, and creates a testable outcome while preserving the original workflow for reference.</p>
-            <ul>
-              {["Upload an n8n JSON export", "Map existing credentials securely", "Identify unsupported or partial nodes", "Convert and test before activation"].map((item) => <li key={item}><Check size={15} />{item}</li>)}
-            </ul>
-            <Link className="button button-dark button-large" href="/app/import/n8n">Analyze my n8n workflow <ArrowRight size={16} /></Link>
-          </div>
-          <div className="compat-card">
-            <div className="compat-heading"><div><Import size={18} /><span>Lead routing.json</span></div><span>ANALYZED</span></div>
-            <div className="compat-score"><strong>92%</strong><div><b>Ready to convert</b><span>12 of 13 nodes supported</span></div></div>
-            <div className="compat-bar"><span /></div>
-            <div className="compat-rows">
-              <div><span className="compat-icon success"><Check size={13} /></span><p><b>10 supported nodes</b><small>Webhook, IF, Slack, HubSpot, Set…</small></p><BadgeCheck size={17} /></div>
-              <div><span className="compat-icon warning">!</span><p><b>2 partially supported</b><small>Expressions require review</small></p><ArrowRight size={17} /></div>
-              <div><span className="compat-icon neutral">?</span><p><b>1 manual review</b><small>Custom Code node is isolated</small></p><ArrowRight size={17} /></div>
-            </div>
-            <div className="compat-note"><LockKeyhole size={15} /><span>Your original JSON is preserved. Nothing runs until you approve and activate it.</span></div>
           </div>
         </section>
 
@@ -249,23 +214,6 @@ export function LandingPage() {
             ))}
           </div>
           <Link className="text-link" href="/app/templates">Explore all templates <ArrowRight size={15} /></Link>
-        </section>
-
-        <section className="compare-section section">
-          <div className="section-kicker">COMPARE APPROACHES</div>
-          <h2>Same power. A better starting point.</h2>
-          <div className="comparison-table" role="table" aria-label="Traditional workflow builders compared with Rezaru">
-            <div className="comparison-head" role="row"><span /><b>Traditional builders</b><strong><span className="mini-mark">O</span> Rezaru</strong></div>
-            {[
-              ["Setup", "Configure nodes and fields", "Describe the outcome"],
-              ["Maintenance", "Manual workflow upkeep", "AI-monitored improvements"],
-              ["Debugging", "Inspect technical logs", "Plain-language diagnosis"],
-              ["Technical knowledge", "Workflow concepts required", "Business context is enough"],
-              ["Optimization", "Manual analysis and edits", "Suggested fixes with impact"],
-              ["Migration", "Often rebuilt by hand", "n8n compatibility analysis"],
-              ["Business access", "Best for specialists", "Designed for operators"]
-            ].map(([label, old, outcome]) => <div role="row" key={label}><b>{label}</b><span><X size={14} />{old}</span><strong><Check size={14} />{outcome}</strong></div>)}
-          </div>
         </section>
 
         <section className="pricing-section section" id="pricing">
