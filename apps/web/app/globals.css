@@ -2308,3 +2308,59 @@ input:focus, textarea:focus, select:focus {
 @media (prefers-reduced-motion: reduce) {
   .hero::before { animation: none; }
 }
+
+/* ═══════════════════════════════════════════
+   Pass 3 — grids that were ruled tables, and
+   the ribbon spilling out of a rounded card.
+   ═══════════════════════════════════════════ */
+
+/* The feature grid drew a table: borders on the container plus right/bottom
+   on each cell. Adding a gap left every card with two sides. Give each one a
+   full border of its own instead. */
+.feature-grid {
+  border: 0;
+  gap: 18px;
+}
+
+.feature-grid article {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.how-grid { gap: 18px; }
+
+/* Pricing: siblings shared edges via border-left: 0, so the row read as one
+   block. Restore a full border per card and let them stand apart. */
+.pricing-grid {
+  gap: 18px;
+  align-items: start;
+}
+
+.pricing-grid article,
+.pricing-grid article + article {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.pricing-grid article.popular {
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.popular + article { border-left: 1px solid var(--line); }
+
+/* The ribbon is clipped by the card now, but round its own top corners too so
+   it still sits flush if a parent ever loses overflow: hidden. */
+.popular-label {
+  border-top-left-radius: calc(var(--radius) - 2px);
+  border-top-right-radius: calc(var(--radius) - 2px);
+}
+
+/* Featured card lifts by offset rather than by breaking the row. */
+.pricing-grid article.popular { margin-top: 0; }
+
+@media (min-width: 900px) {
+  .pricing-grid article.popular { transform: translateY(-14px); }
+}
