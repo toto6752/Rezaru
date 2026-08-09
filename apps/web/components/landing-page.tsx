@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Reveal } from "@/components/reveal";
 import { useMemo, useState } from "react";
 import { Logo } from "./logo";
 
@@ -198,9 +199,9 @@ export function LandingPage() {
               [MessageSquare, "01", "Describe the result.", "Say what should happen in business language. Rezaru asks only what it truly needs."],
               [GitBranch, "02", "Connect your tools.", "Review the generated plan and securely connect the applications it needs."],
               [Play, "03", "Let Rezaru run it.", "Test, activate, and follow every execution while AI watches for improvements."]
-            ].map(([Icon, number, title, copy]) => {
+            ].map(([Icon, number, title, copy], index) => {
               const IconComponent = Icon as typeof MessageSquare;
-              return <div className="how-card" key={String(number)}><span>{String(number)}</span><IconComponent size={24} /><h3>{String(title)}</h3><p>{String(copy)}</p></div>;
+              return <Reveal className="how-card" key={String(number)} delay={index * 70}><span>{String(number)}</span><IconComponent size={24} /><h3>{String(title)}</h3><p>{String(copy)}</p></Reveal>;
             })}
           </div>
         </section>
@@ -208,9 +209,9 @@ export function LandingPage() {
         <section className="feature-section section">
           <div className="section-heading-row"><div><div className="section-kicker">BUILT TO OPERATE</div><h2>Everything between intent and outcome.</h2></div><p>The expressive power of a workflow platform, without forcing every user to think like a workflow engineer.</p></div>
           <div className="feature-grid">
-            {features.map(([Icon, title, copy]) => {
+            {features.map(([Icon, title, copy], index) => {
               const IconComponent = Icon as typeof Sparkles;
-              return <article key={String(title)}><IconComponent size={20} /><h3>{String(title)}</h3><p>{String(copy)}</p></article>;
+              return <Reveal as="article" key={String(title)} delay={(index % 4) * 70}><IconComponent size={20} /><h3>{String(title)}</h3><p>{String(copy)}</p></Reveal>;
             })}
           </div>
         </section>
