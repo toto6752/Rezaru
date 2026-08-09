@@ -1,4 +1,4 @@
-import { BookOpen, CalendarCheck, Clock3, FileSpreadsheet, HandHelping, RefreshCw } from "lucide-react";
+import type { BrandIconKey } from "@/components/brand-icons";
 
 export type Lang = "ru" | "en";
 
@@ -110,12 +110,12 @@ export const copy = {
       title: "Шесть вещей, которые он делает за вас.",
       copy: "Не список технологий, а то, что вы увидите в первую неделю.",
       items: [
-        [BookOpen, "Знает ваш прайс и условия", "Загрузите цены, сроки и частые вопросы — отвечает по ним, а не выдумывает."],
-        [HandHelping, "Зовёт вас, когда не уверен", "Сложный вопрос или просьба позвать человека — разговор уходит вам, а не в пустоту."],
-        [CalendarCheck, "Записывает клиентов", "Предлагает свободное время, ставит запись в календарь и напоминает клиенту накануне."],
-        [FileSpreadsheet, "Собирает заявки в таблицу", "Имя, телефон, что просили — каждая заявка на месте, ни одна не теряется."],
-        [Clock3, "Отвечает ночью и в выходные", "Клиент пишет в два часа ночи и получает ответ сразу, а не утром."],
-        [RefreshCw, "Запоминает ваши правки", "Поправили ответ один раз — дальше отвечает так же."]
+        ["knows" as BrandIconKey, "Знает ваш прайс и условия", "Загрузите цены, сроки и частые вопросы — отвечает по ним, а не выдумывает."],
+        ["handoff" as BrandIconKey, "Зовёт вас, когда не уверен", "Сложный вопрос или просьба позвать человека — разговор уходит вам, а не в пустоту."],
+        ["booking" as BrandIconKey, "Записывает клиентов", "Предлагает свободное время, ставит запись в календарь и напоминает клиенту накануне."],
+        ["table" as BrandIconKey, "Собирает заявки в таблицу", "Имя, телефон, что просили — каждая заявка на месте, ни одна не теряется."],
+        ["night" as BrandIconKey, "Отвечает ночью и в выходные", "Клиент пишет в два часа ночи и получает ответ сразу, а не утром."],
+        ["learns" as BrandIconKey, "Запоминает ваши правки", "Поправили ответ один раз — дальше отвечает так же."]
       ]
     },
 
@@ -265,12 +265,12 @@ export const copy = {
       title: "Six things it handles for you.",
       copy: "Not a technology list — what you'll see in the first week.",
       items: [
-        [BookOpen, "Knows your prices and terms", "Upload prices, timings and common questions — it answers from those instead of inventing."],
-        [HandHelping, "Calls you when unsure", "A hard question, or a customer asking for a human — the conversation comes to you, not into a void."],
-        [CalendarCheck, "Books your clients", "Offers free slots, puts the booking in the calendar and reminds the client the day before."],
-        [FileSpreadsheet, "Collects enquiries into a table", "Name, phone, what they asked for — every enquiry in place, none lost."],
-        [Clock3, "Answers at night and on weekends", "A customer writes at 2am and gets an answer then, not in the morning."],
-        [RefreshCw, "Remembers your corrections", "Fix an answer once and it answers that way from then on."]
+        ["knows" as BrandIconKey, "Knows your prices and terms", "Upload prices, timings and common questions — it answers from those instead of inventing."],
+        ["handoff" as BrandIconKey, "Calls you when unsure", "A hard question, or a customer asking for a human — the conversation comes to you, not into a void."],
+        ["booking" as BrandIconKey, "Books your clients", "Offers free slots, puts the booking in the calendar and reminds the client the day before."],
+        ["table" as BrandIconKey, "Collects enquiries into a table", "Name, phone, what they asked for — every enquiry in place, none lost."],
+        ["night" as BrandIconKey, "Answers at night and on weekends", "A customer writes at 2am and gets an answer then, not in the morning."],
+        ["learns" as BrandIconKey, "Remembers your corrections", "Fix an answer once and it answers that way from then on."]
       ]
     },
 

@@ -2839,3 +2839,23 @@ input:focus, textarea:focus, select:focus {
   .pricing-grid--three { grid-template-columns: 1fr; }
   .channel-strip { margin: 0 18px; }
 }
+
+/* Brand icon plate — the doorway sits in a soft accent well. */
+.skill-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  color: var(--accent-lite);
+  transition: transform .38s var(--ease), background .38s var(--ease), color .38s var(--ease);
+}
+
+.feature-grid > article:hover .skill-icon {
+  transform: translateY(-2px) scale(1.06);
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.feature-grid > article h3 { margin-top: 18px; }

@@ -1,12 +1,13 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Check, ChevronDown, Clock3, Sparkles } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LangToggle } from "@/components/lang-toggle";
 import { Reveal } from "@/components/reveal";
 import { ChatPreview } from "@/components/chat-preview";
+import { brandIcons, type BrandIconKey } from "@/components/brand-icons";
 import { copy, focusKeys, teamSizes, LANG_KEY, type FocusKey, type Lang } from "@/components/landing-copy";
 import { useEffect, useState } from "react";
 import { Logo } from "./logo";
@@ -241,11 +242,11 @@ export function LandingPage() {
             <p>{t.skills.copy}</p>
           </div>
           <div className="feature-grid">
-            {t.skills.items.map(([Icon, title, text], index) => {
-              const IconComponent = Icon as typeof Clock3;
+            {t.skills.items.map(([icon, title, text], index) => {
+              const IconComponent = brandIcons[icon as BrandIconKey];
               return (
                 <Reveal as="article" key={String(title)} delay={(index % 3) * 70}>
-                  <IconComponent size={20} />
+                  <span className="skill-icon"><IconComponent size={26} /></span>
                   <h3>{String(title)}</h3>
                   <p>{String(text)}</p>
                 </Reveal>
