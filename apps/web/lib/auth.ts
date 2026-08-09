@@ -48,7 +48,11 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, { provider: "postgresql" }),
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: process.env.NODE_ENV === "production",
+    // Opt-in rather than tied to NODE_ENV. With verification on, better-auth
+    // issues no session at sign-up, so the workspace bootstrap call that runs
+    // right after registration has nothing to authenticate with and the
+    // account is stranded. Turn this on only once that flow is server-side.
+    requireEmailVerification: process.env.REQUIRE_EMAIL_VERIFICATION === "true",
     sendResetPassword: async ({ user, url }) => {
       await sendEmail({
         to: user.email,
@@ -58,7 +62,7 @@ export const auth = betterAuth({
     }
   },
   emailVerification: {
-    sendOnSignUp: process.env.NODE_ENV === "production",
+    sendOnSignUp: process.env.REQUIRE_EMAIL_VERIFICATION === "true",
     sendVerificationEmail: async ({ user, url }) => {
       await sendEmail({
         to: user.email,
