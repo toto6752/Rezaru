@@ -1063,9 +1063,9 @@ select:focus-visible {
 }
 
 .final-cta > *:not(.final-pattern) { position: relative; z-index: 1; }
-.final-cta .section-kicker { color: var(--accent-soft); }
+.final-cta .section-kicker { color: var(--on-accent); opacity: .78; }
 .final-cta h2 { margin: 17px 0; font-size: clamp(44px, 6vw, 68px); line-height: 1; letter-spacing: -.058em; }
-.final-cta p { max-width: 600px; margin: 0 0 28px; color: var(--accent-soft); font-size: 15px; line-height: 1.6; }
+.final-cta p { max-width: 600px; margin: 0 0 28px; color: var(--on-accent); opacity: .82; font-size: 15px; line-height: 1.6; }
 
 .landing-footer {
   min-height: 230px;
@@ -2552,7 +2552,7 @@ input:focus, textarea:focus, select:focus {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(600px circle at 50% 0%, rgba(224, 71, 90, .22), transparent 70%);
+  background: radial-gradient(600px circle at 50% 0%, var(--accent-soft), transparent 70%);
   opacity: .55;
   pointer-events: none;
 }
@@ -2957,3 +2957,19 @@ input:focus, textarea:focus, select:focus {
   .how-section .demo-shell { margin-top: 32px; }
   .pricing-grid { margin-top: 30px; }
 }
+
+/* Anything sitting on a Cherry or Maroon fill takes Cotton Cream, whatever
+   the more specific rule further up said. The wash tokens (--accent-soft and
+   friends) are backgrounds; used as a text colour they are all but invisible
+   against the fill they were mixed from. */
+.final-cta,
+.final-cta h2,
+.final-cta p,
+.final-cta .section-kicker,
+.button-primary,
+.popular-label {
+  color: var(--on-accent);
+}
+
+.final-cta .section-kicker { opacity: .78; }
+.final-cta p { opacity: .82; }
