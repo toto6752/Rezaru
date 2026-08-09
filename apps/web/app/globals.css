@@ -2147,3 +2147,164 @@ input:focus, textarea:focus, select:focus {
   .reveal { opacity: 1; transform: none; }
   html { scroll-behavior: auto; }
 }
+
+/* ═══════════════════════════════════════════
+   Pass 2 — the corners the first pass missed,
+   real breathing room, and stronger motion.
+   ═══════════════════════════════════════════ */
+
+/* ── Every remaining bordered container ── */
+.generated-plan,
+.list-toolbar,
+.outcome-card,
+.execution-live,
+.step-details,
+.dialog-content,
+.import-safety,
+.role-guide,
+.usage-meter,
+.billing-current,
+.side-executions,
+.aside-panel,
+.connection-tile,
+.template-tile,
+.plan-card,
+.invite-row,
+.member-row,
+.approval-card,
+.log-row,
+.report-card {
+  border-radius: var(--radius);
+}
+
+.execution-icon, .metric-icon, .compat-icon, .onboarding-icon,
+.chip, .badge, .tag, .pill, .status-pill, .avatar {
+  border-radius: 999px;
+}
+
+/* ── De-slab: these were one bordered plate with
+   internal dividers, which is why everything read
+   as fused. Each cell becomes its own card. ── */
+.metric-grid,
+.execution-metrics,
+.usage-summary {
+  border: 0;
+  background: transparent;
+  gap: 14px;
+}
+
+.metric-grid article,
+.execution-metrics > div,
+.usage-summary > div {
+  border: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.metric-grid article:last-child,
+.execution-metrics > div:last-child,
+.usage-summary > div:last-child {
+  border: 1px solid var(--line);
+}
+
+.execution-metrics > div,
+.usage-summary > div { padding: 0 18px; }
+
+/* ── Breathing room ── */
+.dashboard-grid { gap: 22px; margin-top: 24px; }
+.page-header { margin-bottom: 34px; }
+.metric-grid, .execution-metrics, .usage-summary { margin-bottom: 22px; }
+.feature-grid, .template-grid, .pricing-grid, .option-grid { gap: 18px; }
+.panel-heading { padding: 20px 22px; }
+.list-toolbar { margin-bottom: 18px; }
+.executions-table { margin-top: 20px; }
+.settings-page > * + * { margin-top: 20px; }
+
+/* ── Motion, dialled up ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(38px) scale(.97);
+  transition: opacity .8s var(--ease), transform .8s var(--ease);
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+
+@keyframes rz-rise {
+  from { opacity: 0; transform: translateY(26px) scale(.97); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes rz-glow {
+  0%, 100% { opacity: .5; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: .85; transform: translate(-50%, -50%) scale(1.15); }
+}
+
+/* Atmospheric glow behind the hero, in the brand crimson. */
+.hero { position: relative; isolation: isolate; }
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 32%;
+  left: 50%;
+  width: min(760px, 90vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow-1), var(--glow-2) 45%, transparent 70%);
+  filter: blur(70px);
+  animation: rz-glow 9s var(--ease) infinite;
+  pointer-events: none;
+}
+
+/* Panels rise on entry with a real stagger. */
+.dashboard-panel, .onboarding-card, .outcome-card, .usage-meter, .billing-current {
+  animation: rz-rise .6s var(--ease) both;
+}
+.dashboard-grid > *:nth-child(2) { animation-delay: .09s; }
+.dashboard-grid > *:nth-child(3) { animation-delay: .18s; }
+.metric-grid article:nth-child(1) { animation: rz-rise .6s var(--ease) both; }
+.metric-grid article:nth-child(2) { animation: rz-rise .6s .08s var(--ease) both; }
+.metric-grid article:nth-child(3) { animation: rz-rise .6s .16s var(--ease) both; }
+.metric-grid article:nth-child(4) { animation: rz-rise .6s .24s var(--ease) both; }
+
+/* Hover: scale plus glow, not just a nudge. */
+.dashboard-panel,
+.outcome-card,
+.metric-grid article,
+.feature-grid > article,
+.template-grid > a,
+.pricing-grid > article,
+.how-card,
+.usage-meter {
+  transition: transform .38s var(--ease), box-shadow .38s var(--ease), border-color .38s var(--ease);
+}
+
+.dashboard-panel:hover,
+.outcome-card:hover,
+.metric-grid article:hover,
+.feature-grid > article:hover,
+.template-grid > a:hover,
+.pricing-grid > article:hover,
+.how-card:hover,
+.usage-meter:hover {
+  transform: translateY(-6px) scale(1.012);
+  border-color: var(--accent-lite);
+  box-shadow: var(--shadow-lg), 0 0 0 1px var(--accent-soft);
+}
+
+/* Icons inside a hovered card come alive. */
+.dashboard-panel:hover .metric-icon,
+.metric-grid article:hover .metric-icon,
+.feature-grid > article:hover > svg,
+.how-card:hover > svg {
+  transform: scale(1.18) rotate(-8deg);
+  color: var(--accent-lite);
+}
+
+.feature-grid > article > svg, .how-card > svg {
+  transition: transform .38s var(--ease), color .38s var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero::before { animation: none; }
+}
