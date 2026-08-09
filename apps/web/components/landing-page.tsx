@@ -7,6 +7,8 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { LangToggle } from "@/components/lang-toggle";
 import { Reveal } from "@/components/reveal";
 import { ChatPreview } from "@/components/chat-preview";
+import { ShowcaseMedia } from "@/components/showcase-media";
+import { showcaseMedia } from "@/components/landing-media";
 import { brandIcons, IconBuild, type BrandIconKey } from "@/components/brand-icons";
 import { copy, focusKeys, teamSizes, LANG_KEY, type FocusKey, type Lang } from "@/components/landing-copy";
 import { useEffect, useState } from "react";
@@ -142,7 +144,11 @@ export function LandingPage() {
 
           <div className="showcase-stage liquid-glass">
             <p className="showcase-note">{t.showcase.scenarios[scenario]!.note}</p>
-            <ChatPreview key={scenario} messages={t.showcase.scenarios[scenario]!.messages} />
+            <ShowcaseMedia
+              media={showcaseMedia[scenario] ?? null}
+              messages={t.showcase.scenarios[scenario]!.messages}
+              scenarioKey={scenario}
+            />
           </div>
         </section>
 

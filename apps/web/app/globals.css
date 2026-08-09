@@ -2973,3 +2973,16 @@ input:focus, textarea:focus, select:focus {
 
 .final-cta .section-kicker { opacity: .78; }
 .final-cta p { opacity: .82; }
+
+/* Real screenshots and screencasts in the showcase. */
+.showcase-media { margin: 0; }
+
+.showcase-image,
+.showcase-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+}
