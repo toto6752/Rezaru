@@ -107,6 +107,10 @@ export function IconBuild(props: IconProps) {
 }
 
 export const brandIcons = {
+  channels: IconChannels,
+  voicePhoto: IconVoicePhoto,
+  memory: IconMemory,
+  languages: IconLanguages,
   knows: IconKnows,
   handoff: IconHandoff,
   booking: IconBooking,
@@ -116,3 +120,51 @@ export const brandIcons = {
 } as const;
 
 export type BrandIconKey = keyof typeof brandIcons;
+
+/** Answers around the clock across messengers — three arcs leaving the door. */
+export function IconChannels(props: IconProps) {
+  return (
+    <Frame {...props}>
+      <path d="M8.4 13.2h7.2" />
+      <path d="M8.4 16h4.6" />
+      <path d="M12 10.4v.9" opacity=".5" />
+    </Frame>
+  );
+}
+
+/** Understands voice notes and photos — a waveform beside a frame. */
+export function IconVoicePhoto(props: IconProps) {
+  return (
+    <Frame {...props}>
+      <path d="M9 12.6v3.4" />
+      <path d="M11 11.2v6.2" />
+      <path d="M13 12.9v2.8" />
+      <path d="M15 11.8v5" />
+    </Frame>
+  );
+}
+
+/** Remembers the thread — a spiral that keeps its centre. */
+export function IconMemory(props: IconProps) {
+  return (
+    <Frame {...props}>
+      <circle cx="12" cy="14.4" r="1.2" />
+      <path d="M12 11.3a3.1 3.1 0 1 1-3.1 3.1" />
+      <path d="M12 11.3V10" opacity=".5" />
+    </Frame>
+  );
+}
+
+/** Speaks more than one language — two strokes meeting. */
+export function IconLanguages(props: IconProps) {
+  return (
+    <Frame {...props}>
+      <path d="M8.6 11.6h5" />
+      <path d="M11.1 10.6v1" />
+      <path d="M12.6 11.6c-.4 2.4-2 4.2-4 5" />
+      <path d="M9.8 13.6c.7 1.6 2 2.6 3.6 3" />
+      <path d="M13.2 17.4l2-4 2 4" />
+      <path d="M13.9 16h2.6" opacity=".55" />
+    </Frame>
+  );
+}
