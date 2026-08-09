@@ -1,263 +1,292 @@
-import {
-  BadgeCheck, LifeBuoy, LockKeyhole, RefreshCw, Sparkles, Users2,
-  GitBranch, MessageSquare, Play
-} from "lucide-react";
+import { Clock3, FileSpreadsheet, MessageCircle, RefreshCw, ShieldCheck, Wallet } from "lucide-react";
 
 export type Lang = "ru" | "en";
 
 export const LANG_KEY = "rezaru-lang";
 
+/** Onboarding step 2 — how many people the agent works for. */
+export const teamSizes = ["1", "2–5", "10+"] as const;
+
+/** Onboarding step 3 — what the agent mainly does. */
+export const focusKeys = ["replies", "leads", "reports", "collect"] as const;
+export type FocusKey = (typeof focusKeys)[number];
+
 export const copy = {
   ru: {
-    nav: { how: "Как это работает", examples: "Примеры", pricing: "Тарифы", signin: "Войти", start: "Начать бесплатно" },
+    nav: { how: "Как это работает", examples: "Примеры", pricing: "Цены", signin: "Войти", start: "Собрать агента" },
+
     hero: {
-      eyebrow: "Автоматизация без схем и настроек",
-      title1: "Скажите, что нужно.",
-      title2: "Остальное сделается само.",
-      copy: "Rezaru берёт на себя рутину, которую ваша команда повторяет каждый день — заявки, счета, ответы, напоминания. Задачу вы описываете один раз обычными словами.",
-      cta: "Попробовать бесплатно",
-      secondary: "Посмотреть, как работает",
-      note: "Бесплатный старт · Без карты"
+      eyebrow: "Помощник, который отвечает за вас",
+      title1: "Соберите помощника",
+      title2: "за три шага.",
+      copy: "Ответьте на три вопроса — получите готового агента, который отвечает клиентам в Telegram, Instagram и WhatsApp. Менять можно всё, программировать не нужно.",
+      cta: "Собрать агента",
+      secondary: "Посмотреть, как это работает",
+      note: "Первые 200 сообщений бесплатно · Без карты"
     },
-    proof: ["Настройка за минуты", "Программист не нужен", "Работает с вашими сервисами"],
-    demo: {
-      title: "Конструктор задач",
-      live: "ИИ готов",
-      label: "Что должен делать ваш бизнес?",
-      generate: "Собрать план",
-      planKicker: "ГОТОВЫЙ ПЛАН",
-      validated: "Проверено"
+
+    proof: ["Готово за 5 минут", "Без программиста", "Работает в ваших мессенджерах"],
+
+    builder: {
+      title: "Сборка агента",
+      live: "Готов помочь",
+      step1: "Что должен делать помощник?",
+      step1Hint: "Напишите обычными словами",
+      step2: "Сколько человек в команде?",
+      step3: "Главная задача",
+      generate: "Собрать",
+      resultKicker: "ГОТОВЫЙ ШАБЛОН",
+      resultNote: "Любой шаг можно изменить или удалить",
+      connectors: "Подключить каналы",
+      examples: [
+        "Отвечать на вопросы о доставке и ценах",
+        "Собирать заявки с Instagram в таблицу",
+        "Присылать сводку заказов каждое утро"
+      ],
+      focus: {
+        replies: "Ответы клиентам",
+        leads: "Сбор заявок",
+        reports: "Отчёты и сводки",
+        collect: "Сбор данных"
+      },
+      plans: {
+        replies: ["Принять сообщение от клиента", "Понять, о чём спрашивают", "Ответить по вашим правилам", "Позвать вас, если вопрос сложный"],
+        leads: ["Принять обращение из мессенджера", "Уточнить имя и телефон", "Записать заявку в таблицу", "Сообщить вам о новой заявке"],
+        reports: ["Собрать данные за нужный период", "Посчитать итоги", "Составить короткую сводку", "Прислать её вам в мессенджер"],
+        collect: ["Открыть нужные страницы или файлы", "Достать оттуда нужные строки", "Разложить их по столбцам", "Сохранить в Excel или Google Таблицы"]
+      }
     },
-    problem: {
-      kicker: "ПРОЩЕ, ЧЕМ КАЖЕТСЯ",
-      title1: "Вам не нужно становиться",
-      title2: "инженером по автоматизации.",
-      copy: "Обычные конструкторы показывают вам механику. Rezaru даёт результат и берёт механику на себя.",
-      oldLabel: "КАК ОБЫЧНО",
-      oldSteps: ["Триггеры", "Блоки", "Условия", "JSON", "Отладка", "Поддержка"],
-      oldNote: "Времени на возню с инструментом больше, чем на само дело",
-      newLabel: "КАК В REZARU",
-      newSteps: ["Описали", "Проверили", "Включили"],
-      newNote: "Всё техническое собирается и работает само"
-    },
+
     how: {
       kicker: "КАК ЭТО РАБОТАЕТ",
-      title: "От слов до работающей задачи.",
-      copy: "Три шага для вас. Всё техническое — за кадром.",
+      title: "Три шага — и помощник работает.",
+      copy: "Ничего не устанавливаете и не настраиваете. Всё происходит в браузере.",
       steps: [
-        [MessageSquare, "01", "Опишите результат", "Скажите, что должно происходить, обычными словами. Rezaru спросит только то, что действительно нужно."],
-        [GitBranch, "02", "Подключите сервисы", "Посмотрите готовый план и безопасно подключите нужные приложения."],
-        [Play, "03", "Включите и забудьте", "Проверьте, запустите и следите за работой. ИИ сам заметит, что можно улучшить."]
+        ["01", "Ответьте на три вопроса", "Что должен делать помощник, сколько вас и какая задача главная. Обычными словами, без терминов."],
+        ["02", "Проверьте готовый шаблон", "Вы сразу видите, что помощник будет делать по шагам. Любой шаг можно поменять, добавить или убрать."],
+        ["03", "Подключите каналы", "Telegram, Instagram, WhatsApp или таблицу — за пару кликов. После этого помощник начинает отвечать."]
       ]
     },
+
+    connectors: {
+      kicker: "КУДА ПОДКЛЮЧАЕТСЯ",
+      title: "Туда, где вам уже пишут.",
+      copy: "Подключение занимает минуту и не требует ничего скачивать.",
+      items: [
+        [MessageCircle, "Telegram", "Отвечает в личных сообщениях и в группах"],
+        [MessageCircle, "Instagram", "Разбирает Direct и комментарии под постами"],
+        [MessageCircle, "WhatsApp", "Отвечает клиентам в рабочем номере"],
+        [FileSpreadsheet, "Excel и Google Таблицы", "Складывает заявки и данные в привычную таблицу"]
+      ]
+    },
+
     features: {
       kicker: "ЧТО ВЫ ПОЛУЧАЕТЕ",
-      title: "Шесть вещей, которые экономят неделю.",
-      copy: "Ничего не нужно изучать и никаких схем рисовать. Вы описываете задачу — остальное наша работа.",
+      title: "Что важно на практике.",
+      copy: "Не список возможностей, а то, с чем вы столкнётесь в первую неделю.",
       items: [
-        [Sparkles, "Собирается само", "Напишите одним предложением, что нужно. Автоматизация готова за минуты, а не за недели."],
-        [RefreshCw, "Чинится само", "Если что-то сломалось, Rezaru находит причину и предлагает решение. Вам остаётся согласиться."],
-        [LifeBuoy, "Отвечает по-человечески", "Никаких логов и кодов ошибок. Вы читаете то же, что услышали бы от коллеги."],
-        [BadgeCheck, "Решаете вы", "Платежи, письма и всё важное ждёт вашего «да», прежде чем произойти."],
-        [Users2, "Вся команда", "Каждому ровно тот доступ, который нужен — не больше и не меньше."],
-        [LockKeyhole, "Данные остаются вашими", "Пароли и ключи зашифрованы и никогда не показываются в браузере."]
+        [Clock3, "Отвечает круглосуточно", "Клиент пишет в час ночи — получает ответ сразу, а не утром."],
+        [MessageCircle, "Говорит вашими словами", "Загрузите прайс, условия доставки и частые вопросы. Помощник отвечает по ним, а не выдумывает."],
+        [ShieldCheck, "Зовёт вас, когда нужно", "Не уверен в ответе или клиент просит человека — передаёт разговор вам."],
+        [RefreshCw, "Учится на правках", "Поправили ответ — в следующий раз он ответит так же."],
+        [Wallet, "Платите за сообщения", "Нет абонентской платы за воздух. Тихий месяц — маленький счёт."],
+        [FileSpreadsheet, "Всё видно в таблице", "Каждая заявка и каждый разговор сохраняются, их можно выгрузить."]
       ]
     },
+
     templates: {
-      kicker: "ГОТОВЫЕ СЦЕНАРИИ",
-      title: "Начните с того, что правда отнимает время.",
-      copy: "Реальные рабочие ситуации, которые останется подстроить под себя.",
-      explore: "Посмотреть все сценарии",
+      kicker: "ПРИМЕРЫ",
+      title: "С чего начинают другие.",
+      copy: "Готовые помощники, которых остаётся подстроить под себя.",
+      explore: "Посмотреть все примеры",
       saves: "Экономит",
       items: [
-        ["Продажи", "Не терять ни одной заявки", "Каждое обращение попадает в CRM, и нужный человек сразу об этом узнаёт", "4 ч / неделю"],
-        ["Финансы", "Замечать проблемные счета", "Крупные и необычные счета приходят вам на решение до оплаты", "6 ч / неделю"],
-        ["Поддержка", "Отвечать клиентам быстрее", "Обращения разбираются по темам, срочные поднимаются наверх", "8 ч / неделю"],
-        ["Выручка", "Возвращать сорвавшиеся оплаты", "Отклонённая карта запускает вежливое напоминание вместо тихой потери", "5 ч / неделю"]
+        ["Магазин", "Отвечает про наличие и доставку", "Клиент спрашивает про размер и сроки — помощник отвечает сразу, вы подключаетесь только к сложным вопросам", "3 ч в день"],
+        ["Услуги", "Записывает клиентов", "Помощник уточняет удобное время, записывает в таблицу и напоминает клиенту накануне", "2 ч в день"],
+        ["Instagram", "Собирает заявки из Direct", "Каждое обращение попадает в таблицу с именем и телефоном, ни одно не теряется", "1,5 ч в день"],
+        ["Отчёты", "Присылает сводку по утрам", "Сколько заявок, сколько ответов, что осталось без внимания — коротким сообщением", "40 мин в день"]
       ]
     },
+
     pricing: {
-      watermark1: "Скажите, что нужно.",
-      watermark2: "Сделается само.",
-      kicker: "ПРОСТЫЕ ТАРИФЫ",
-      title: "Начните бесплатно. Платите, когда экономит время.",
-      monthly: "Помесячно",
-      annual: "На год",
-      save: "Выгода 20%",
+      watermark1: "Три шага.",
+      watermark2: "И он работает.",
+      kicker: "ЦЕНЫ",
+      title: "Платите за сообщения, а не за месяц.",
+      copy: "Тихий месяц — маленький счёт. Неиспользованные сообщения не сгорают.",
       month: "/ мес",
       custom: "По запросу",
-      contact: "Связаться",
+      contact: "Написать нам",
       startFree: "Начать бесплатно",
       choose: "Выбрать",
+      unit: "сообщений в месяц",
       plans: [
-        ["Бесплатно", 0, "Чтобы попробовать первые задачи", ["3 активные задачи", "500 запусков в месяц", "Базовые интеграции", "Поддержка сообщества"], false],
-        ["Pro", 39, "Для тех, кто автоматизирует всерьёз", ["20 активных задач", "10 000 запусков в месяц", "ИИ-конструктор", "Подробная история запусков", "Импорт из n8n", "Поддержка по почте"], true],
-        ["Команда", 149, "Для общей работы нескольких человек", ["100 активных задач", "50 000 запусков в месяц", "Общие рабочие пространства", "Шаги с подтверждением", "Общие подключения", "Приоритетная поддержка"], false],
-        ["Бизнес", null, "Когда нужен масштаб и свои правила", ["Повышенные лимиты", "Размещение в вашем контуре", "SSO и журнал действий", "Свои интеграции", "SLA"], false]
+        ["Проба", 0, "Чтобы посмотреть, как это работает", "200", ["Один помощник", "Все каналы", "Ответы по вашим материалам"], false],
+        ["Небольшой бизнес", 19, "Когда пишут несколько раз в час", "5 000", ["Три помощника", "Все каналы", "Выгрузка в Excel", "Поддержка по почте"], true],
+        ["Поток", 59, "Когда сообщений много каждый день", "25 000", ["Помощников сколько нужно", "Общий доступ для команды", "История всех разговоров", "Ответ поддержки за час"], false],
+        ["Больше", null, "Если сообщений больше 25 000", null, ["Своя цена за объём", "Отдельные условия", "Помощь при запуске"], false]
       ]
     },
+
     faq: {
-      kicker: "ЧАСТЫЕ ВОПРОСЫ",
+      kicker: "ВОПРОСЫ",
       title: "Коротко о главном.",
       items: [
-        ["Нужно ли разбираться в технике?", "Нет. Если вы можете объяснить задачу новому сотруднику — вы справитесь. Всё техническое происходит незаметно."],
-        ["Сколько ждать результата?", "Первая задача обычно занимает несколько минут. Описали результат, посмотрели план, включили."],
-        ["А если сделает что-то не то?", "Само по себе в важных местах ничего не произойдёт. План вы утверждаете до запуска, а всё чувствительное каждый раз ждёт вашего подтверждения."],
-        ["Подойдёт к моим сервисам?", "Да, если вы пользуетесь обычными — почта, мессенджеры, таблицы, CRM, платежи. Если чего-то не хватает, скажите, подключим."],
-        ["Сколько стоит попробовать?", "Нисколько. На бесплатном тарифе карта не нужна, а запусков хватает, чтобы понять, подходит ли."]
+        ["Нужно ли что-то уметь?", "Нет. Вы отвечаете на три вопроса обычными словами и правите готовый шаблон. Всё остальное происходит само."],
+        ["А если он ответит неправильно?", "Помощник отвечает только по тому, что вы загрузили. Если не уверен — не выдумывает, а зовёт вас. Любой ответ можно поправить, и он это запомнит."],
+        ["Сколько времени на запуск?", "Обычно около пяти минут: три вопроса, беглый взгляд на шаблон и подключение канала."],
+        ["Что если сообщений будет мало?", "Тогда и счёт будет маленький — вы платите за сообщения, а не за месяц. На пробном тарифе первые 200 бесплатны."],
+        ["Мои переписки в безопасности?", "Разговоры видите только вы. Доступы к мессенджерам хранятся в зашифрованном виде и не показываются в браузере."]
       ]
     },
+
     finalCta: {
-      kicker: "ВАША СЛЕДУЮЩАЯ ЗАДАЧА НАЧИНАЕТСЯ С ОДНОЙ ФРАЗЫ",
-      title1: "Хватит собирать схемы.",
-      title2: "Просто скажите, что нужно.",
-      copy: "Опишите, что требуется вашему делу. Всё между идеей и результатом Rezaru берёт на себя.",
-      cta: "Создать первую задачу"
-    }
+      kicker: "ТРИ ВОПРОСА — И ПОМОЩНИК ГОТОВ",
+      title1: "Проверьте на своей задаче.",
+      title2: "Это займёт пять минут.",
+      copy: "Первые 200 сообщений бесплатно. Карта не нужна, отказаться можно в любой момент.",
+      cta: "Собрать помощника"
+    },
+
+    footer: { tagline: "Помощник, который отвечает за вас.", product: "Продукт", contact: "Связаться" }
   },
 
   en: {
-    nav: { how: "How it works", examples: "Examples", pricing: "Pricing", signin: "Sign in", start: "Start free" },
+    nav: { how: "How it works", examples: "Examples", pricing: "Pricing", signin: "Sign in", start: "Build an agent" },
+
     hero: {
-      eyebrow: "Automation without workflows",
-      title1: "Say what you need.",
-      title2: "It gets done by itself.",
-      copy: "Rezaru takes over the routine your team repeats every day — orders, invoices, replies, reminders. You describe the task once in plain words.",
-      cta: "Try it free",
+      eyebrow: "An assistant that answers for you",
+      title1: "Build an assistant",
+      title2: "in three steps.",
+      copy: "Answer three questions and get a working agent that replies to customers on Telegram, Instagram and WhatsApp. Everything is editable. Nothing to code.",
+      cta: "Build an agent",
       secondary: "See how it works",
-      note: "Free to start · No card required"
+      note: "First 200 messages free · No card"
     },
-    proof: ["Set up in minutes", "No developer needed", "Works with the tools you already use"],
-    demo: {
-      title: "Outcome Builder",
-      live: "AI ready",
-      label: "What should your business do?",
-      generate: "Generate plan",
-      planKicker: "GENERATED PLAN",
-      validated: "Validated"
+
+    proof: ["Ready in 5 minutes", "No developer", "Works in your messengers"],
+
+    builder: {
+      title: "Agent builder",
+      live: "Ready to help",
+      step1: "What should the assistant do?",
+      step1Hint: "Write it in plain words",
+      step2: "How many people on the team?",
+      step3: "Main job",
+      generate: "Build it",
+      resultKicker: "READY TEMPLATE",
+      resultNote: "Every step can be changed or removed",
+      connectors: "Connect channels",
+      examples: [
+        "Answer questions about delivery and prices",
+        "Collect Instagram enquiries into a spreadsheet",
+        "Send an order summary every morning"
+      ],
+      focus: {
+        replies: "Customer replies",
+        leads: "Collecting enquiries",
+        reports: "Reports and summaries",
+        collect: "Gathering data"
+      },
+      plans: {
+        replies: ["Receive the customer's message", "Work out what they're asking", "Answer using your rules", "Call you in if the question is hard"],
+        leads: ["Receive the message from the messenger", "Ask for a name and a phone number", "Write the enquiry into a spreadsheet", "Tell you a new enquiry arrived"],
+        reports: ["Gather the data for the period", "Add up the totals", "Write a short summary", "Send it to your messenger"],
+        collect: ["Open the pages or files needed", "Pull out the rows that matter", "Sort them into columns", "Save to Excel or Google Sheets"]
+      }
     },
-    problem: {
-      kicker: "SIMPLER THAN IT LOOKS",
-      title1: "You should not need to become",
-      title2: "an automation engineer.",
-      copy: "Traditional builders expose the machinery. Rezaru gives you the result and handles the machinery itself.",
-      oldLabel: "THE OLD WAY",
-      oldSteps: ["Triggers", "Nodes", "Conditions", "JSON", "Debugging", "Maintenance"],
-      oldNote: "More time maintaining tools than doing the work",
-      newLabel: "THE REZARU WAY",
-      newSteps: ["Describe", "Review", "Activate"],
-      newNote: "Everything technical is built and run for you"
-    },
+
     how: {
       kicker: "HOW IT WORKS",
-      title: "From a sentence to working automation.",
-      copy: "Three steps for you. Everything technical stays behind the scenes.",
+      title: "Three steps and it's working.",
+      copy: "Nothing to install, nothing to configure. It all happens in the browser.",
       steps: [
-        [MessageSquare, "01", "Describe the result", "Say what should happen in plain words. Rezaru asks only what it truly needs."],
-        [GitBranch, "02", "Connect your tools", "Review the plan and securely connect the applications it needs."],
-        [Play, "03", "Switch it on", "Test, activate, and follow the work. AI watches for what could be better."]
+        ["01", "Answer three questions", "What the assistant should do, how many of you there are, and the main job. Plain words, no jargon."],
+        ["02", "Check the ready template", "You see exactly what the assistant will do, step by step. Change, add or remove any step."],
+        ["03", "Connect your channels", "Telegram, Instagram, WhatsApp or a spreadsheet, in a couple of clicks. Then it starts answering."]
       ]
     },
+
+    connectors: {
+      kicker: "WHERE IT PLUGS IN",
+      title: "Where people already write to you.",
+      copy: "Connecting takes a minute and there's nothing to download.",
+      items: [
+        [MessageCircle, "Telegram", "Answers in direct messages and in groups"],
+        [MessageCircle, "Instagram", "Handles Direct and comments under posts"],
+        [MessageCircle, "WhatsApp", "Answers customers on your work number"],
+        [FileSpreadsheet, "Excel and Google Sheets", "Files enquiries and data into the spreadsheet you already use"]
+      ]
+    },
+
     features: {
       kicker: "WHAT YOU GET",
-      title: "Six things that save your week.",
-      copy: "No settings to learn, no diagrams to draw. You describe the task — the rest is our job.",
+      title: "What actually matters.",
+      copy: "Not a feature list — the things you'll meet in the first week.",
       items: [
-        [Sparkles, "It builds itself", "Write what you want in a sentence. The automation is ready in minutes, not weeks."],
-        [RefreshCw, "It fixes itself", "When something breaks, Rezaru finds the cause and offers a fix. You just approve it."],
-        [LifeBuoy, "Answers in plain words", "No logs, no error codes. You read what happened the way you'd hear it from a colleague."],
-        [BadgeCheck, "You stay in control", "Payments, letters, anything sensitive waits for your yes before it runs."],
-        [Users2, "Your whole team", "Give each person exactly the access they need — no more, no less."],
-        [LockKeyhole, "Your data stays yours", "Passwords and keys are encrypted and never shown in the browser."]
+        [Clock3, "Answers around the clock", "A customer writes at 1am and gets an answer then, not in the morning."],
+        [MessageCircle, "Speaks in your words", "Upload your prices, delivery terms and common questions. It answers from those instead of inventing."],
+        [ShieldCheck, "Calls you when it should", "Unsure of the answer, or the customer asks for a human — it hands the conversation to you."],
+        [RefreshCw, "Learns from your edits", "Correct an answer once and it answers that way next time."],
+        [Wallet, "You pay per message", "No subscription for thin air. A quiet month is a small bill."],
+        [FileSpreadsheet, "Everything lands in a table", "Every enquiry and conversation is saved and can be exported."]
       ]
     },
+
     templates: {
-      kicker: "READY-MADE SCENARIOS",
-      title: "Start with what really eats your time.",
-      copy: "Real working situations, ready to adapt to your team.",
-      explore: "Explore all scenarios",
+      kicker: "EXAMPLES",
+      title: "Where others start.",
+      copy: "Ready-made assistants you only need to adjust.",
+      explore: "See all examples",
       saves: "Saves",
       items: [
-        ["Sales", "Never lose an inbound lead", "Every request lands in your CRM and the right person hears about it", "4 hrs / week"],
-        ["Finance", "Catch problem invoices early", "Large or unusual invoices come to you for a decision before they're paid", "6 hrs / week"],
-        ["Support", "Answer customers faster", "Requests are sorted, routed, and the urgent ones surface first", "8 hrs / week"],
-        ["Revenue", "Recover failed payments", "A declined card triggers a polite reminder instead of a silent lost sale", "5 hrs / week"]
+        ["Shop", "Answers on stock and delivery", "Customers ask about sizes and timing and get an answer at once — you only step in for the hard ones", "3 hrs a day"],
+        ["Services", "Books your clients", "It agrees a time, writes it into a spreadsheet and reminds the client the day before", "2 hrs a day"],
+        ["Instagram", "Collects Direct enquiries", "Every message lands in a table with a name and a phone number, none get lost", "1.5 hrs a day"],
+        ["Reports", "Sends a morning summary", "How many enquiries, how many answers, what's still unattended — in one short message", "40 min a day"]
       ]
     },
+
     pricing: {
-      watermark1: "Say what you need.",
-      watermark2: "It gets done.",
-      kicker: "SIMPLE PRICING",
-      title: "Start free. Pay when it saves you time.",
-      monthly: "Monthly",
-      annual: "Annual",
-      save: "Save 20%",
-      month: "/ month",
-      custom: "Custom",
-      contact: "Contact sales",
+      watermark1: "Three steps.",
+      watermark2: "And it works.",
+      kicker: "PRICING",
+      title: "Pay for messages, not for the month.",
+      copy: "A quiet month is a small bill. Unused messages don't expire.",
+      month: "/ mo",
+      custom: "On request",
+      contact: "Talk to us",
       startFree: "Start free",
       choose: "Choose",
+      unit: "messages a month",
       plans: [
-        ["Free", 0, "For trying your first tasks", ["3 active tasks", "500 monthly runs", "Basic integrations", "Community support"], false],
-        ["Pro", 39, "For people automating real work", ["20 active tasks", "10,000 monthly runs", "AI builder", "Detailed run history", "n8n import", "Email support"], true],
-        ["Team", 149, "For several people working together", ["100 active tasks", "50,000 monthly runs", "Shared workspaces", "Approval steps", "Shared connections", "Priority support"], false],
-        ["Business", null, "When you need scale and your own rules", ["Higher limits", "Deploy in your own cloud", "SSO and audit logs", "Custom integrations", "SLA"], false]
+        ["Trial", 0, "To see how it works", "200", ["One assistant", "All channels", "Answers from your materials"], false],
+        ["Small business", 19, "When people write a few times an hour", "5,000", ["Three assistants", "All channels", "Export to Excel", "Email support"], true],
+        ["Busy", 59, "When there are a lot of messages daily", "25,000", ["As many assistants as you need", "Shared access for the team", "Full conversation history", "Support within an hour"], false],
+        ["More", null, "If you're past 25,000 messages", null, ["Volume pricing", "Custom terms", "Help with launch"], false]
       ]
     },
+
     faq: {
-      kicker: "COMMON QUESTIONS",
+      kicker: "QUESTIONS",
       title: "The short answers.",
       items: [
-        ["Do I need to be technical?", "No. If you can describe the task to a new employee, you can set it up. Everything technical happens out of sight."],
-        ["How long until it works?", "The first task usually takes a few minutes. You describe the result, check the plan, and switch it on."],
-        ["What if it does something wrong?", "It can't act on its own where it matters. You approve the plan before launch, and anything sensitive waits for your confirmation each time."],
-        ["Will it work with my tools?", "Yes, if you use the usual ones — mail, chat, spreadsheets, CRM, payments. If something is missing, tell us and we'll connect it."],
-        ["How much does it cost to try?", "Nothing. The free plan needs no card and includes enough runs to see whether it fits."]
+        ["Do I need any skills?", "No. You answer three questions in plain words and adjust the template. Everything else happens on its own."],
+        ["What if it answers wrongly?", "It only answers from what you uploaded. When unsure it doesn't invent — it calls you. Correct any answer once and it remembers."],
+        ["How long does launch take?", "Usually about five minutes: three questions, a quick look at the template, and connecting a channel."],
+        ["What if there are few messages?", "Then the bill is small — you pay per message, not per month. The first 200 are free on the trial plan."],
+        ["Are my conversations safe?", "Only you see them. Messenger access is stored encrypted and never shown in the browser."]
       ]
     },
-    finalCta: {
-      kicker: "YOUR NEXT TASK STARTS WITH ONE SENTENCE",
-      title1: "Stop assembling workflows.",
-      title2: "Just say what you need.",
-      copy: "Describe what your business needs. Rezaru handles everything between the idea and the result.",
-      cta: "Create your first task"
-    }
-  }
-} as const;
 
-export const demoExamples = {
-  ru: [
-    {
-      label: "Разбор заявок",
-      prompt: "Когда приходит новая заявка, дополни её данными, добавь в CRM и сообщи в чат продаж.",
-      steps: ["Принять и проверить заявку", "Дополнить данными о компании", "Создать или обновить контакт в CRM", "Сообщить в чат продаж", "Записать результат"]
+    finalCta: {
+      kicker: "THREE QUESTIONS AND IT'S READY",
+      title1: "Try it on your own task.",
+      title2: "It takes five minutes.",
+      copy: "First 200 messages free. No card needed, stop whenever you like.",
+      cta: "Build an assistant"
     },
-    {
-      label: "Проверка счетов",
-      prompt: "Проверяй счета дороже 300 000 ₽ на странности и спрашивай подтверждение у финансов.",
-      steps: ["Принять счёт", "Сравнить с порогом 300 000 ₽", "Проверить необычные детали", "Запросить подтверждение", "Записать решение"]
-    },
-    {
-      label: "Сводка по продажам",
-      prompt: "Каждый понедельник собирай итоги продаж и отправляй руководителю.",
-      steps: ["Запуск в понедельник в 9:00", "Собрать показатели продаж", "Посчитать изменения за неделю", "Написать короткую сводку", "Отправить отчёт"]
-    }
-  ],
-  en: [
-    {
-      label: "Route new leads",
-      prompt: "When a new lead arrives, enrich it, add it to the CRM, and notify the sales chat.",
-      steps: ["Receive and validate the lead", "Enrich company information", "Create or update the CRM contact", "Notify the sales chat", "Record the result"]
-    },
-    {
-      label: "Review invoices",
-      prompt: "Check invoices over $5,000 for anomalies and ask finance for approval.",
-      steps: ["Receive the invoice", "Check the $5,000 threshold", "Analyze unusual details", "Request approval", "Record the decision"]
-    },
-    {
-      label: "Weekly sales brief",
-      prompt: "Every Monday, summarize sales performance and email the CEO.",
-      steps: ["Run Monday at 9:00 AM", "Query sales metrics", "Calculate week-over-week changes", "Write a short summary", "Email the report"]
-    }
-  ]
+
+    footer: { tagline: "An assistant that answers for you.", product: "Product", contact: "Contact" }
+  }
 } as const;
