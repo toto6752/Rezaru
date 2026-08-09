@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LangToggle } from "@/components/lang-toggle";
 import { Reveal } from "@/components/reveal";
+import { ChatPreview } from "@/components/chat-preview";
 import { copy, focusKeys, teamSizes, LANG_KEY, type FocusKey, type Lang } from "@/components/landing-copy";
 import { useEffect, useState } from "react";
 import { Logo } from "./logo";
@@ -15,8 +16,9 @@ export function LandingPage() {
   // localStorage in an effect keeps the server and first client render equal.
   const [lang, setLang] = useState<Lang>("ru");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [scenario, setScenario] = useState(0);
 
-  // The hero is the real onboarding: three answers, then a template.
+  // The builder is the real onboarding: three answers, then a template.
   const [task, setTask] = useState("");
   const [team, setTeam] = useState<string>(teamSizes[0]);
   const [focus, setFocus] = useState<FocusKey>("replies");
@@ -74,8 +76,8 @@ export function LandingPage() {
         <div className="landing-nav-inner">
           <Logo />
           <nav aria-label="Primary navigation">
+            <a href="#examples">{t.nav.examples}</a>
             <a href="#how">{t.nav.how}</a>
-            <a href="#templates">{t.nav.examples}</a>
             <a href="#pricing">{t.nav.pricing}</a>
           </nav>
           <div className="nav-actions">
@@ -88,15 +90,76 @@ export function LandingPage() {
       </header>
 
       <main>
-        <section className="hero" id="product">
-          <div className="eyebrow"><span className="eyebrow-dot" /> {t.hero.eyebrow}</div>
-          <h1>{t.hero.title1}<br /><em className="shiny-text">{t.hero.title2}</em></h1>
-          <p className="hero-copy">{t.hero.copy}</p>
-          <div className="hero-actions">
-            <Link className="button button-primary button-large" href="/register">{t.hero.cta} <ArrowRight size={17} /></Link>
-            <Link className="button button-secondary button-large" href="#how">{t.hero.secondary}</Link>
+        {/* ── 1. Hero: the result, shown as it happens at 02:47 ── */}
+        <section className="hero hero--split" id="product">
+          <div className="hero-copy-col">
+            <div className="eyebrow"><span className="eyebrow-dot" /> {t.hero.eyebrow}</div>
+            <h1>{t.hero.title1}<br /><em className="shiny-text">{t.hero.title2}</em></h1>
+            <p className="hero-copy">{t.hero.copy}</p>
+            <div className="hero-actions">
+              <Link className="button button-primary button-large" href="/register">{t.hero.cta} <ArrowRight size={17} /></Link>
+              <Link className="button button-secondary button-large" href="#examples">{t.hero.secondary}</Link>
+            </div>
+            <p className="hero-note"><Check size={14} /> {t.hero.note}</p>
           </div>
-          <p className="hero-note"><Check size={14} /> {t.hero.note}</p>
+
+          <div className="hero-phone liquid-glass">
+            <div className="hero-phone-bar">
+              <span className="hero-phone-dot" />
+              <b>Instagram Direct</b>
+              <span className="hero-phone-time">{t.hero.chatTime}</span>
+            </div>
+            <ChatPreview messages={t.hero.chat} animate={false} />
+          </div>
+        </section>
+
+        <section className="proof-strip">
+          {t.proof.map((item, index) => (
+            <span key={item}>{item}{index < t.proof.length - 1 && <i />}</span>
+          ))}
+        </section>
+
+        {/* ── 2. Live example: two real conversations ── */}
+        <section className="showcase-section section" id="examples">
+          <div className="section-kicker">{t.showcase.kicker}</div>
+          <h2>{t.showcase.title}</h2>
+          <p>{t.showcase.copy}</p>
+
+          <div className="showcase-tabs" role="tablist">
+            {t.showcase.scenarios.map((item, index) => (
+              <button
+                key={item.tab}
+                role="tab"
+                aria-selected={scenario === index}
+                className={scenario === index ? "active" : ""}
+                onClick={() => setScenario(index)}
+              >
+                {item.tab}
+              </button>
+            ))}
+          </div>
+
+          <div className="showcase-stage liquid-glass">
+            <p className="showcase-note">{t.showcase.scenarios[scenario]!.note}</p>
+            <ChatPreview key={scenario} messages={t.showcase.scenarios[scenario]!.messages} />
+          </div>
+        </section>
+
+        {/* ── 3. How it works: the actual onboarding, live ── */}
+        <section className="how-section section" id="how">
+          <div className="section-kicker">{t.how.kicker}</div>
+          <h2>{t.how.title}</h2>
+          <p>{t.how.copy}</p>
+
+          <div className="how-grid">
+            {t.how.steps.map(([number, title, text], index) => (
+              <Reveal className="how-card" key={String(number)} delay={index * 70}>
+                <span>{String(number)}</span>
+                <h3>{String(title)}</h3>
+                <p>{String(text)}</p>
+              </Reveal>
+            ))}
+          </div>
 
           <div className="demo-shell">
             <div className="demo-window-bar">
@@ -108,20 +171,11 @@ export function LandingPage() {
             <div className="demo-layout">
               <div className="demo-compose">
                 <div className="builder-step">
-                  <label className="builder-label" htmlFor="builder-task">
-                    <b>1</b> {t.builder.step1}
-                  </label>
-                  <textarea
-                    id="builder-task"
-                    placeholder={t.builder.step1Hint}
-                    value={task}
-                    onChange={(event) => setTask(event.target.value)}
-                  />
+                  <label className="builder-label" htmlFor="builder-task"><b>1</b> {t.builder.step1}</label>
+                  <textarea id="builder-task" placeholder={t.builder.step1Hint} value={task} onChange={(event) => setTask(event.target.value)} />
                   <div className="demo-examples">
                     {t.builder.examples.map((example) => (
-                      <button key={example} className={task === example ? "active" : ""} onClick={() => rebuild(() => setTask(example))}>
-                        {example}
-                      </button>
+                      <button key={example} className={task === example ? "active" : ""} onClick={() => rebuild(() => setTask(example))}>{example}</button>
                     ))}
                   </div>
                 </div>
@@ -139,24 +193,17 @@ export function LandingPage() {
                   <span className="builder-label"><b>3</b> {t.builder.step3}</span>
                   <div className="builder-choice builder-choice--wrap">
                     {focusKeys.map((key) => (
-                      <button key={key} className={focus === key ? "active" : ""} onClick={() => rebuild(() => setFocus(key))}>
-                        {t.builder.focus[key]}
-                      </button>
+                      <button key={key} className={focus === key ? "active" : ""} onClick={() => rebuild(() => setFocus(key))}>{t.builder.focus[key]}</button>
                     ))}
                   </div>
                 </div>
 
-                <button className="button button-primary demo-generate" onClick={() => rebuild()}>
-                  <Sparkles size={16} /> {t.builder.generate}
-                </button>
+                <button className="button button-primary demo-generate" onClick={() => rebuild()}><Sparkles size={16} /> {t.builder.generate}</button>
               </div>
 
               <div className="demo-plan">
                 <div className="demo-plan-heading">
-                  <div>
-                    <span>{t.builder.resultKicker}</span>
-                    <h3>{task.trim() || t.builder.focus[focus]}</h3>
-                  </div>
+                  <div><span>{t.builder.resultKicker}</span><h3>{task.trim() || t.builder.focus[focus]}</h3></div>
                   <span className="risk-badge">{team}</span>
                 </div>
 
@@ -181,58 +228,20 @@ export function LandingPage() {
             <div className="demo-footer">
               <span>{t.builder.connectors}</span>
               <div className="builder-channels">
-                {t.connectors.items.map(([, name]) => <i key={String(name)}>{String(name)}</i>)}
+                {t.channels.items.map((name) => <i key={name}>{name}</i>)}
               </div>
             </div>
           </div>
         </section>
 
-        <section className="proof-strip">
-          {t.proof.map((item, index) => (
-            <span key={item}>{item}{index < t.proof.length - 1 && <i />}</span>
-          ))}
-        </section>
-
-        <section className="how-section section" id="how">
-          <div className="section-kicker">{t.how.kicker}</div>
-          <h2>{t.how.title}</h2>
-          <p>{t.how.copy}</p>
-          <div className="how-grid">
-            {t.how.steps.map(([number, title, text], index) => (
-              <Reveal className="how-card" key={String(number)} delay={index * 70}>
-                <span>{String(number)}</span>
-                <h3>{String(title)}</h3>
-                <p>{String(text)}</p>
-              </Reveal>
-            ))}
-          </div>
-        </section>
-
-        <section className="connector-section section">
-          <div className="section-kicker">{t.connectors.kicker}</div>
-          <h2>{t.connectors.title}</h2>
-          <p>{t.connectors.copy}</p>
-          <div className="connector-grid">
-            {t.connectors.items.map(([Icon, name, text], index) => {
-              const IconComponent = Icon as typeof Clock3;
-              return (
-                <Reveal as="article" key={String(name)} delay={index * 60}>
-                  <IconComponent size={20} />
-                  <h3>{String(name)}</h3>
-                  <p>{String(text)}</p>
-                </Reveal>
-              );
-            })}
-          </div>
-        </section>
-
+        {/* ── 4. Skills: one concrete ability per card ── */}
         <section className="feature-section section">
           <div className="section-heading-row">
-            <div><div className="section-kicker">{t.features.kicker}</div><h2>{t.features.title}</h2></div>
-            <p>{t.features.copy}</p>
+            <div><div className="section-kicker">{t.skills.kicker}</div><h2>{t.skills.title}</h2></div>
+            <p>{t.skills.copy}</p>
           </div>
           <div className="feature-grid">
-            {t.features.items.map(([Icon, title, text], index) => {
+            {t.skills.items.map(([Icon, title, text], index) => {
               const IconComponent = Icon as typeof Clock3;
               return (
                 <Reveal as="article" key={String(title)} delay={(index % 3) * 70}>
@@ -245,20 +254,13 @@ export function LandingPage() {
           </div>
         </section>
 
-        <section className="template-section section" id="templates">
-          <div className="section-kicker">{t.templates.kicker}</div>
-          <h2>{t.templates.title}</h2>
-          <p>{t.templates.copy}</p>
-          <div className="template-grid">
-            {t.templates.items.map(([department, title, text, saved]) => (
-              <Link href="/register" key={title}>
-                <span>{department}</span><h3>{title}</h3><p>{text}</p>
-                <footer><small><Clock3 size={13} /> {t.templates.saves} {saved}</small><ArrowRight size={16} /></footer>
-              </Link>
-            ))}
-          </div>
+        {/* ── 5. Channels: a strip, not a section ── */}
+        <section className="channel-strip">
+          <span>{t.channels.title}</span>
+          <div>{t.channels.items.map((name) => <i key={name}>{name}</i>)}</div>
         </section>
 
+        {/* ── 6. Pricing ── */}
         <section className="pricing-section section" id="pricing">
           <div className="watermark" aria-hidden="true">
             <span className="watermark-1">{t.pricing.watermark1}</span>
@@ -267,7 +269,8 @@ export function LandingPage() {
           <div className="section-kicker">{t.pricing.kicker}</div>
           <h2>{t.pricing.title}</h2>
           <p className="pricing-note">{t.pricing.copy}</p>
-          <div className="pricing-grid">
+
+          <div className="pricing-grid pricing-grid--three">
             {t.pricing.plans.map(([name, price, text, volume, items, popular]) => (
               <article className={popular ? "popular" : ""} key={String(name)}>
                 {popular ? <div className="popular-label">{lang === "ru" ? "ВЫБИРАЮТ ЧАЩЕ" : "MOST POPULAR"}</div> : null}
@@ -277,9 +280,11 @@ export function LandingPage() {
                     ? <strong>{t.pricing.custom}</strong>
                     : <><sup>$</sup><strong>{Number(price)}</strong><span>{t.pricing.month}</span></>}
                 </div>
-                {volume ? <div className="price-volume">{String(volume)} {t.pricing.unit}</div> : null}
+                <div className="price-volume">
+                  {volume ? `${String(volume)} ${t.pricing.unit}` : t.pricing.customNote}
+                </div>
                 <Link className={`button ${popular ? "button-primary" : "button-secondary"}`} href="/register">
-                  {price === null ? t.pricing.contact : Number(price) === 0 ? t.pricing.startFree : `${t.pricing.choose} ${name}`}
+                  {price === null ? t.pricing.contact : `${t.pricing.choose} ${name}`}
                 </Link>
                 <ul>{(items as readonly string[]).map((item) => <li key={item}><Check size={14} />{item}</li>)}</ul>
               </article>
@@ -287,6 +292,7 @@ export function LandingPage() {
           </div>
         </section>
 
+        {/* ── 7. Questions ── */}
         <section className="faq-section section">
           <div><div className="section-kicker">{t.faq.kicker}</div><h2>{t.faq.title}</h2></div>
           <div className="faq-list">
@@ -303,6 +309,7 @@ export function LandingPage() {
           </div>
         </section>
 
+        {/* ── 8. Final call: one button, no second choice ── */}
         <section className="final-cta liquid-glass">
           <div className="final-pattern" aria-hidden="true" />
           <div className="section-kicker">{t.finalCta.kicker}</div>
@@ -316,8 +323,8 @@ export function LandingPage() {
         <div><Logo /><p>{t.footer.tagline}</p></div>
         <div>
           <a href="#product">{t.footer.product}</a>
+          <a href="#examples">{t.nav.examples}</a>
           <a href="#how">{t.nav.how}</a>
-          <a href="#templates">{t.nav.examples}</a>
         </div>
         <div>
           <a href="#pricing">{t.nav.pricing}</a>

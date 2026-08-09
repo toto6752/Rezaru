@@ -1,4 +1,4 @@
-import { Clock3, FileSpreadsheet, MessageCircle, RefreshCw, ShieldCheck, Wallet } from "lucide-react";
+import { BookOpen, CalendarCheck, Clock3, FileSpreadsheet, HandHelping, RefreshCw } from "lucide-react";
 
 export type Lang = "ru" | "en";
 
@@ -8,29 +8,66 @@ export const LANG_KEY = "rezaru-lang";
 export const teamSizes = ["1", "2–5", "10+"] as const;
 
 /** Onboarding step 3 — what the agent mainly does. */
-export const focusKeys = ["replies", "leads", "reports", "collect"] as const;
+export const focusKeys = ["replies", "leads", "booking", "reports"] as const;
 export type FocusKey = (typeof focusKeys)[number];
 
 export const copy = {
   ru: {
-    nav: { how: "Как это работает", examples: "Примеры", pricing: "Цены", signin: "Войти", start: "Собрать агента" },
+    nav: { how: "Как это работает", examples: "Примеры", pricing: "Цены", signin: "Войти", start: "Создать агента" },
 
     hero: {
-      eyebrow: "Помощник, который отвечает за вас",
-      title1: "Соберите помощника",
-      title2: "за три шага.",
-      copy: "Ответьте на три вопроса — получите готового агента, который отвечает клиентам в Telegram, Instagram и WhatsApp. Менять можно всё, программировать не нужно.",
-      cta: "Собрать агента",
-      secondary: "Посмотреть, как это работает",
-      note: "Первые 200 сообщений бесплатно · Без карты"
+      eyebrow: "Отвечает, пока вы заняты",
+      title1: "Агент отвечает клиентам,",
+      title2: "пока вы спите.",
+      copy: "Отвечает в Telegram, Instagram и WhatsApp по вашему прайсу и условиям. Записывает заявки, зовёт вас на сложные вопросы. Настройка — пять минут, программировать не нужно.",
+      cta: "Создать агента",
+      secondary: "Посмотреть, как отвечает",
+      note: "14 дней бесплатно · Карта не нужна",
+      chatTime: "02:47",
+      chat: [
+        { from: "client", text: "Здравствуйте! Кроссовки на фото есть в 42 размере?" },
+        { from: "agent", text: "Здравствуйте! Да, 42-й в наличии — 340 сомони. Доставка по Душанбе завтра, по Худжанду 2–3 дня." },
+        { from: "client", text: "Давайте в Худжанд" },
+        { from: "agent", text: "Записал. Подскажите имя и номер телефона — передам в доставку." }
+      ]
     },
 
     proof: ["Готово за 5 минут", "Без программиста", "Работает в ваших мессенджерах"],
 
+    showcase: {
+      kicker: "ЖИВОЙ ПРИМЕР",
+      title: "Посмотрите, как он разговаривает.",
+      copy: "Это не пересказ возможностей, а два обычных разговора с клиентами.",
+      scenarios: [
+        {
+          tab: "Магазин · Instagram",
+          note: "Отвечает по прайсу и записывает заявку",
+          messages: [
+            { from: "client", text: "Есть 42 размер? И сколько доставка в Худжанд?" },
+            { from: "agent", text: "Да, 42-й есть — 340 сомони. Доставка в Худжанд 2–3 дня, 35 сомони." },
+            { from: "client", text: "Хорошо, беру" },
+            { from: "agent", text: "Отлично. Имя и номер телефона — и я передам заказ в доставку." },
+            { from: "system", text: "Заявка записана в таблицу" }
+          ]
+        },
+        {
+          tab: "Барбершоп · Telegram",
+          note: "Записывает и передаёт вам сложный вопрос",
+          messages: [
+            { from: "client", text: "Можно записаться на завтра после шести?" },
+            { from: "agent", text: "Завтра свободно в 18:30 и 19:15. Какое время удобнее?" },
+            { from: "client", text: "18:30. А скидка для постоянных есть?" },
+            { from: "agent", text: "Записал на 18:30, напомню за час. По скидке уточню у владельца — ответит в ближайшее время." },
+            { from: "system", text: "Разговор передан вам" }
+          ]
+        }
+      ]
+    },
+
     builder: {
-      title: "Сборка агента",
+      title: "Создание агента",
       live: "Готов помочь",
-      step1: "Что должен делать помощник?",
+      step1: "Что должен делать агент?",
       step1Hint: "Напишите обычными словами",
       step2: "Сколько человек в команде?",
       step3: "Главная задача",
@@ -39,92 +76,71 @@ export const copy = {
       resultNote: "Любой шаг можно изменить или удалить",
       connectors: "Подключить каналы",
       examples: [
-        "Отвечать на вопросы о доставке и ценах",
-        "Собирать заявки с Instagram в таблицу",
-        "Присылать сводку заказов каждое утро"
+        "Отвечать на вопросы о наличии и доставке",
+        "Записывать клиентов на услуги",
+        "Собирать заявки из Instagram в таблицу"
       ],
       focus: {
         replies: "Ответы клиентам",
         leads: "Сбор заявок",
-        reports: "Отчёты и сводки",
-        collect: "Сбор данных"
+        booking: "Запись на услуги",
+        reports: "Отчёты и сводки"
       },
       plans: {
-        replies: ["Принять сообщение от клиента", "Понять, о чём спрашивают", "Ответить по вашим правилам", "Позвать вас, если вопрос сложный"],
+        replies: ["Принять сообщение от клиента", "Найти ответ в вашем прайсе и условиях", "Ответить своими словами", "Позвать вас, если вопрос сложный"],
         leads: ["Принять обращение из мессенджера", "Уточнить имя и телефон", "Записать заявку в таблицу", "Сообщить вам о новой заявке"],
-        reports: ["Собрать данные за нужный период", "Посчитать итоги", "Составить короткую сводку", "Прислать её вам в мессенджер"],
-        collect: ["Открыть нужные страницы или файлы", "Достать оттуда нужные строки", "Разложить их по столбцам", "Сохранить в Excel или Google Таблицы"]
+        booking: ["Показать свободное время", "Согласовать удобный час", "Записать клиента в календарь", "Напомнить ему накануне"],
+        reports: ["Собрать данные за нужный период", "Посчитать итоги", "Составить короткую сводку", "Прислать её вам в мессенджер"]
       }
     },
 
     how: {
       kicker: "КАК ЭТО РАБОТАЕТ",
-      title: "Три шага — и помощник работает.",
+      title: "Три ответа, и он готов.",
       copy: "Ничего не устанавливаете и не настраиваете. Всё происходит в браузере.",
       steps: [
-        ["01", "Ответьте на три вопроса", "Что должен делать помощник, сколько вас и какая задача главная. Обычными словами, без терминов."],
-        ["02", "Проверьте готовый шаблон", "Вы сразу видите, что помощник будет делать по шагам. Любой шаг можно поменять, добавить или убрать."],
-        ["03", "Подключите каналы", "Telegram, Instagram, WhatsApp или таблицу — за пару кликов. После этого помощник начинает отвечать."]
+        ["01", "Опишите, что нужно", "Одно поле, обычные слова. «Отвечать на вопросы о доставке» — этого достаточно."],
+        ["02", "Выберите команду и задачу", "Сколько вас и что для агента главное. Два клика."],
+        ["03", "Заберите шаблон и подключите канал", "Шаблон уже готов, любой шаг правится. Канал подключается в пару кликов."]
       ]
     },
 
-    connectors: {
-      kicker: "КУДА ПОДКЛЮЧАЕТСЯ",
-      title: "Туда, где вам уже пишут.",
-      copy: "Подключение занимает минуту и не требует ничего скачивать.",
+    skills: {
+      kicker: "ЧТО УМЕЕТ АГЕНТ",
+      title: "Шесть вещей, которые он делает за вас.",
+      copy: "Не список технологий, а то, что вы увидите в первую неделю.",
       items: [
-        [MessageCircle, "Telegram", "Отвечает в личных сообщениях и в группах"],
-        [MessageCircle, "Instagram", "Разбирает Direct и комментарии под постами"],
-        [MessageCircle, "WhatsApp", "Отвечает клиентам в рабочем номере"],
-        [FileSpreadsheet, "Excel и Google Таблицы", "Складывает заявки и данные в привычную таблицу"]
+        [BookOpen, "Знает ваш прайс и условия", "Загрузите цены, сроки и частые вопросы — отвечает по ним, а не выдумывает."],
+        [HandHelping, "Зовёт вас, когда не уверен", "Сложный вопрос или просьба позвать человека — разговор уходит вам, а не в пустоту."],
+        [CalendarCheck, "Записывает клиентов", "Предлагает свободное время, ставит запись в календарь и напоминает клиенту накануне."],
+        [FileSpreadsheet, "Собирает заявки в таблицу", "Имя, телефон, что просили — каждая заявка на месте, ни одна не теряется."],
+        [Clock3, "Отвечает ночью и в выходные", "Клиент пишет в два часа ночи и получает ответ сразу, а не утром."],
+        [RefreshCw, "Запоминает ваши правки", "Поправили ответ один раз — дальше отвечает так же."]
       ]
     },
 
-    features: {
-      kicker: "ЧТО ВЫ ПОЛУЧАЕТЕ",
-      title: "Что важно на практике.",
-      copy: "Не список возможностей, а то, с чем вы столкнётесь в первую неделю.",
-      items: [
-        [Clock3, "Отвечает круглосуточно", "Клиент пишет в час ночи — получает ответ сразу, а не утром."],
-        [MessageCircle, "Говорит вашими словами", "Загрузите прайс, условия доставки и частые вопросы. Помощник отвечает по ним, а не выдумывает."],
-        [ShieldCheck, "Зовёт вас, когда нужно", "Не уверен в ответе или клиент просит человека — передаёт разговор вам."],
-        [RefreshCw, "Учится на правках", "Поправили ответ — в следующий раз он ответит так же."],
-        [Wallet, "Платите за сообщения", "Нет абонентской платы за воздух. Тихий месяц — маленький счёт."],
-        [FileSpreadsheet, "Всё видно в таблице", "Каждая заявка и каждый разговор сохраняются, их можно выгрузить."]
-      ]
-    },
-
-    templates: {
-      kicker: "ПРИМЕРЫ",
-      title: "С чего начинают другие.",
-      copy: "Готовые помощники, которых остаётся подстроить под себя.",
-      explore: "Посмотреть все примеры",
-      saves: "Экономит",
-      items: [
-        ["Магазин", "Отвечает про наличие и доставку", "Клиент спрашивает про размер и сроки — помощник отвечает сразу, вы подключаетесь только к сложным вопросам", "3 ч в день"],
-        ["Услуги", "Записывает клиентов", "Помощник уточняет удобное время, записывает в таблицу и напоминает клиенту накануне", "2 ч в день"],
-        ["Instagram", "Собирает заявки из Direct", "Каждое обращение попадает в таблицу с именем и телефоном, ни одно не теряется", "1,5 ч в день"],
-        ["Отчёты", "Присылает сводку по утрам", "Сколько заявок, сколько ответов, что осталось без внимания — коротким сообщением", "40 мин в день"]
-      ]
+    channels: {
+      title: "Подключается туда, где вам уже пишут",
+      items: ["Telegram", "Instagram Direct", "WhatsApp", "Excel и Google Таблицы"]
     },
 
     pricing: {
-      watermark1: "Три шага.",
+      watermark1: "Три ответа.",
       watermark2: "И он работает.",
       kicker: "ЦЕНЫ",
-      title: "Платите за сообщения, а не за месяц.",
-      copy: "Тихий месяц — маленький счёт. Неиспользованные сообщения не сгорают.",
+      title: "Цены без сюрпризов.",
+      copy: "14 дней бесплатно, карта не нужна, отменить можно в любой момент.",
       month: "/ мес",
-      custom: "По запросу",
-      contact: "Написать нам",
-      startFree: "Начать бесплатно",
+      custom: "Индивидуально",
+      customNote: "Зависит от числа точек и объёма диалогов",
+      contact: "Обсудить",
       choose: "Выбрать",
-      unit: "сообщений в месяц",
+      unit: "диалогов в месяц",
+      unlimited: "без ограничений",
       plans: [
-        ["Проба", 0, "Чтобы посмотреть, как это работает", "200", ["Один помощник", "Все каналы", "Ответы по вашим материалам"], false],
-        ["Небольшой бизнес", 19, "Когда пишут несколько раз в час", "5 000", ["Три помощника", "Все каналы", "Выгрузка в Excel", "Поддержка по почте"], true],
-        ["Поток", 59, "Когда сообщений много каждый день", "25 000", ["Помощников сколько нужно", "Общий доступ для команды", "История всех разговоров", "Ответ поддержки за час"], false],
-        ["Больше", null, "Если сообщений больше 25 000", null, ["Своя цена за объём", "Отдельные условия", "Помощь при запуске"], false]
+        ["Старт", 29, "Когда пишут несколько раз в день", "до 300", ["Один канал на выбор", "База знаний по вашему прайсу", "Запись в календарь", "Поддержка по почте"], false],
+        ["Бизнес", 69, "Когда сообщений много каждый день", "до 2 000", ["Все каналы, включая звонки", "CRM и календарь", "Напоминания и допродажи", "Аналитика и отчёты", "Приоритетная поддержка"], true],
+        ["Сеть", null, "Несколько точек или команд", null, ["Несколько точек и команд", "Свой голос и стиль общения", "Интеграции под вашу задачу", "Персональный менеджер и SLA"], false]
       ]
     },
 
@@ -133,43 +149,80 @@ export const copy = {
       title: "Коротко о главном.",
       items: [
         ["Нужно ли что-то уметь?", "Нет. Вы отвечаете на три вопроса обычными словами и правите готовый шаблон. Всё остальное происходит само."],
-        ["А если он ответит неправильно?", "Помощник отвечает только по тому, что вы загрузили. Если не уверен — не выдумывает, а зовёт вас. Любой ответ можно поправить, и он это запомнит."],
-        ["Сколько времени на запуск?", "Обычно около пяти минут: три вопроса, беглый взгляд на шаблон и подключение канала."],
-        ["Что если сообщений будет мало?", "Тогда и счёт будет маленький — вы платите за сообщения, а не за месяц. На пробном тарифе первые 200 бесплатны."],
-        ["Мои переписки в безопасности?", "Разговоры видите только вы. Доступы к мессенджерам хранятся в зашифрованном виде и не показываются в браузере."]
+        ["А если он ответит неправильно?", "Агент отвечает только по тому, что вы загрузили. Если не уверен — не выдумывает, а передаёт разговор вам. Любой ответ можно поправить, и он это запомнит."],
+        ["Сколько времени на запуск?", "Обычно около пяти минут: три ответа, беглый взгляд на шаблон и подключение канала."],
+        ["Что будет после 14 дней?", "Выберете тариф или уйдёте — карта не нужна заранее, само ничего не спишется."],
+        ["Кто видит переписки с клиентами?", "Только вы. Доступы к мессенджерам хранятся в зашифрованном виде и не показываются в браузере."]
       ]
     },
 
     finalCta: {
-      kicker: "ТРИ ВОПРОСА — И ПОМОЩНИК ГОТОВ",
+      kicker: "ПЯТЬ МИНУТ НА НАСТРОЙКУ",
       title1: "Проверьте на своей задаче.",
-      title2: "Это займёт пять минут.",
-      copy: "Первые 200 сообщений бесплатно. Карта не нужна, отказаться можно в любой момент.",
-      cta: "Собрать помощника"
+      title2: "Первые 14 дней бесплатно.",
+      copy: "Карта не нужна. Если не подойдёт — просто не продлевайте.",
+      cta: "Создать агента"
     },
 
-    footer: { tagline: "Помощник, который отвечает за вас.", product: "Продукт", contact: "Связаться" }
+    footer: { tagline: "Агент, который отвечает клиентам за вас.", product: "Продукт", contact: "Связаться" }
   },
 
   en: {
-    nav: { how: "How it works", examples: "Examples", pricing: "Pricing", signin: "Sign in", start: "Build an agent" },
+    nav: { how: "How it works", examples: "Examples", pricing: "Pricing", signin: "Sign in", start: "Create an agent" },
 
     hero: {
-      eyebrow: "An assistant that answers for you",
-      title1: "Build an assistant",
-      title2: "in three steps.",
-      copy: "Answer three questions and get a working agent that replies to customers on Telegram, Instagram and WhatsApp. Everything is editable. Nothing to code.",
-      cta: "Build an agent",
-      secondary: "See how it works",
-      note: "First 200 messages free · No card"
+      eyebrow: "Answers while you're busy",
+      title1: "Your agent answers customers",
+      title2: "while you sleep.",
+      copy: "It replies on Telegram, Instagram and WhatsApp using your prices and terms. It logs enquiries and calls you in on the hard questions. Five minutes to set up, nothing to code.",
+      cta: "Create an agent",
+      secondary: "See how it answers",
+      note: "14 days free · No card needed",
+      chatTime: "02:47",
+      chat: [
+        { from: "client", text: "Hi! Do you have the trainers in the photo in a 42?" },
+        { from: "agent", text: "Hello! Yes, size 42 is in stock — 340 somoni. Delivery in Dushanbe tomorrow, Khujand in 2–3 days." },
+        { from: "client", text: "Khujand please" },
+        { from: "agent", text: "Noted. Could you send your name and phone number so I can pass it to delivery?" }
+      ]
     },
 
     proof: ["Ready in 5 minutes", "No developer", "Works in your messengers"],
 
+    showcase: {
+      kicker: "LIVE EXAMPLE",
+      title: "See how it talks.",
+      copy: "Not a list of capabilities — two ordinary conversations with customers.",
+      scenarios: [
+        {
+          tab: "Shop · Instagram",
+          note: "Answers from the price list and logs the order",
+          messages: [
+            { from: "client", text: "Do you have a 42? And how much is delivery to Khujand?" },
+            { from: "agent", text: "Yes, size 42 is in stock — 340 somoni. Khujand takes 2–3 days, 35 somoni." },
+            { from: "client", text: "Great, I'll take it" },
+            { from: "agent", text: "Perfect. Send me your name and phone and I'll pass the order to delivery." },
+            { from: "system", text: "Enquiry saved to the spreadsheet" }
+          ]
+        },
+        {
+          tab: "Barbershop · Telegram",
+          note: "Books the slot and hands the hard question to you",
+          messages: [
+            { from: "client", text: "Can I book for tomorrow after six?" },
+            { from: "agent", text: "Tomorrow 18:30 and 19:15 are free. Which suits you?" },
+            { from: "client", text: "18:30. Is there a discount for regulars?" },
+            { from: "agent", text: "Booked for 18:30, I'll remind you an hour before. On the discount I'll check with the owner — they'll reply shortly." },
+            { from: "system", text: "Conversation handed to you" }
+          ]
+        }
+      ]
+    },
+
     builder: {
       title: "Agent builder",
       live: "Ready to help",
-      step1: "What should the assistant do?",
+      step1: "What should the agent do?",
       step1Hint: "Write it in plain words",
       step2: "How many people on the team?",
       step3: "Main job",
@@ -178,92 +231,71 @@ export const copy = {
       resultNote: "Every step can be changed or removed",
       connectors: "Connect channels",
       examples: [
-        "Answer questions about delivery and prices",
-        "Collect Instagram enquiries into a spreadsheet",
-        "Send an order summary every morning"
+        "Answer questions about stock and delivery",
+        "Book clients for appointments",
+        "Collect Instagram enquiries into a spreadsheet"
       ],
       focus: {
         replies: "Customer replies",
         leads: "Collecting enquiries",
-        reports: "Reports and summaries",
-        collect: "Gathering data"
+        booking: "Appointment booking",
+        reports: "Reports and summaries"
       },
       plans: {
-        replies: ["Receive the customer's message", "Work out what they're asking", "Answer using your rules", "Call you in if the question is hard"],
+        replies: ["Receive the customer's message", "Find the answer in your prices and terms", "Reply in your own words", "Call you in if the question is hard"],
         leads: ["Receive the message from the messenger", "Ask for a name and a phone number", "Write the enquiry into a spreadsheet", "Tell you a new enquiry arrived"],
-        reports: ["Gather the data for the period", "Add up the totals", "Write a short summary", "Send it to your messenger"],
-        collect: ["Open the pages or files needed", "Pull out the rows that matter", "Sort them into columns", "Save to Excel or Google Sheets"]
+        booking: ["Show the free slots", "Agree on a time that suits", "Put the booking in the calendar", "Remind the client the day before"],
+        reports: ["Gather the data for the period", "Add up the totals", "Write a short summary", "Send it to your messenger"]
       }
     },
 
     how: {
       kicker: "HOW IT WORKS",
-      title: "Three steps and it's working.",
+      title: "Three answers and it's ready.",
       copy: "Nothing to install, nothing to configure. It all happens in the browser.",
       steps: [
-        ["01", "Answer three questions", "What the assistant should do, how many of you there are, and the main job. Plain words, no jargon."],
-        ["02", "Check the ready template", "You see exactly what the assistant will do, step by step. Change, add or remove any step."],
-        ["03", "Connect your channels", "Telegram, Instagram, WhatsApp or a spreadsheet, in a couple of clicks. Then it starts answering."]
+        ["01", "Describe what you need", "One field, plain words. \"Answer questions about delivery\" is enough."],
+        ["02", "Pick your team and job", "How many of you there are and what matters most. Two clicks."],
+        ["03", "Take the template, connect a channel", "The template is ready and every step is editable. A channel connects in a couple of clicks."]
       ]
     },
 
-    connectors: {
-      kicker: "WHERE IT PLUGS IN",
-      title: "Where people already write to you.",
-      copy: "Connecting takes a minute and there's nothing to download.",
+    skills: {
+      kicker: "WHAT THE AGENT DOES",
+      title: "Six things it handles for you.",
+      copy: "Not a technology list — what you'll see in the first week.",
       items: [
-        [MessageCircle, "Telegram", "Answers in direct messages and in groups"],
-        [MessageCircle, "Instagram", "Handles Direct and comments under posts"],
-        [MessageCircle, "WhatsApp", "Answers customers on your work number"],
-        [FileSpreadsheet, "Excel and Google Sheets", "Files enquiries and data into the spreadsheet you already use"]
+        [BookOpen, "Knows your prices and terms", "Upload prices, timings and common questions — it answers from those instead of inventing."],
+        [HandHelping, "Calls you when unsure", "A hard question, or a customer asking for a human — the conversation comes to you, not into a void."],
+        [CalendarCheck, "Books your clients", "Offers free slots, puts the booking in the calendar and reminds the client the day before."],
+        [FileSpreadsheet, "Collects enquiries into a table", "Name, phone, what they asked for — every enquiry in place, none lost."],
+        [Clock3, "Answers at night and on weekends", "A customer writes at 2am and gets an answer then, not in the morning."],
+        [RefreshCw, "Remembers your corrections", "Fix an answer once and it answers that way from then on."]
       ]
     },
 
-    features: {
-      kicker: "WHAT YOU GET",
-      title: "What actually matters.",
-      copy: "Not a feature list — the things you'll meet in the first week.",
-      items: [
-        [Clock3, "Answers around the clock", "A customer writes at 1am and gets an answer then, not in the morning."],
-        [MessageCircle, "Speaks in your words", "Upload your prices, delivery terms and common questions. It answers from those instead of inventing."],
-        [ShieldCheck, "Calls you when it should", "Unsure of the answer, or the customer asks for a human — it hands the conversation to you."],
-        [RefreshCw, "Learns from your edits", "Correct an answer once and it answers that way next time."],
-        [Wallet, "You pay per message", "No subscription for thin air. A quiet month is a small bill."],
-        [FileSpreadsheet, "Everything lands in a table", "Every enquiry and conversation is saved and can be exported."]
-      ]
-    },
-
-    templates: {
-      kicker: "EXAMPLES",
-      title: "Where others start.",
-      copy: "Ready-made assistants you only need to adjust.",
-      explore: "See all examples",
-      saves: "Saves",
-      items: [
-        ["Shop", "Answers on stock and delivery", "Customers ask about sizes and timing and get an answer at once — you only step in for the hard ones", "3 hrs a day"],
-        ["Services", "Books your clients", "It agrees a time, writes it into a spreadsheet and reminds the client the day before", "2 hrs a day"],
-        ["Instagram", "Collects Direct enquiries", "Every message lands in a table with a name and a phone number, none get lost", "1.5 hrs a day"],
-        ["Reports", "Sends a morning summary", "How many enquiries, how many answers, what's still unattended — in one short message", "40 min a day"]
-      ]
+    channels: {
+      title: "Plugs into where people already write to you",
+      items: ["Telegram", "Instagram Direct", "WhatsApp", "Excel and Google Sheets"]
     },
 
     pricing: {
-      watermark1: "Three steps.",
+      watermark1: "Three answers.",
       watermark2: "And it works.",
       kicker: "PRICING",
-      title: "Pay for messages, not for the month.",
-      copy: "A quiet month is a small bill. Unused messages don't expire.",
+      title: "Pricing without surprises.",
+      copy: "14 days free, no card needed, cancel whenever you like.",
       month: "/ mo",
-      custom: "On request",
+      custom: "Custom",
+      customNote: "Depends on the number of locations and conversation volume",
       contact: "Talk to us",
-      startFree: "Start free",
       choose: "Choose",
-      unit: "messages a month",
+      unit: "conversations a month",
+      unlimited: "unlimited",
       plans: [
-        ["Trial", 0, "To see how it works", "200", ["One assistant", "All channels", "Answers from your materials"], false],
-        ["Small business", 19, "When people write a few times an hour", "5,000", ["Three assistants", "All channels", "Export to Excel", "Email support"], true],
-        ["Busy", 59, "When there are a lot of messages daily", "25,000", ["As many assistants as you need", "Shared access for the team", "Full conversation history", "Support within an hour"], false],
-        ["More", null, "If you're past 25,000 messages", null, ["Volume pricing", "Custom terms", "Help with launch"], false]
+        ["Starter", 29, "When people write a few times a day", "up to 300", ["One channel of your choice", "Knowledge base from your price list", "Calendar booking", "Email support"], false],
+        ["Business", 69, "When there are a lot of messages daily", "up to 2,000", ["All channels, including calls", "CRM and calendar", "Reminders and upselling", "Analytics and reports", "Priority support"], true],
+        ["Network", null, "Several locations or teams", null, ["Multiple locations and teams", "Your own voice and tone", "Integrations for your setup", "Dedicated manager and SLA"], false]
       ]
     },
 
@@ -272,21 +304,21 @@ export const copy = {
       title: "The short answers.",
       items: [
         ["Do I need any skills?", "No. You answer three questions in plain words and adjust the template. Everything else happens on its own."],
-        ["What if it answers wrongly?", "It only answers from what you uploaded. When unsure it doesn't invent — it calls you. Correct any answer once and it remembers."],
-        ["How long does launch take?", "Usually about five minutes: three questions, a quick look at the template, and connecting a channel."],
-        ["What if there are few messages?", "Then the bill is small — you pay per message, not per month. The first 200 are free on the trial plan."],
-        ["Are my conversations safe?", "Only you see them. Messenger access is stored encrypted and never shown in the browser."]
+        ["What if it answers wrongly?", "It only answers from what you uploaded. When unsure it doesn't invent — it hands the conversation to you. Correct any answer once and it remembers."],
+        ["How long does launch take?", "Usually about five minutes: three answers, a quick look at the template, and connecting a channel."],
+        ["What happens after 14 days?", "You pick a plan or walk away — no card up front, so nothing is charged on its own."],
+        ["Who sees the conversations?", "Only you. Messenger access is stored encrypted and never shown in the browser."]
       ]
     },
 
     finalCta: {
-      kicker: "THREE QUESTIONS AND IT'S READY",
+      kicker: "FIVE MINUTES TO SET UP",
       title1: "Try it on your own task.",
-      title2: "It takes five minutes.",
-      copy: "First 200 messages free. No card needed, stop whenever you like.",
-      cta: "Build an assistant"
+      title2: "First 14 days are free.",
+      copy: "No card needed. If it doesn't fit, simply don't renew.",
+      cta: "Create an agent"
     },
 
-    footer: { tagline: "An assistant that answers for you.", product: "Product", contact: "Contact" }
+    footer: { tagline: "An agent that answers customers for you.", product: "Product", contact: "Contact" }
   }
 } as const;
