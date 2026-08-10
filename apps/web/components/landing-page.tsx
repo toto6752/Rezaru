@@ -12,7 +12,7 @@ import { DeviceFrame } from "@/components/device-frame";
 import { HeroBackdrop } from "@/components/hero-backdrop";
 import { showcaseMedia, howMedia } from "@/components/landing-media";
 import { brandIcons, IconBuild, type BrandIconKey } from "@/components/brand-icons";
-import { copy, focusKeys, teamSizes, plans, volumeStops, LANG_KEY, type FocusKey, type Lang } from "@/components/landing-copy";
+import { copy, focusKeys, teamSizes, LANG_KEY, type FocusKey, type Lang } from "@/components/landing-copy";
 import { useEffect, useRef, useState } from "react";
 import { Logo } from "./logo";
 
@@ -28,7 +28,6 @@ export function LandingPage() {
   const [team, setTeam] = useState<string>(teamSizes[0]);
   const [focus, setFocus] = useState<FocusKey>("replies");
   const [built, setBuilt] = useState(true);
-  const [stop, setStop] = useState(3); // 300 conversations — the Starter ceiling
   const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -52,10 +51,6 @@ export function LandingPage() {
 
   const t = copy[lang];
   const steps = t.builder.plans[focus];
-  const locale = lang === "ru" ? "ru-RU" : "en-US";
-  const volume = volumeStops[stop]!;
-  const plan = plans.find((item) => volume <= item.limit) ?? plans[plans.length - 1]!;
-  const planName = t.pricing.names[plan.key];
 
   function rebuild(next?: () => void) {
     next?.();
@@ -295,40 +290,25 @@ export function LandingPage() {
           <h2>{t.pricing.title}</h2>
           <p className="pricing-note">{t.pricing.copy}</p>
 
-          <div className="calculator liquid-glass">
-            <label className="calculator-label" htmlFor="volume">{t.pricing.sliderLabel}</label>
-            <output className="calculator-volume">
-              {volume >= 4000 ? "2 000+" : volume.toLocaleString(locale)}
-            </output>
-
-            <input
-              id="volume"
-              className="calculator-slider"
-              type="range"
-              min={0}
-              max={volumeStops.length - 1}
-              step={1}
-              value={stop}
-              onChange={(event) => setStop(Number(event.target.value))}
-              aria-valuetext={String(volume)}
-            />
-
-            <div className="calculator-result">
-              <span className="calculator-plan">{t.pricing.yourPlan}: <b>{planName}</b></span>
-              {plan.price === null ? (
-                <>
-                  <strong className="calculator-price">{t.pricing.custom}</strong>
-                  <p className="calculator-note">{t.pricing.customNote}</p>
-                  <Link className="button button-secondary button-large" href="/register">{t.pricing.contact}</Link>
-                </>
-              ) : (
-                <>
-                  <strong className="calculator-price"><sup>$</sup>{plan.price} <span>{t.pricing.monthLong}</span></strong>
-                  <p className="calculator-note">{plan.limit.toLocaleString(locale)} {t.pricing.limitLabel}</p>
-                  <Link className="button button-primary button-large" href="/register">{t.pricing.startFree} <ArrowRight size={16} /></Link>
-                </>
-              )}
-            </div>
+          <div className="pricing-grid pricing-grid--three">
+            {t.pricing.plans.map(([name, price, text, volume, items, popular]) => (
+              <article className={popular ? "popular" : ""} key={String(name)}>
+                {popular ? <div className="popular-label">{lang === "ru" ? "ВЫБИРАЮТ ЧАЩЕ" : "MOST POPULAR"}</div> : null}
+                <h3>{String(name)}</h3><p>{String(text)}</p>
+                <div className="price">
+                  {price === null
+                    ? <strong>{t.pricing.custom}</strong>
+                    : <><sup>$</sup><strong>{Number(price)}</strong><span>{t.pricing.month}</span></>}
+                </div>
+                <div className="price-volume">
+                  {volume ? `${String(volume)} ${t.pricing.unit}` : t.pricing.customNote}
+                </div>
+                <Link className={`button ${popular ? "button-primary" : "button-secondary"}`} href="/register">
+                  {price === null ? t.pricing.contact : `${t.pricing.choose} ${name}`}
+                </Link>
+                <ul>{(items as readonly string[]).map((item) => <li key={item}><Check size={14} />{item}</li>)}</ul>
+              </article>
+            ))}
           </div>
         </section>
 
