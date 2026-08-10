@@ -8,32 +8,55 @@ import {
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Logo } from "./logo";
+import { LangToggle } from "@/components/lang-toggle";
+import { appCopy } from "@/components/app-copy";
+import { LANG_KEY, type Lang } from "@/components/landing-copy";
 
 const navigation = [
-  { label: "Overview", href: "/app", icon: LayoutDashboard },
-  { label: "Outcomes", href: "/app/outcomes", icon: Zap },
-  { label: "Executions", href: "/app/executions", icon: Activity },
-  { label: "Connections", href: "/app/connections", icon: Plug },
-  { label: "Templates", href: "/app/templates", icon: Boxes },
-  { label: "Import from n8n", href: "/app/import/n8n", icon: FileInput }
+  { key: "overview", href: "/app", icon: LayoutDashboard },
+  { key: "outcomes", href: "/app/outcomes", icon: Zap },
+  { key: "executions", href: "/app/executions", icon: Activity },
+  { key: "connections", href: "/app/connections", icon: Plug },
+  { key: "templates", href: "/app/templates", icon: Boxes },
+  { key: "import", href: "/app/import/n8n", icon: FileInput }
 ];
 
 const secondary = [
-  { label: "Team", href: "/app/team", icon: Users },
-  { label: "Usage", href: "/app/usage", icon: Gauge },
-  { label: "Billing", href: "/app/billing", icon: CreditCard },
-  { label: "Settings", href: "/app/settings", icon: Settings }
+  { key: "team", href: "/app/team", icon: Users },
+  { key: "usage", href: "/app/usage", icon: Gauge },
+  { key: "billing", href: "/app/billing", icon: CreditCard },
+  { key: "settings", href: "/app/settings", icon: Settings }
 ];
 
 export function AppShell({ children, workspaceName, userName, role, plan }: { children: React.ReactNode; workspaceName: string; userName: string; role: string; plan: string }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [lang, setLang] = useState<Lang>("ru");
+  const t = appCopy[lang];
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(LANG_KEY);
+      if (saved === "ru" || saved === "en") setLang(saved);
+    } catch {
+      // private mode — the default stands
+    }
+  }, []);
+
+  function changeLang(next: Lang) {
+    setLang(next);
+    try {
+      localStorage.setItem(LANG_KEY, next);
+    } catch {
+      // private mode — the choice just will not survive a reload
+    }
+  }
   const item = (entry: (typeof navigation)[number]) => {
     const Icon = entry.icon;
     const active = entry.href === "/app" ? pathname === "/app" : pathname.startsWith(entry.href);
-    return <Link key={entry.href} className={active ? "active" : ""} href={entry.href} onClick={() => setMobileOpen(false)}><Icon size={16} /><span>{entry.label}</span>{active && <i />}</Link>;
+    return <Link key={entry.href} className={active ? "active" : ""} href={entry.href} onClick={() => setMobileOpen(false)}><Icon size={16} /><span>{t[entry.key] ?? entry.key}</span>{active && <i />}</Link>;
   };
 
   return (
@@ -42,7 +65,7 @@ export function AppShell({ children, workspaceName, userName, role, plan }: { ch
         <div className="sidebar-logo"><Logo href="/app" /><button onClick={() => setMobileOpen(false)} aria-label="Close navigation"><X size={18} /></button></div>
         <button className="workspace-switcher"><span className="workspace-avatar">{workspaceName.slice(0, 2).toUpperCase()}</span><span><b>{workspaceName}</b><small>{role.toLowerCase()}</small></span><ChevronDown size={14} /></button>
         <nav>
-          <span className="nav-label">WORKSPACE</span>
+          <span className="nav-label">{t.workspace.toUpperCase()}</span>
           {navigation.map(item)}
           <span className="nav-label secondary-label">MANAGE</span>
           {secondary.map(item)}
@@ -57,8 +80,8 @@ export function AppShell({ children, workspaceName, userName, role, plan }: { ch
       <div className="app-main">
         <header className="app-topbar">
           <button className="mobile-menu" onClick={() => setMobileOpen(true)} aria-label="Open navigation"><Menu size={19} /></button>
-          <div className="topbar-search"><BookOpen size={15} /><span>Search outcomes, executions, and docs…</span><kbd>⌘ K</kbd></div>
-          <div className="topbar-actions"><ThemeToggle /><Link href="/app/settings/api-keys"><KeyRound size={16} /></Link><Link href="/app/settings/webhooks"><Webhook size={16} /></Link><Link className="button button-primary button-small" href="/app/outcomes/new"><Zap size={14} /> Create outcome</Link></div>
+          <div className="topbar-search"><BookOpen size={15} /><span>{t.search}…</span><kbd>⌘ K</kbd></div>
+          <div className="topbar-actions"><LangToggle lang={lang} onChange={changeLang} /><ThemeToggle /><Link href="/app/settings/api-keys"><KeyRound size={16} /></Link><Link href="/app/settings/webhooks"><Webhook size={16} /></Link><Link className="button button-primary button-small" href="/app/outcomes/new"><Zap size={14} /> {t.create}</Link></div>
         </header>
         <main className="app-content">{children}</main>
       </div>

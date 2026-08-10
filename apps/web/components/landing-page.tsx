@@ -330,7 +330,7 @@ export function LandingPage() {
         </section>
 
         {/* ── 8. Final call: one button, no second choice ── */}
-        <section className="final-cta liquid-glass">
+        <section className="final-cta">
           <div className="final-pattern" aria-hidden="true" />
           <div className="section-kicker">{t.finalCta.kicker}</div>
           <h2>{t.finalCta.title1}<br />{t.finalCta.title2}</h2>

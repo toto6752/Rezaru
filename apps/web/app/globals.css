@@ -393,8 +393,8 @@ select:focus-visible {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255, 255, 255, .58);
-  color: var(--ink-3);
+  background: var(--surface-2);
+  color: var(--ink-2);
   font-size: 12px;
   font-weight: 620;
 }
@@ -1409,7 +1409,7 @@ select:focus-visible {
 .auth-alternatives button { height: 40px; border: 1px solid var(--line); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; gap: 7px; background: var(--surface); font-size: 13px; cursor: pointer; }
 .auth-switch { margin-top: 25px; text-align: center; color: var(--muted); font-size: 12px; }
 .auth-switch a { color: var(--accent-lite); font-weight: 650; }
-.auth-aside { margin: 12px; padding: 60px; display: grid; place-items: center; overflow: hidden; background: var(--surface); color: var(--on-accent); }
+.auth-aside { margin: 12px; padding: 60px; display: grid; place-items: center; overflow: hidden; border-radius: var(--radius); background: var(--accent-2); color: var(--on-accent); }
 .auth-quote { width: min(550px, 100%); }
 .auth-quote > span { color: var(--accent-lite); font-size: 12px; letter-spacing: .17em; font-weight: 750; }
 .auth-quote blockquote { margin: 20px 0 50px; font-size: clamp(32px, 4vw, 52px); line-height: 1.08; letter-spacing: -.055em; }
