@@ -11,10 +11,12 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "./logo";
 import { LangToggle } from "@/components/lang-toggle";
-import { appCopy } from "@/components/app-copy";
+import { appCopy, type AppCopyKey } from "@/components/app-copy";
 import { LANG_KEY, type Lang } from "@/components/landing-copy";
 
-const navigation = [
+type NavEntry = { key: AppCopyKey; href: string; icon: typeof LayoutDashboard };
+
+const navigation: NavEntry[] = [
   { key: "overview", href: "/app", icon: LayoutDashboard },
   { key: "outcomes", href: "/app/outcomes", icon: Zap },
   { key: "executions", href: "/app/executions", icon: Activity },
@@ -23,7 +25,7 @@ const navigation = [
   { key: "import", href: "/app/import/n8n", icon: FileInput }
 ];
 
-const secondary = [
+const secondary: NavEntry[] = [
   { key: "team", href: "/app/team", icon: Users },
   { key: "usage", href: "/app/usage", icon: Gauge },
   { key: "billing", href: "/app/billing", icon: CreditCard },
@@ -53,10 +55,10 @@ export function AppShell({ children, workspaceName, userName, role, plan }: { ch
       // private mode — the choice just will not survive a reload
     }
   }
-  const item = (entry: (typeof navigation)[number]) => {
+  const item = (entry: NavEntry) => {
     const Icon = entry.icon;
     const active = entry.href === "/app" ? pathname === "/app" : pathname.startsWith(entry.href);
-    return <Link key={entry.href} className={active ? "active" : ""} href={entry.href} onClick={() => setMobileOpen(false)}><Icon size={16} /><span>{t[entry.key] ?? entry.key}</span>{active && <i />}</Link>;
+    return <Link key={entry.href} className={active ? "active" : ""} href={entry.href} onClick={() => setMobileOpen(false)}><Icon size={16} /><span>{t[entry.key]}</span>{active && <i />}</Link>;
   };
 
   return (
@@ -67,7 +69,7 @@ export function AppShell({ children, workspaceName, userName, role, plan }: { ch
         <nav>
           <span className="nav-label">{t.workspace.toUpperCase()}</span>
           {navigation.map(item)}
-          <span className="nav-label secondary-label">MANAGE</span>
+          <span className="nav-label secondary-label">{t.manage.toUpperCase()}</span>
           {secondary.map(item)}
         </nav>
         <div className="sidebar-upgrade">
@@ -75,7 +77,7 @@ export function AppShell({ children, workspaceName, userName, role, plan }: { ch
           <p>{plan === "FREE" ? "Unlock more outcomes and advanced history." : "Review capacity, invoices, and plan controls."}</p>
           <Link href="/app/billing">{plan === "FREE" ? "View plans" : "Manage plan"} <ArrowUpRight size={13} /></Link>
         </div>
-        <div className="sidebar-user"><span>{userName.slice(0, 2).toUpperCase()}</span><div><b>{userName}</b><small>Signed in</small></div><button aria-label="Account menu"><ChevronDown size={14} /></button></div>
+        <div className="sidebar-user"><span>{userName.slice(0, 2).toUpperCase()}</span><div><b>{userName}</b><small>{t.signedIn}</small></div><button aria-label="Account menu"><ChevronDown size={14} /></button></div>
       </aside>
       <div className="app-main">
         <header className="app-topbar">
