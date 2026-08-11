@@ -12,14 +12,15 @@ import { DeviceFrame } from "@/components/device-frame";
 import { HeroBackdrop } from "@/components/hero-backdrop";
 import { showcaseMedia, howMedia } from "@/components/landing-media";
 import { brandIcons, IconBuild, type BrandIconKey } from "@/components/brand-icons";
-import { copy, focusKeys, teamSizes, LANG_KEY, type FocusKey, type Lang } from "@/components/landing-copy";
-import { useEffect, useRef, useState } from "react";
+import { copy, focusKeys, teamSizes, type FocusKey, type Lang } from "@/components/landing-copy";
+import { useRef, useState } from "react";
 import { Logo } from "./logo";
+import { useLang } from "@/components/i18n";
 
 export function LandingPage() {
-  // Russian is the default; a saved choice wins on later visits. Reading
-  // localStorage in an effect keeps the server and first client render equal.
-  const [lang, setLang] = useState<Lang>("ru");
+  // The language lives in the shared provider, so choosing EN here carries
+  // into the product and back — and both stay in step within one tab.
+  const { lang, setLang } = useLang();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [scenario, setScenario] = useState(0);
 
@@ -30,23 +31,11 @@ export function LandingPage() {
   const [built, setBuilt] = useState(true);
   const heroRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(LANG_KEY);
-      if (saved === "ru" || saved === "en") setLang(saved);
-    } catch {
-      // private mode — the default stands
-    }
-  }, []);
-
   function changeLang(next: Lang) {
     setLang(next);
+    // The draft in the builder was written against the old wording, so it is
+    // cleared rather than left stranded between languages.
     setTask("");
-    try {
-      localStorage.setItem(LANG_KEY, next);
-    } catch {
-      // private mode — the choice just will not survive a reload
-    }
   }
 
   const t = copy[lang];

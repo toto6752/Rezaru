@@ -12,5 +12,5 @@ export default async function ProductLayout({ children }: { children: React.Reac
     auth.api.getSession({ headers: await headers() })
   ]);
   if (!context) redirect("/login");
-  return <AppShell workspaceName={context.workspaceName} userName={session?.user.name ?? "Demo operator"} role={context.role} plan={context.plan}>{children}</AppShell>;
+  return <AppShell workspaceName={context.workspaceName} userName={session?.user.name ?? "—"} role={context.role} plan={context.plan}>{children}</AppShell>;
 }

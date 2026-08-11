@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useT } from "@/components/i18n";
 
 const THEME_KEY = "rezaru-theme";
 
@@ -14,6 +15,7 @@ export function ThemeToggle() {
   // The inline bootstrap in the root layout has already set data-theme before
   // paint; this only mirrors it into React state after mount.
   const [theme, setTheme] = useState<Theme>("dark");
+  const t = useT();
 
   useEffect(() => setTheme(currentTheme()), []);
 
@@ -34,8 +36,8 @@ export function ThemeToggle() {
       className="theme-toggle"
       onClick={toggle}
       aria-pressed={theme === "light"}
-      title="Switch theme"
-      aria-label="Switch theme"
+      title={t("common.theme")}
+      aria-label={t("common.theme")}
     >
       {theme === "light" ? (
         <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">

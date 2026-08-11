@@ -7,6 +7,7 @@ import { requireWorkspace } from "@/lib/workspace";
 import { StatusDot } from "@/components/ui";
 import { OutcomeActions } from "@/components/outcome-actions";
 import { TechnicalWorkflowView } from "@/components/technical-workflow-view";
+import { LocalDate, T } from "@/components/i18n";
 
 export default async function OutcomeDetailPage({ params }: { params: Promise<{ outcomeId: string }> }) {
   const context = await requireWorkspace();
@@ -25,24 +26,24 @@ export default async function OutcomeDetailPage({ params }: { params: Promise<{ 
   const workflow = version?.definition as unknown as WorkflowDefinition | undefined;
   const explanation = version?.explanation as { humanReadablePlan?: Array<{ id: string; title: string; description: string }> } | null;
   return <div className="detail-page">
-    <header className="page-header detail-header"><div><div className="detail-status"><StatusDot status={outcome.status} /><span>Version {version?.version ?? 1}</span></div><h1>{outcome.name}</h1><p>{outcome.description}</p></div><OutcomeActions id={outcome.id} status={outcome.status} /></header>
-    <nav className="detail-nav"><a className="active" href="#overview">Overview</a><Link href={`/app/outcomes/${outcome.id}/executions`}>Executions</Link><Link href={`/app/outcomes/${outcome.id}/edit`}>Edit</Link></nav>
+    <header className="page-header detail-header"><div><div className="detail-status"><StatusDot status={outcome.status} /><span><T k="out.detailVersion" /> {version?.version ?? 1}</span></div><h1>{outcome.name}</h1><p>{outcome.description}</p></div><OutcomeActions id={outcome.id} status={outcome.status} /></header>
+    <nav className="detail-nav"><a className="active" href="#overview"><T k="out.tabOverview" /></a><Link href={`/app/outcomes/${outcome.id}/executions`}><T k="out.tabExecutions" /></Link><Link href={`/app/outcomes/${outcome.id}/edit`}><T k="out.tabEdit" /></Link></nav>
     <div className="detail-grid" id="overview">
       <section className="detail-main">
         <div className="dashboard-panel outcome-plan-card">
-          <div className="panel-heading"><div><h2>Outcome plan</h2><p>The human-readable operation currently under review.</p></div><Link href={`/app/outcomes/${outcome.id}/edit`}>Edit with AI <Sparkles size={14} /></Link></div>
+          <div className="panel-heading"><div><h2><T k="out.plan" /></h2><p><T k="out.planSub" /></p></div><Link href={`/app/outcomes/${outcome.id}/edit`}><T k="out.editWithAi" /> <Sparkles size={14} /></Link></div>
           <ol>{(explanation?.humanReadablePlan ?? workflow?.steps.map((step) => ({ id: step.id, title: step.name, description: step.description })) ?? []).map((step, index, list) => <li key={step.id}><span>{index + 1}</span><div><b>{step.title}</b><p>{step.description}</p></div>{index < list.length - 1 && <i />}</li>)}</ol>
         </div>
-        {workflow && <div className="dashboard-panel workflow-card"><div className="panel-heading"><div><h2>Technical flow</h2><p>Read-only implementation generated from the outcome.</p></div><span><Settings2 size={14} /> Advanced view</span></div><TechnicalWorkflowView workflow={workflow} /></div>}
+        {workflow && <div className="dashboard-panel workflow-card"><div className="panel-heading"><div><h2><T k="out.technical" /></h2><p><T k="out.technicalSub" /></p></div><span><Settings2 size={14} /> <T k="out.advanced" /></span></div><TechnicalWorkflowView workflow={workflow} /></div>}
       </section>
       <aside className="detail-aside">
-        <div className="dashboard-panel"><div className="panel-heading"><div><h2>Required connections</h2></div><Link href="/app/connections">Manage</Link></div>
-          <div className="connection-requirements">{workflow?.requiredConnections.length ? workflow.requiredConnections.map((connection) => <div key={connection.connectorKey}><span><Plug size={14} /></span><div><b>{connection.label}</b><small>{connection.reason}</small></div><i>Required</i></div>) : <p className="aside-empty">This outcome uses built-in operations only.</p>}</div>
+        <div className="dashboard-panel"><div className="panel-heading"><div><h2><T k="out.requiredConn" /></h2></div><Link href="/app/connections"><T k="common.manage" /></Link></div>
+          <div className="connection-requirements">{workflow?.requiredConnections.length ? workflow.requiredConnections.map((connection) => <div key={connection.connectorKey}><span><Plug size={14} /></span><div><b>{connection.label}</b><small>{connection.reason}</small></div><i><T k="common.required" /></i></div>) : <p className="aside-empty"><T k="out.noConn" /></p>}</div>
         </div>
-        <div className="dashboard-panel"><div className="panel-heading"><div><h2>Recent executions</h2></div><Link href={`/app/outcomes/${outcome.id}/executions`}>View all</Link></div>
-          <div className="side-executions">{outcome.executions.length ? outcome.executions.map((execution) => <Link href={`/app/executions/${execution.id}`} key={execution.id}><StatusDot status={execution.status} /><span>{execution.createdAt.toLocaleDateString()}</span><Clock3 size={13} /></Link>) : <p className="aside-empty">No executions yet. Run a simulated test before activation.</p>}</div>
+        <div className="dashboard-panel"><div className="panel-heading"><div><h2><T k="out.recent" /></h2></div><Link href={`/app/outcomes/${outcome.id}/executions`}><T k="common.viewAll" /></Link></div>
+          <div className="side-executions">{outcome.executions.length ? outcome.executions.map((execution) => <Link href={`/app/executions/${execution.id}`} key={execution.id}><StatusDot status={execution.status} /><LocalDate value={execution.createdAt} /><Clock3 size={13} /></Link>) : <p className="aside-empty"><T k="out.noRuns" /></p>}</div>
         </div>
-        {outcome.suggestions.length > 0 && <div className="dashboard-panel suggestion-mini"><div className="panel-heading"><div><h2>Improvements</h2></div></div>{outcome.suggestions.map((suggestion) => <div key={suggestion.id}><Sparkles size={15} /><span><b>{suggestion.title}</b><small>{suggestion.description}</small></span><ArrowRight size={14} /></div>)}</div>}
+        {outcome.suggestions.length > 0 && <div className="dashboard-panel suggestion-mini"><div className="panel-heading"><div><h2><T k="out.improvements" /></h2></div></div>{outcome.suggestions.map((suggestion) => <div key={suggestion.id}><Sparkles size={15} /><span><b>{suggestion.title}</b><small>{suggestion.description}</small></span><ArrowRight size={14} /></div>)}</div>}
       </aside>
     </div>
   </div>;
