@@ -3,6 +3,7 @@
 import { Check, Copy, Loader2, MailPlus, Shield, UserRound, Users } from "lucide-react";
 import { useState } from "react";
 import { LocalDate, RoleLabel, useT } from "@/components/i18n";
+import { BackLink } from "@/components/back-link";
 import type { UiCopyKey } from "@/components/ui-copy";
 
 type Member = { id: string; role: string; user: { id: string; name: string | null; email: string; image: string | null } };
@@ -51,6 +52,7 @@ export function TeamManager({ initialMembers, initialInvitations }: { initialMem
   const roleOptions = ["ADMIN", "BUILDER", "OPERATOR", "VIEWER"];
 
   return <div className="team-page">
+    <BackLink href="/app/settings" labelKey="set.back" />
     <header className="page-header"><div><span className="page-eyebrow">{t("team.eyebrow")}</span><h1>{t("team.title")}</h1><p>{t("team.lead")}</p></div></header>
     <div className="team-grid">
       <section className="dashboard-panel team-list"><div className="panel-heading"><div><h2>{t("team.members")}</h2><p>{members.length} {t("team.membersCount")}</p></div></div>

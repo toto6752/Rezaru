@@ -5,6 +5,7 @@ import { AlertTriangle, ArrowRight, Check, FileJson, Loader2, Upload, X } from "
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useT } from "@/components/i18n";
+import { BackLink } from "@/components/back-link";
 import type { UiCopyKey } from "@/components/ui-copy";
 
 const steps: readonly UiCopyKey[] = ["imp.next1", "imp.next2", "imp.next3", "imp.next4", "imp.next5", "imp.next6"];
@@ -49,6 +50,7 @@ export function N8nImporter() {
   }
 
   return <div className="import-page">
+    <BackLink href="/app/settings" labelKey="set.back" />
     <header className="page-header"><div><span className="page-eyebrow">{t("imp.eyebrow")}</span><h1>{t("imp.title")}</h1><p>{t("imp.lead")}</p></div></header>
     {!report ? <div className="import-grid">
       <section className="dashboard-panel import-source">

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getWorkspaceUsage } from "@/lib/limits";
 import { requireWorkspace } from "@/lib/workspace";
 import { T } from "@/components/i18n";
+import { BackLink } from "@/components/back-link";
 import type { UiCopyKey } from "@/components/ui-copy";
 
 function UsageMeter({ labelKey, used, limit, icon: Icon }: { labelKey: UiCopyKey; used: number; limit: number; icon: typeof Zap }) {
@@ -17,6 +18,7 @@ export default async function UsagePage() {
   const context = await requireWorkspace();
   const usage = await getWorkspaceUsage(context.workspaceId);
   return <div className="usage-page">
+    <BackLink href="/app/settings" labelKey="set.back" />
     <header className="page-header"><div><span className="page-eyebrow"><T k="usage.eyebrow" /></span><h1><T k="usage.title" /></h1><p><T k="usage.lead" /></p></div><Link className="button button-secondary" href="/app/billing"><T k="usage.managePlan" /></Link></header>
     <div className="usage-summary"><div><Gauge size={20} /><span><small><T k="usage.currentPlan" /></small><b>{usage.plan}</b></span></div><div><Activity size={20} /><span><small><T k="usage.period" /></small><b><T k="usage.periodValue" /></b></span></div><div><Database size={20} /><span><small><T k="usage.behavior" /></small><b><T k="usage.behaviorValue" /></b></span></div></div>
     <div className="usage-grid">

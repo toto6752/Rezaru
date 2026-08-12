@@ -1302,6 +1302,8 @@ select:focus-visible {
 
 .app-content { min-height: calc(100vh - 65px); padding: 34px clamp(24px, 4vw, 48px) 70px; }
 .page-header { min-height: 91px; margin-bottom: 27px; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+/* Two buttons in a page header — they wrap rather than squeeze the title. */
+.header-actions { display: flex; flex-wrap: wrap; gap: 8px; flex-shrink: 0; }
 .page-eyebrow { color: var(--accent-lite); font-size: 12px; font-weight: 760; letter-spacing: .15em; }
 .page-header h1 { margin: 7px 0 5px; font-size: 29px; line-height: 1.1; letter-spacing: -.045em; font-weight: 650; }
 .page-header p { max-width: 680px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.5; }
@@ -1383,6 +1385,7 @@ select:focus-visible {
 .auth-panel input,
 .dialog-content input,
 .settings-form input,
+.settings-form select,
 .invite-panel input,
 .invite-panel select,
 .create-key input,
@@ -1439,8 +1442,19 @@ select:focus-visible {
 .option-grid { margin-top: 8px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
 .option-grid button { min-height: 34px; padding: 0 8px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); color: var(--muted); font-size: 12px; cursor: pointer; }
 .option-grid button.selected { border-color: var(--accent-soft); display: flex; align-items: center; justify-content: center; gap: 5px; color: var(--accent-lite); background: var(--accent-soft); }
-.size-options { grid-template-columns: repeat(5, 1fr); }
-.onboarding-submit { width: 100%; margin-top: 30px; }
+/* Three team sizes now, not five — matching the three the landing offers. */
+.size-options { grid-template-columns: repeat(3, 1fr); }
+.field-hint { margin-top: 6px; display: block; color: var(--ink-3); font-size: 10.5px; font-weight: 500; }
+
+/* The ready template, shown before the button so "three answers and it's
+   ready" is something the owner sees rather than something we claim. */
+.onboarding-preview { margin-top: 28px; padding: 18px 20px 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface-muted); text-align: left; }
+.onboarding-preview ol { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 9px; }
+.onboarding-preview li { display: flex; align-items: flex-start; gap: 10px; color: var(--ink-2); font-size: 12px; line-height: 1.45; }
+.onboarding-preview li i { width: 19px; height: 19px; flex-shrink: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--accent-soft); color: var(--accent-lite); font-size: 9.5px; font-style: normal; font-weight: 700; }
+.onboarding-preview > small { margin-top: 13px; display: block; color: var(--ink-3); font-size: 10.5px; }
+
+.onboarding-submit { width: 100%; margin-top: 24px; }
 
 /* Outcome builder */
 .composer-page { margin: -34px clamp(-48px, -4vw, -24px) -70px; min-height: calc(100vh - 65px); display: flex; flex-direction: column; background: var(--surface); }
@@ -1881,8 +1895,12 @@ select:focus-visible {
 .settings-form > label { margin: 15px 20px; }
 .settings-form > .button { margin-left: 20px; }
 .settings-form input:disabled { color: var(--muted); background: var(--surface-muted); }
-.settings-nav { padding: 7px; display: flex; flex-direction: column; }
-.settings-nav a { min-height: 38px; padding: 0 10px; border-radius: var(--radius-sm); display: flex; align-items: center; color: var(--muted); font-size: 12px; }
+.settings-nav { padding: 7px; display: flex; flex-direction: column; gap: 4px; }
+.settings-nav > div { display: flex; flex-direction: column; }
+.settings-nav > div + div { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line); }
+.settings-nav .nav-label { padding: 6px 10px 4px; font-size: 9.5px; letter-spacing: .09em; color: var(--ink-3); font-weight: 700; }
+.settings-nav a { min-height: 38px; padding: 0 10px; border-radius: var(--radius-sm); display: flex; align-items: center; color: var(--ink-2); font-size: 12px; }
+.settings-nav a:hover { background: var(--surface-muted); }
 .settings-nav a.active { color: var(--accent-lite); background: var(--accent-soft); font-weight: 650; }
 .security-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .security-grid article { min-height: 155px; padding: 19px; border: 1px solid var(--line); background: var(--surface); }

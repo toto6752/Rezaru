@@ -1,5 +1,5 @@
 import { prisma } from "@rezaru/database";
-import { ArrowRight, Plus, Search, Zap } from "lucide-react";
+import { ArrowRight, Boxes, Plus, Search, Zap } from "lucide-react";
 import Link from "next/link";
 import { requireWorkspace } from "@/lib/workspace";
 import { EmptyState, StatusDot } from "@/components/ui";
@@ -14,7 +14,7 @@ export default async function OutcomesPage() {
     orderBy: { updatedAt: "desc" }
   });
   return <div className="list-page">
-    <header className="page-header"><div><span className="page-eyebrow"><T k="out.eyebrow" /></span><h1><T k="out.title" /></h1><p><T k="out.lead" /></p></div><Link className="button button-primary" href="/app/outcomes/new"><Plus size={15} /> <T k="dash.create" /></Link></header>
+    <header className="page-header"><div><span className="page-eyebrow"><T k="out.eyebrow" /></span><h1><T k="out.title" /></h1><p><T k="out.lead" /></p></div><div className="header-actions"><Link className="button button-secondary" href="/app/templates"><Boxes size={15} /> <T k="out.fromTemplate" /></Link><Link className="button button-primary" href="/app/outcomes/new"><Plus size={15} /> <T k="dash.create" /></Link></div></header>
     <ListFilters
       searchKey="out.search"
       labelKey="out.filter"

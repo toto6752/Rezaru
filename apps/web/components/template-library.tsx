@@ -5,6 +5,7 @@ import { ArrowRight, Check, Clock3, Loader2, Plug, Search, Sparkles, X } from "l
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { useT } from "@/components/i18n";
+import { BackLink } from "@/components/back-link";
 
 type Template = {
   id: string;
@@ -55,6 +56,7 @@ export function TemplateLibrary({ templates }: { templates: Template[] }) {
   }
 
   return <div className="templates-page">
+    <BackLink href="/app/outcomes" labelKey="nav.outcomes" />
     <header className="page-header"><div><span className="page-eyebrow">{t("tpl.eyebrow")}</span><h1>{t("tpl.title")}</h1><p>{t("tpl.lead")}</p></div></header>
     <div className="template-tools"><div><Search size={15} /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder={t("tpl.search")} /></div><div>{departments.map((item) => <button className={department === item ? "active" : ""} onClick={() => setDepartment(item)} key={item}>{item === "All" ? t("tpl.all") : item}</button>)}</div></div>
     <div className="library-grid">{filtered.map((template) => <article key={template.id}><div className="template-top"><span>{template.department}</span><Sparkles size={16} /></div><h2>{template.title}</h2><p>{template.description}</p><div className="template-integrations">{template.requiredIntegrations.slice(0, 4).map((integration) => <span key={integration}><Plug size={11} />{integration.replace("_", " ")}</span>)}</div><footer><span><Clock3 size={13} /> {template.setupMinutes} {t("tpl.setup")}</span><b>{t("tpl.saves")} {Math.round(template.monthlyMinutesSaved / 60)} {t("tpl.savesUnit")}</b><button onClick={() => preview(template)} aria-label={`${t("tpl.preview")}: ${template.title}`}><ArrowRight size={15} /></button></footer></article>)}</div>

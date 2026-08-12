@@ -1,9 +1,9 @@
 "use client";
 
 import {
-  Activity, ArrowUpRight, BookOpen, Boxes, ChevronDown, CreditCard,
-  FileInput, Gauge, KeyRound, LayoutDashboard, Menu, Plug, Settings, Sparkles, Users,
-  Webhook, X, Zap
+  Activity, ArrowUpRight, BookOpen, ChevronDown,
+  LayoutDashboard, Menu, Plug, Settings, Sparkles,
+  X, Zap
 } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -16,19 +16,24 @@ import type { UiCopyKey } from "@/components/ui-copy";
 
 type NavEntry = { key: UiCopyKey; href: string; icon: typeof LayoutDashboard };
 
+/**
+ * Four everyday destinations, matching what the landing page promises: see
+ * what happened, manage the agents, connect the channels.
+ *
+ * Templates, the n8n importer, team, usage and billing still exist and are
+ * still reachable — templates from the agent builder, the rest from the
+ * settings page. They are off the main menu because an owner running a café
+ * needs them once a month at most, and ten entries read as "this is
+ * complicated" before a single one is clicked.
+ */
 const navigation: NavEntry[] = [
   { key: "nav.overview", href: "/app", icon: LayoutDashboard },
   { key: "nav.outcomes", href: "/app/outcomes", icon: Zap },
   { key: "nav.executions", href: "/app/executions", icon: Activity },
-  { key: "nav.connections", href: "/app/connections", icon: Plug },
-  { key: "nav.templates", href: "/app/templates", icon: Boxes },
-  { key: "nav.import", href: "/app/import/n8n", icon: FileInput }
+  { key: "nav.connections", href: "/app/connections", icon: Plug }
 ];
 
 const secondary: NavEntry[] = [
-  { key: "nav.team", href: "/app/team", icon: Users },
-  { key: "nav.usage", href: "/app/usage", icon: Gauge },
-  { key: "nav.billing", href: "/app/billing", icon: CreditCard },
   { key: "nav.settings", href: "/app/settings", icon: Settings }
 ];
 
@@ -66,7 +71,10 @@ export function AppShell({ children, workspaceName, userName, role, plan }: { ch
         <header className="app-topbar">
           <button className="mobile-menu" onClick={() => setMobileOpen(true)} aria-label={t("shell.openNav")}><Menu size={19} /></button>
           <div className="topbar-search"><BookOpen size={15} /><span>{t("shell.search")}…</span><kbd>⌘ K</kbd></div>
-          <div className="topbar-actions"><LangToggle lang={lang} onChange={setLang} /><ThemeToggle /><Link href="/app/settings/api-keys"><KeyRound size={16} /></Link><Link href="/app/settings/webhooks"><Webhook size={16} /></Link><Link className="button button-primary button-small" href="/app/outcomes/new"><Zap size={14} /> {t("shell.create")}</Link></div>
+          {/* The API-key and webhook shortcuts moved into settings — they were
+              two developer icons sitting where an owner looks for the one
+              button that matters. */}
+          <div className="topbar-actions"><LangToggle lang={lang} onChange={setLang} /><ThemeToggle /><Link className="button button-primary button-small" href="/app/outcomes/new"><Zap size={14} /> {t("shell.create")}</Link></div>
         </header>
         <main className="app-content">{children}</main>
       </div>
