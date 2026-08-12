@@ -23,6 +23,8 @@ describe("security and plan configuration", () => {
     expect(usageLevel(700, 1000)).toBe("warning");
     expect(usageLevel(900, 1000)).toBe("critical");
     expect(usageLevel(1000, 1000)).toBe("blocked");
-    expect(PLAN_LIMITS.FREE.activeOutcomes).toBe(3);
+    // The paid allowances are the ones the pricing page advertises.
+    expect(PLAN_LIMITS.PRO.executions).toBe(300);
+    expect(PLAN_LIMITS.TEAM.executions).toBe(2_000);
   });
 });

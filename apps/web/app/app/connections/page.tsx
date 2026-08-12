@@ -10,6 +10,6 @@ export default async function ConnectionsPage() {
     select: { id: true, name: true, connectorKey: true, status: true, lastTestedAt: true, lastError: true, _count: { select: { outcomes: true } } },
     orderBy: { name: "asc" }
   });
-  const connectors = listConnectors().map(({ key, name, description, category, authType, documentationUrl, environmentRequirements }) => ({ key, name, description, category, authType, documentationUrl, environmentRequirements }));
+  const connectors = listConnectors().map(({ key, name, description, category, authType, documentationUrl, environmentRequirements, credentialFields }) => ({ key, name, description, category, authType, documentationUrl, environmentRequirements, credentialFields }));
   return <ConnectionMarketplace connectors={connectors} initialConnections={connections} />;
 }

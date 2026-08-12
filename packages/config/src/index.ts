@@ -26,10 +26,22 @@ export function getEnvironment(): Environment {
   return cachedEnvironment;
 }
 
+/**
+ * Allowances per plan, in the units the marketing page sells.
+ *
+ * `executions` is what the pricing page calls "разговоров в месяц": one
+ * incoming customer message starts one execution, so the two are the same
+ * number and the site is not promising a different quantity from the one the
+ * server enforces. The stored enum names stay FREE/PRO/TEAM/BUSINESS — they
+ * are database values — while the names an owner reads (Пробный, Старт,
+ * Бизнес, Сеть) live in the interface dictionary.
+ *
+ * FREE is the 14-day trial the landing offers, not a permanent free tier.
+ */
 export const PLAN_LIMITS = {
-  FREE: { activeOutcomes: 3, executions: 500, members: 1, aiCredits: 50 },
-  PRO: { activeOutcomes: 20, executions: 10_000, members: 3, aiCredits: 1_000 },
-  TEAM: { activeOutcomes: 100, executions: 50_000, members: 20, aiCredits: 5_000 },
+  FREE: { activeOutcomes: 1, executions: 100, members: 1, aiCredits: 100 },
+  PRO: { activeOutcomes: 3, executions: 300, members: 1, aiCredits: 300 },
+  TEAM: { activeOutcomes: 10, executions: 2_000, members: 10, aiCredits: 2_000 },
   BUSINESS: { activeOutcomes: Number.MAX_SAFE_INTEGER, executions: Number.MAX_SAFE_INTEGER, members: Number.MAX_SAFE_INTEGER, aiCredits: Number.MAX_SAFE_INTEGER }
 } as const;
 

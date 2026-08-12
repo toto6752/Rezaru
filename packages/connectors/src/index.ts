@@ -26,15 +26,36 @@ export type ConnectorOperation = {
   execute: (context: ConnectorExecutionContext) => Promise<OperationResult>;
 };
 
+/**
+ * One value the owner has to paste in to connect a channel.
+ *
+ * A single `authType` was enough while every connector needed exactly one
+ * secret. The messaging channels do not: WhatsApp needs a token *and* the
+ * phone number it belongs to, Instagram a token *and* the page id. Without
+ * this the second value had nowhere to go.
+ *
+ * `hint` is shown under the field and should say where to find the value,
+ * because the person reading it has never opened a developer console.
+ */
+export type CredentialField = {
+  key: string;
+  label: string;
+  hint: string;
+  /** Secrets render as password inputs; ids and numbers stay readable. */
+  secret: boolean;
+};
+
 export type ConnectorDefinition = {
   key: string;
   name: string;
   description: string;
-  category: "Communication" | "CRM" | "Marketing" | "Finance" | "Databases" | "AI" | "Developer tools" | "Productivity";
+  category: "Channels" | "Communication" | "CRM" | "Marketing" | "Finance" | "Databases" | "AI" | "Developer tools" | "Productivity";
   authType: ConnectorAuthType;
   icon: string;
   documentationUrl: string;
   environmentRequirements?: string[];
+  /** Omitted means the one field implied by `authType`. */
+  credentialFields?: CredentialField[];
   triggers: ConnectorOperation[];
   actions: ConnectorOperation[];
   testConnection: (credentials: Record<string, string>) => Promise<{ ok: boolean; message: string }>;
@@ -138,6 +159,219 @@ const http: ConnectorDefinition = {
     }
   }],
   testConnection: noAuthTest
+};
+
+/**
+ * The three places customers actually write from.
+ *
+ * Each one is a trigger and an action: a message arrives, the agent answers
+ * in the same thread. The trigger bodies normalise whatever shape the
+ * platform sends into the same {chatId, from, text} so a workflow written
+ * for Telegram keeps working when the owner adds WhatsApp.
+ *
+ * `testConnection` calls the real API rather than checking that the field is
+ * non-empty. A typo in a token has to fail here, on the connect screen —
+ * not silently at two in the morning when a customer is waiting.
+ */
+const messageSchema = z.object({ chatId: z.string(), text: z.string() }).passthrough();
+const incomingSchema = z.object({
+  chatId: z.string(),
+  from: z.string(),
+  text: z.string(),
+  channel: z.string()
+}).passthrough();
+
+const telegram: ConnectorDefinition = {
+  key: "telegram",
+  name: "Telegram",
+  description: "Отвечает в Telegram от имени вашего бота.",
+  category: "Channels",
+  authType: "api_key",
+  icon: "Send",
+  documentationUrl: "https://core.telegram.org/bots#how-do-i-create-a-bot",
+  credentialFields: [
+    { key: "botToken", label: "Токен бота", hint: "Напишите @BotFather в Telegram, команда /newbot — он пришлёт длинную строку с двоеточием.", secret: true }
+  ],
+  triggers: [{
+    key: "receive_message",
+    name: "Сообщение от клиента",
+    description: "Запускается, когда клиент пишет боту.",
+    inputSchema: objectSchema,
+    outputSchema: incomingSchema,
+    execute: async ({ input }) => {
+      // Telegram posts an "update" envelope; the message can sit under
+      // message or edited_message depending on what the customer did.
+      const update = input as { message?: Record<string, unknown>; edited_message?: Record<string, unknown> };
+      const message = (update.message ?? update.edited_message ?? {}) as {
+        chat?: { id?: number | string };
+        from?: { first_name?: string; username?: string };
+        text?: string;
+      };
+      return { data: {
+        chatId: String(message.chat?.id ?? ""),
+        from: message.from?.first_name ?? message.from?.username ?? "",
+        text: message.text ?? "",
+        channel: "telegram",
+        raw: input
+      } };
+    }
+  }],
+  actions: [{
+    key: "send_message",
+    name: "Ответить клиенту",
+    description: "Отправляет сообщение в тот же диалог.",
+    inputSchema: messageSchema,
+    outputSchema: objectSchema,
+    execute: async ({ input, credentials, demo, signal }) => demo
+      ? simulated("telegram", input)
+      : { data: await jsonRequest(`https://api.telegram.org/bot${credentials.botToken}/sendMessage`, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ chat_id: input.chatId, text: input.text })
+        }, signal) }
+  }],
+  testConnection: async (credentials) => {
+    if (!credentials.botToken) return { ok: false, message: "Введите токен бота" };
+    try {
+      const response = await fetch(`https://api.telegram.org/bot${credentials.botToken}/getMe`, { signal: AbortSignal.timeout(8_000) });
+      const body = await response.json() as { ok?: boolean; result?: { username?: string } };
+      if (!response.ok || !body.ok) return { ok: false, message: "Telegram не принял этот токен. Проверьте, что скопировали его целиком." };
+      return { ok: true, message: `Бот @${body.result?.username ?? "?"} на связи` };
+    } catch {
+      return { ok: false, message: "Не удалось связаться с Telegram" };
+    }
+  }
+};
+
+const META_GRAPH = "https://graph.facebook.com/v21.0";
+
+const whatsapp: ConnectorDefinition = {
+  key: "whatsapp",
+  name: "WhatsApp",
+  description: "Отвечает в WhatsApp с вашего рабочего номера.",
+  category: "Channels",
+  authType: "api_key",
+  icon: "MessageCircle",
+  documentationUrl: "https://developers.facebook.com/docs/whatsapp/cloud-api/get-started",
+  credentialFields: [
+    { key: "accessToken", label: "Токен доступа", hint: "Meta for Developers → ваше приложение → WhatsApp → API Setup, поле Access token.", secret: true },
+    { key: "phoneNumberId", label: "Номер отправителя (ID)", hint: "Там же, Phone number ID — длинное число под вашим номером.", secret: false }
+  ],
+  triggers: [{
+    key: "receive_message",
+    name: "Сообщение от клиента",
+    description: "Запускается, когда клиент пишет на ваш номер.",
+    inputSchema: objectSchema,
+    outputSchema: incomingSchema,
+    execute: async ({ input }) => {
+      // Meta wraps everything in entry[].changes[].value; a delivery receipt
+      // has no messages array at all, so every hop is optional.
+      const entry = (input as { entry?: Array<{ changes?: Array<{ value?: Record<string, unknown> }> }> }).entry?.[0];
+      const value = entry?.changes?.[0]?.value as {
+        messages?: Array<{ from?: string; text?: { body?: string } }>;
+        contacts?: Array<{ profile?: { name?: string } }>;
+      } | undefined;
+      const message = value?.messages?.[0];
+      return { data: {
+        chatId: message?.from ?? "",
+        from: value?.contacts?.[0]?.profile?.name ?? message?.from ?? "",
+        text: message?.text?.body ?? "",
+        channel: "whatsapp",
+        raw: input
+      } };
+    }
+  }],
+  actions: [{
+    key: "send_message",
+    name: "Ответить клиенту",
+    description: "Отправляет сообщение в тот же диалог.",
+    inputSchema: messageSchema,
+    outputSchema: objectSchema,
+    execute: async ({ input, credentials, demo, signal }) => demo
+      ? simulated("whatsapp", input)
+      : { data: await jsonRequest(`${META_GRAPH}/${credentials.phoneNumberId}/messages`, {
+          method: "POST",
+          headers: { authorization: `Bearer ${credentials.accessToken}`, "content-type": "application/json" },
+          body: JSON.stringify({ messaging_product: "whatsapp", to: input.chatId, type: "text", text: { body: input.text } })
+        }, signal) }
+  }],
+  testConnection: async (credentials) => {
+    if (!credentials.accessToken || !credentials.phoneNumberId) return { ok: false, message: "Заполните оба поля" };
+    try {
+      const response = await fetch(`${META_GRAPH}/${credentials.phoneNumberId}?fields=display_phone_number`, {
+        headers: { authorization: `Bearer ${credentials.accessToken}` },
+        signal: AbortSignal.timeout(8_000)
+      });
+      const body = await response.json() as { display_phone_number?: string };
+      if (!response.ok) return { ok: false, message: "Meta не приняла эти данные. Проверьте токен и ID номера." };
+      return { ok: true, message: `Номер ${body.display_phone_number ?? "подключён"} на связи` };
+    } catch {
+      return { ok: false, message: "Не удалось связаться с Meta" };
+    }
+  }
+};
+
+const instagram: ConnectorDefinition = {
+  key: "instagram",
+  name: "Instagram Direct",
+  description: "Отвечает в Direct вашего аккаунта.",
+  category: "Channels",
+  authType: "api_key",
+  icon: "Instagram",
+  documentationUrl: "https://developers.facebook.com/docs/messenger-platform/instagram",
+  credentialFields: [
+    { key: "accessToken", label: "Токен страницы", hint: "Meta for Developers → ваше приложение → Messenger → Instagram, поле Page access token.", secret: true },
+    { key: "pageId", label: "ID страницы", hint: "Там же, рядом с названием страницы Facebook, привязанной к аккаунту Instagram.", secret: false }
+  ],
+  triggers: [{
+    key: "receive_message",
+    name: "Сообщение в Direct",
+    description: "Запускается, когда клиент пишет в Direct.",
+    inputSchema: objectSchema,
+    outputSchema: incomingSchema,
+    execute: async ({ input }) => {
+      const entry = (input as { entry?: Array<{ messaging?: Array<Record<string, unknown>> }> }).entry?.[0];
+      const event = entry?.messaging?.[0] as {
+        sender?: { id?: string };
+        message?: { text?: string };
+      } | undefined;
+      return { data: {
+        chatId: event?.sender?.id ?? "",
+        from: event?.sender?.id ?? "",
+        text: event?.message?.text ?? "",
+        channel: "instagram",
+        raw: input
+      } };
+    }
+  }],
+  actions: [{
+    key: "send_message",
+    name: "Ответить клиенту",
+    description: "Отправляет сообщение в тот же диалог.",
+    inputSchema: messageSchema,
+    outputSchema: objectSchema,
+    execute: async ({ input, credentials, demo, signal }) => demo
+      ? simulated("instagram", input)
+      : { data: await jsonRequest(`${META_GRAPH}/${credentials.pageId}/messages`, {
+          method: "POST",
+          headers: { authorization: `Bearer ${credentials.accessToken}`, "content-type": "application/json" },
+          body: JSON.stringify({ recipient: { id: input.chatId }, message: { text: input.text }, messaging_type: "RESPONSE" })
+        }, signal) }
+  }],
+  testConnection: async (credentials) => {
+    if (!credentials.accessToken || !credentials.pageId) return { ok: false, message: "Заполните оба поля" };
+    try {
+      const response = await fetch(`${META_GRAPH}/${credentials.pageId}?fields=name`, {
+        headers: { authorization: `Bearer ${credentials.accessToken}` },
+        signal: AbortSignal.timeout(8_000)
+      });
+      const body = await response.json() as { name?: string };
+      if (!response.ok) return { ok: false, message: "Meta не приняла эти данные. Проверьте токен и ID страницы." };
+      return { ok: true, message: `Страница «${body.name ?? "?"}» на связи` };
+    } catch {
+      return { ok: false, message: "Не удалось связаться с Meta" };
+    }
+  }
 };
 
 const slack: ConnectorDefinition = {
@@ -450,8 +684,10 @@ stripe.authType = "api_key";
 const hubspot = restfulConnector("hubspot", "HubSpot", "CRM", "https://api.hubapi.com", "upsert_contact", "/crm/v3/objects/contacts");
 const notion = restfulConnector("notion", "Notion", "Productivity", "https://api.notion.com", "create_page", "/v1/pages");
 
+// Channels first: this order is the order of the catalogue, and the three
+// the landing page promises should be the three an owner sees first.
 export const connectorRegistry = new Map<string, ConnectorDefinition>(
-  [webhook, schedule, http, slack, gmail, googleSheets, postgres, llm, notion, stripe, hubspot, delay, condition, transform, approval]
+  [telegram, whatsapp, instagram, googleSheets, webhook, schedule, http, slack, gmail, postgres, llm, notion, stripe, hubspot, delay, condition, transform, approval]
     .map((connector) => [connector.key, connector])
 );
 

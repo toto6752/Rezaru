@@ -1444,7 +1444,8 @@ select:focus-visible {
 .option-grid button.selected { border-color: var(--accent-soft); display: flex; align-items: center; justify-content: center; gap: 5px; color: var(--accent-lite); background: var(--accent-soft); }
 /* Three team sizes now, not five — matching the three the landing offers. */
 .size-options { grid-template-columns: repeat(3, 1fr); }
-.field-hint { margin-top: 6px; display: block; color: var(--ink-3); font-size: 10.5px; font-weight: 500; }
+.field-hint { margin-top: 6px; display: block; color: var(--ink-3); font-size: 10.5px; font-weight: 500; line-height: 1.45; }
+.connector-docs { display: inline-block; margin: -4px 0 14px; color: var(--accent-lite); font-size: 11px; text-decoration: underline; text-underline-offset: 3px; }
 
 /* The ready template, shown before the button so "three answers and it's
    ready" is something the owner sees rather than something we claim. */
@@ -1875,6 +1876,11 @@ select:focus-visible {
 .billing-plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .billing-plan-grid article { min-height: 340px; padding: 20px; border: 1px solid var(--line); background: var(--surface); }
 .billing-plan-grid article.current { border: 2px solid var(--accent); background: var(--accent-soft); }
+.billing-plan-grid article.highlight { border-color: var(--accent-soft); box-shadow: 0 10px 30px -22px var(--accent); }
+/* "Индивидуально" has no digits to sit on the price baseline, so it needs
+   its own size rather than the 30px reserved for a number. */
+.billing-plan-grid .custom-price { font-size: 19px; letter-spacing: -.02em; }
+.billing-plan-grid .plan-note { margin-top: 9px; display: block; color: var(--ink-3); font-size: 10.5px; line-height: 1.45; }
 .billing-plan-grid article > span { color: var(--accent-lite); font-size: 11px; letter-spacing: .11em; }
 .billing-plan-grid h3 { margin: 9px 0 5px; font-size: 16px; }
 .billing-plan-grid article > p { height: 34px; margin: 0; color: var(--muted); font-size: 12px; }
