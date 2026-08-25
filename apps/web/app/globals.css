@@ -3314,3 +3314,54 @@ input:focus, textarea:focus, select:focus {
 :root[data-theme="light"] .hero-blob--cherry { background: radial-gradient(circle, rgba(129, 1, 0, .26), transparent 68%); }
 :root[data-theme="light"] .hero-blob--maroon { background: radial-gradient(circle, rgba(99, 0, 0, .20), transparent 66%); }
 :root[data-theme="light"] .hero-blob--cream { background: radial-gradient(circle, rgba(27, 23, 23, .06), transparent 70%); }
+
+/* ─── Правовые страницы ─────────────────────────────────────────────
+   Длинный текст, который люди читают, а не просматривают: узкая колонка,
+   крупнее обычного и с большим межстрочным. Оглавление слева на широком
+   экране, сверху на телефоне. */
+.legal-page { max-width: 1080px; margin: 0 auto; padding: 48px 24px 72px; }
+.legal-header { padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+.legal-header h1 { margin: 26px 0 12px; font-size: 34px; line-height: 1.12; letter-spacing: -.04em; font-weight: 680; }
+.legal-lead { max-width: 66ch; margin: 0; color: var(--ink-2); font-size: 14px; line-height: 1.6; }
+.legal-meta { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--ink-3); font-size: 11.5px; }
+.legal-notice { margin: 20px 0 0; padding: 12px 15px; border: 1px solid var(--accent-soft); border-radius: var(--radius-sm); background: var(--accent-soft); color: var(--accent-lite); font-size: 12px; line-height: 1.5; }
+
+.legal-toc { margin: 30px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 4px 16px; }
+.legal-toc a { padding: 5px 0; color: var(--ink-3); font-size: 12px; line-height: 1.4; }
+.legal-toc a:hover { color: var(--accent-lite); }
+
+.legal-body { margin-top: 40px; max-width: 74ch; }
+.legal-body section { scroll-margin-top: 24px; }
+.legal-body section + section { margin-top: 38px; }
+.legal-body h2 { margin: 0 0 14px; font-size: 17px; letter-spacing: -.02em; font-weight: 660; }
+.legal-body p { margin: 0 0 12px; color: var(--ink-2); font-size: 13.5px; line-height: 1.68; }
+.legal-body ul { margin: 0 0 12px; padding-left: 20px; display: grid; gap: 8px; }
+.legal-body li { color: var(--ink-2); font-size: 13.5px; line-height: 1.6; }
+.legal-body dl { margin: 0 0 12px; display: grid; gap: 10px; }
+.legal-body dt { color: var(--ink); font-size: 13.5px; font-weight: 650; }
+.legal-body dd { margin: 3px 0 0; color: var(--ink-2); font-size: 13.5px; line-height: 1.6; }
+
+/* Таблица получателей данных: на телефоне прокручивается сама, страница — нет. */
+.legal-table-wrap { margin: 4px 0 14px; overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius-sm); }
+.legal-table-wrap table { min-width: 560px; width: 100%; border-collapse: collapse; }
+.legal-table-wrap th, .legal-table-wrap td { padding: 11px 14px; text-align: left; vertical-align: top; font-size: 12.5px; line-height: 1.55; }
+.legal-table-wrap th { color: var(--ink); background: var(--surface-muted); font-weight: 650; }
+.legal-table-wrap td { color: var(--ink-2); border-top: 1px solid var(--line); }
+
+.legal-footer { margin-top: 52px; padding-top: 22px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 14px; justify-content: space-between; color: var(--ink-3); font-size: 12px; }
+.legal-footer a { color: var(--accent-lite); }
+
+/* Согласие при регистрации. Галочка не должна выглядеть как поле формы —
+   это отдельное действие, а текст рядом обязан быть читаемым. */
+.consent-row { margin: 4px 0 16px; display: flex; align-items: flex-start; gap: 10px; color: var(--ink-2); font-size: 12px; font-weight: 500; line-height: 1.5; cursor: pointer; }
+.consent-row input { width: 16px; height: 16px; margin-top: 1px; flex-shrink: 0; accent-color: var(--accent); cursor: pointer; }
+.consent-row a { color: var(--accent-lite); text-decoration: underline; text-underline-offset: 3px; }
+.auth-legal { margin: 14px 0 0; text-align: center; font-size: 11.5px; }
+.auth-legal a { color: var(--ink-3); }
+.auth-legal a:hover { color: var(--accent-lite); }
+
+@media (max-width: 720px) {
+  .legal-page { padding: 32px 18px 56px; }
+  .legal-header h1 { font-size: 27px; }
+  .legal-toc { grid-template-columns: 1fr; }
+}

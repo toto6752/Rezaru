@@ -338,6 +338,7 @@ export function LandingPage() {
         <div>
           <a href="#pricing">{t.nav.pricing}</a>
           <a href="mailto:hello@rezaru.dev">{t.footer.contact}</a>
+          <a href="/privacy">{t.footer.privacy}</a>
         </div>
         <p>© {new Date().getFullYear()} Rezaru</p>
       </footer>

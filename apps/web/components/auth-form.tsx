@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Logo } from "./logo";
 import { useT } from "@/components/i18n";
+import { PRIVACY_VERSION } from "@/components/privacy-copy";
 
 type AuthMode = "login" | "register" | "forgot";
 
@@ -19,6 +20,9 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ tone: "error" | "success"; text: string } | null>(null);
+  // Unticked by default and never pre-ticked: consent that was not an act of
+  // the person is not consent.
+  const [consent, setConsent] = useState(false);
 
   async function submit(event: React.FormEvent) {
     event.preventDefault();
@@ -26,12 +30,16 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
     setMessage(null);
     try {
       if (mode === "register") {
+        // Checked here as well as through `required` on the input: the button
+        // is the last place a submit can be stopped without an account
+        // already existing.
+        if (!consent) throw new Error(t("auth.consentRequired"));
         const result = await authClient.signUp.email({ name, email, password });
         if (result.error) throw new Error(result.error.message);
         const bootstrap = await fetch("/api/workspaces/bootstrap", {
           method: "POST",
           headers: { "content-type": "application/json" },
-          body: JSON.stringify({ name: workspace || name })
+          body: JSON.stringify({ name: workspace || name, privacyPolicyVersion: PRIVACY_VERSION })
         });
         if (!bootstrap.ok) {
           const body = await bootstrap.json() as { error?: { message?: string } };
@@ -57,6 +65,12 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
   }
 
   async function magicLink() {
+    // On the registration screen this link creates the account too, so it has
+    // to sit behind the same consent as the form.
+    if (mode === "register" && !consent) {
+      setMessage({ tone: "error", text: t("auth.consentRequired") });
+      return;
+    }
     if (!email) {
       setMessage({ tone: "error", text: t("auth.enterEmailFirst") });
       return;
@@ -87,8 +101,16 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
             <input type="password" autoComplete={mode === "register" ? "new-password" : "current-password"} required minLength={8} value={password} onChange={(event) => setPassword(event.target.value)} placeholder={t("auth.passwordPlaceholder")} />
             {mode === "login" && <Link href="/forgot-password">{t("auth.forgot")}</Link>}
           </label>}
+          {mode === "register" && <label className="consent-row">
+            <input type="checkbox" required checked={consent} onChange={(event) => setConsent(event.target.checked)} />
+            <span>
+              {t("auth.consentBefore")}{" "}
+              <Link href="/privacy" target="_blank" rel="noreferrer">{t("auth.consentPolicy")}</Link>{" "}
+              {t("auth.consentAnd")}
+            </span>
+          </label>}
           {message && <div className={`form-message ${message.tone}`}>{message.text}</div>}
-          <button className="button button-primary auth-submit" disabled={loading}>
+          <button className="button button-primary auth-submit" disabled={loading || (mode === "register" && !consent)}>
             {loading ? <Loader2 className="spin" size={16} /> : mode === "register" ? t("auth.submitRegister") : mode === "login" ? t("auth.submitLogin") : t("auth.submitForgot")}
             {!loading && <ArrowRight size={15} />}
           </button>
@@ -105,6 +127,7 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
            mode === "login" ? <>{t("auth.newHere")} <Link href="/register">{t("auth.startFree")}</Link></> :
            <Link href="/login">{t("auth.backToLogin")}</Link>}
         </p>
+        <p className="auth-legal"><Link href="/privacy">{t("auth.privacy")}</Link></p>
       </section>
       <aside className="auth-aside">
         <div className="auth-quote">

@@ -183,7 +183,7 @@ export const copy = {
       cta: "Создать агента"
     },
 
-    footer: { tagline: "Агент, который отвечает клиентам за вас.", product: "Продукт", contact: "Связаться" }
+    footer: { tagline: "Агент, который отвечает клиентам за вас.", product: "Продукт", contact: "Связаться", privacy: "Политика конфиденциальности" }
   },
 
   en: {
@@ -344,6 +344,6 @@ export const copy = {
       cta: "Create an agent"
     },
 
-    footer: { tagline: "An agent that answers customers for you.", product: "Product", contact: "Contact" }
+    footer: { tagline: "An agent that answers customers for you.", product: "Product", contact: "Contact", privacy: "Privacy Policy" }
   }
 } as const;

@@ -94,6 +94,12 @@ model User {
   invitations   WorkspaceInvitation[] @relation("InvitedBy")
   apiKeys       ApiKey[]
   auditLogs     AuditLog[]        @relation("AuditActor")
+  // Consent is the only lawful basis for processing under Tajik law
+  // №1537, so it has to be provable: who agreed, when, and to which
+  // wording. Storing just a boolean would not answer the third question
+  // after the policy is next edited.
+  privacyAcceptedAt      DateTime?
+  privacyPolicyVersion   String?
   createdAt     DateTime          @default(now())
   updatedAt     DateTime          @updatedAt
 }
