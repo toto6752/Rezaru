@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const AGENT_BUILDER_INTERNAL_URL = process.env.AGENT_BUILDER_INTERNAL_URL ?? "http://127.0.0.1:8001";
+
 const nextConfig: NextConfig = {
   output: "standalone",
   outputFileTracingRoot: new URL("../../", import.meta.url).pathname,
@@ -22,6 +24,27 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   experimental: {
     optimizePackageImports: ["lucide-react"]
+  },
+  async rewrites() {
+    // The AI-agent builder (Telegram/WhatsApp bots) is a separate Python
+    // service running inside the same container. Proxying these paths keeps
+    // everything on one domain with one login, without merging the codebases.
+    const agentBuilderPaths = [
+      "/dashboard",
+      "/dashboard/:path*",
+      "/agent",
+      "/agent/:path*",
+      "/api/agent/:path*",
+      "/admin",
+      "/admin/:path*",
+      "/webhooks/:path*",
+      "/gemini-test",
+      "/static/:path*"
+    ];
+    return agentBuilderPaths.map((source) => ({
+      source,
+      destination: `${AGENT_BUILDER_INTERNAL_URL}${source}`
+    }));
   },
   async headers() {
     return [{

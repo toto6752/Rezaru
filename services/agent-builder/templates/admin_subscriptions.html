@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block title %}Subscriptions — Admin — Rezaru{% endblock %}
+{% block content %}
+<section class="page-header">
+  <h1 class="page-title">Manage Subscriptions</h1>
+  <p class="page-subtitle">View and manage user subscriptions</p>
+</section>
+
+<section class="card">
+  <h2 class="section-title">All Subscriptions</h2>
+  {% if subscriptions %}
+  <div class="subscriptions-list">
+    {% for sub in subscriptions %}
+    <div class="sub-item">
+      <div class="sub-info">
+        <span class="sub-plan">{{ sub.plan|upper }}</span>
+        <span class="sub-status sub-status-{{ sub.status }}">{{ sub.status }}</span>
+        <span class="sub-dates">
+          {{ sub.starts_at.strftime('%Y-%m-%d') }} → {{ sub.ends_at.strftime('%Y-%m-%d') }}
+        </span>
+        <span class="sub-user">User ID: {{ sub.user_id }}</span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="hint">No subscriptions found.</p>
+  {% endif %}
+</section>
+
+<a href="/admin" class="btn btn-secondary btn-sm">← Back to Admin Panel</a>
+{% endblock %}
+
+{% block head %}
+<style>
+.subscriptions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sub-item {
+  padding: 1rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.sub-info {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.sub-plan {
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+.sub-status {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.sub-status-trial {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.sub-status-active {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.sub-status-expired {
+  background: var(--error-bg);
+  color: var(--error);
+}
+
+.sub-status-cancelled {
+  background: var(--bg-soft);
+  color: var(--text-muted);
+}
+
+.sub-dates {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.sub-user {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+</style>
+{% endblock %}

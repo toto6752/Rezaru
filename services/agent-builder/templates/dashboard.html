@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Дашборд — Rezaru{% endblock %}
+{% block content %}
+{% if success %}
+<div class="alert alert-success">{{ success }}</div>
+{% endif %}
+
+{% if error %}
+<div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+<section class="hero-section">
+  <h1 class="hero-title">Ваши агенты</h1>
+  <p class="hero-subtitle">Создавайте ИИ-ассистентов, которые отвечают клиентам по вашим правилам</p>
+  <a href="/agent/new" class="btn btn-primary">+ Создать агента</a>
+</section>
+
+<section class="card">
+  <h2 class="section-title">Активировать промокод</h2>
+  <form method="post" action="/dashboard/subscription/activate-promo" class="form">
+    <div class="field">
+      <label for="promo_code">Промокод</label>
+      <input type="text" id="promo_code" name="promo_code" placeholder="Введите промокод">
+    </div>
+    <button type="submit" class="btn btn-secondary">Активировать</button>
+  </form>
+</section>
+
+<section class="agents-grid">
+  {% if agents %}
+    {% for agent in agents %}
+    <article class="card agent-card">
+      <h2 class="agent-name">{{ agent.name }}</h2>
+      <p class="agent-type">{{ agent.business_type }}</p>
+      <p class="agent-meta">Команд: {{ agent.commands|length }}</p>
+      {% if agent.telegram_bot and agent.telegram_bot.status == 'running' %}
+        <span class="badge badge-success">Telegram: запущен</span>
+      {% else %}
+        <span class="badge badge-muted">Telegram: не подключён</span>
+      {% endif %}
+      <div class="agent-actions">
+        <a href="/agent/{{ agent.id }}/telegram" class="btn btn-secondary btn-sm">Telegram / тест</a>
+      </div>
+    </article>
+    {% endfor %}
+  {% else %}
+    <div class="card empty-state">
+      <p>У вас пока нет агентов. Создайте первого — это займёт пару минут.</p>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

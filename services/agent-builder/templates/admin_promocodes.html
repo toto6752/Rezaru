@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block title %}Promo Codes — Admin — Rezaru{% endblock %}
+{% block content %}
+<section class="page-header">
+  <h1 class="page-title">Manage Promo Codes</h1>
+  <p class="page-subtitle">Create and manage subscription promo codes</p>
+</section>
+
+{% if success %}
+<div class="alert alert-success">{{ success }}</div>
+{% endif %}
+
+{% if error %}
+<div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+{% if new_code %}
+<div class="card" style="background: var(--success-bg); border-color: var(--success);">
+  <h2 class="section-title">New Promo Code</h2>
+  <p style="font-size: 1.5rem; font-weight: 700; color: var(--success); letter-spacing: 0.1em;">{{ new_code }}</p>
+  <p class="hint">Save this code - it won't be shown again!</p>
+</div>
+{% endif %}
+
+<section class="card">
+  <h2 class="section-title">Create New Promo Code</h2>
+  <form method="post" action="/admin/promocodes/create" class="form">
+    <div class="field">
+      <label for="plan">Subscription Plan</label>
+      <select id="plan" name="plan" required>
+        <option value="start">Start ($20/month)</option>
+        <option value="pro">Pro ($50/month)</option>
+        <option value="custom">Custom (Discuss price)</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Generate Promo Code</button>
+  </form>
+</section>
+
+<section class="card">
+  <h2 class="section-title">Existing Promo Codes</h2>
+  {% if promocodes %}
+  <div class="promocodes-list">
+    {% for promo in promocodes %}
+    <div class="promo-item {% if promo.is_used %}promo-used{% endif %}">
+      <div class="promo-info">
+        <span class="promo-plan">{{ promo.plan|upper }}</span>
+        <span class="promo-status">
+          {% if promo.is_used %}
+            Used
+          {% else %}
+            Active
+          {% endif %}
+        </span>
+        <span class="promo-expiry">Expires: {{ promo.expires_at.strftime('%Y-%m-%d') }}</span>
+      </div>
+      {% if not promo.is_used %}
+      <form method="post" action="/admin/promocodes/{{ promo.id }}/deactivate" class="promo-action">
+        <button type="submit" class="btn btn-secondary btn-sm">Deactivate</button>
+      </form>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="hint">No promo codes created yet.</p>
+  {% endif %}
+</section>
+
+<a href="/admin" class="btn btn-secondary btn-sm">← Back to Admin Panel</a>
+{% endblock %}
+
+{% block head %}
+<style>
+.promocodes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.promo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.promo-used {
+  opacity: 0.6;
+}
+
+.promo-info {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.promo-plan {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.promo-status {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.promo-used .promo-status {
+  background: var(--bg-soft);
+  color: var(--text-muted);
+}
+
+.promo-expiry {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.promo-action {
+  margin: 0;
+}
+
+.promo-action form {
+  margin: 0;
+}
+</style>
+{% endblock %}

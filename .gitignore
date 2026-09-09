@@ -13,3 +13,7 @@ packages/database/generated
 
 # Windows shell junk
 *.lnk
+
+# Python (services/agent-builder)
+__pycache__/
+*.pyc

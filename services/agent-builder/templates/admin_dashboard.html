@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Admin Panel — Rezaru{% endblock %}
+{% block content %}
+<section class="page-header">
+  <h1 class="page-title">Admin Panel</h1>
+  <p class="page-subtitle">Manage users, agents, subscriptions, and system settings</p>
+</section>
+
+<div class="stats-grid">
+  <div class="card stat-card">
+    <h2 class="stat-value">{{ user_count }}</h2>
+    <p class="stat-label">Total Users</p>
+  </div>
+  <div class="card stat-card">
+    <h2 class="stat-value">{{ agent_count }}</h2>
+    <p class="stat-label">Total Agents</p>
+  </div>
+  <div class="card stat-card">
+    <h2 class="stat-value">{{ active_bots }}</h2>
+    <p class="stat-label">Active Telegram Bots</p>
+  </div>
+</div>
+
+<section class="card">
+  <h2 class="section-title">Quick Actions</h2>
+  <div class="admin-nav">
+    <a href="/admin/users" class="btn btn-secondary">Manage Users</a>
+    <a href="/admin/agents" class="btn btn-secondary">Manage Agents</a>
+    <a href="/admin/subscriptions" class="btn btn-secondary">Subscriptions</a>
+    <a href="/admin/promocodes" class="btn btn-secondary">Promo Codes</a>
+    <a href="/admin/ai-configs" class="btn btn-secondary">AI Configs</a>
+    <a href="/admin/settings" class="btn btn-secondary">Settings</a>
+  </div>
+</section>
+
+<div class="admin-actions">
+  <a href="/admin/logout" class="btn btn-secondary btn-sm">Logout</a>
+</div>
+{% endblock %}
+
+{% block head %}
+<style>
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 2rem;
+}
+
+.stat-value {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.admin-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.admin-actions {
+  margin-top: 2rem;
+  text-align: right;
+}
+</style>
+{% endblock %}

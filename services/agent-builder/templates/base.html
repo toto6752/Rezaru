@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Rezaru{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/dashboard" class="logo">Rezaru</a>
+    <div class="nav-links">
+      <a href="/app" class="nav-link">← В меню</a>
+      {% if user is defined and user %}
+        <span class="nav-email">{{ user.email }}</span>
+        <a href="/profile" class="nav-link">Профиль</a>
+        <a href="#" id="logout-link" class="nav-link">Выйти</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  <main class="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% block scripts %}{% endblock %}
+  <script>
+    document.getElementById("logout-link")?.addEventListener("click", async (event) => {
+      event.preventDefault();
+      try {
+        await fetch("/api/auth/sign-out", { method: "POST", credentials: "include" });
+      } finally {
+        window.location.href = "/";
+      }
+    });
+  </script>
+</body>
+</html>

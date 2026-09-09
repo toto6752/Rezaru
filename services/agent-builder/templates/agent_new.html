@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Новый агент — Rezaru{% endblock %}
+{% block content %}
+<section class="page-header">
+  <h1 class="page-title">Создай своего агента</h1>
+  <p class="page-subtitle">Опишите бизнес, поведение и команды — всё сохранится в базе</p>
+</section>
+
+{% if error %}
+<div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+<form method="post" action="/agent/new" class="form-stack">
+  <section class="card">
+    <h2 class="section-title">Основное</h2>
+    <div class="field">
+      <label for="name">Название агента</label>
+      <input type="text" id="name" name="name" required placeholder="Салон красоты Rezaru">
+    </div>
+    <div class="field">
+      <label for="business_type">Тип бизнеса</label>
+      <input type="text" id="business_type" name="business_type" required placeholder="Салон красоты">
+    </div>
+    <div class="field">
+      <label for="superprompt">Суперпромпт</label>
+      <textarea id="superprompt" name="superprompt" rows="4" required placeholder="Кто агент, как отвечает, что умеет..."></textarea>
+    </div>
+    <div class="field">
+      <label for="knowledge">Знания / данные</label>
+      <textarea id="knowledge" name="knowledge" rows="4" required placeholder="Прайс, адрес, условия доставки..."></textarea>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="section-header">
+      <h2 class="section-title">Команды</h2>
+      <button type="button" id="add-command" class="btn btn-secondary btn-sm">+ Добавить</button>
+    </div>
+    <div id="commands-list"></div>
+  </section>
+
+  <button type="submit" class="btn btn-primary btn-lg">Сохранить агента</button>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/script.js"></script>
+<script>initAgentForm();</script>
+{% endblock %}

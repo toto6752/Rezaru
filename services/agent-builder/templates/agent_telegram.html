@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+{% block title %}{{ agent.name }} — Каналы — Rezaru{% endblock %}
+{% block content %}
+<section class="page-header">
+  <h1 class="page-title">{{ agent.name }}</h1>
+  <p class="page-subtitle">{{ agent.business_type }} · агент сохранён в базе</p>
+</section>
+
+{% if error %}
+<div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+{% if bot_started %}
+<div class="alert {% if bot_alive %}alert-success{% else %}alert-error{% endif %}">
+  {% if bot_alive|default(false) %}
+    Telegram-бот запущен и слушает сообщения. Напишите ему /start или любой текст.
+  {% else %}
+    Бот помечен как запущенный, но поток не активен. Нажмите «Сохранить и запустить Telegram» ещё раз.
+  {% endif %}
+</div>
+{% endif %}
+
+<div class="two-col">
+  <section class="card">
+    <h2 class="section-title">Telegram</h2>
+    <p class="hint">Основной канал для общения с клиентами</p>
+
+    <form method="post" action="/agent/{{ agent.id }}/telegram" class="form" id="telegram-form">
+      <div class="field">
+        <label for="token">Telegram Bot Token</label>
+        {% if has_telegram_token %}
+        <input
+          type="text"
+          id="token-display"
+          class="token-masked"
+          readonly
+          value="••••••••••••••••••••"
+          data-channel="telegram"
+          data-agent-id="{{ agent.id }}"
+          title="Нажмите, чтобы показать токен"
+        >
+        <input type="hidden" name="token" id="token" value="">
+        {% else %}
+        <input type="text" id="token" name="token" placeholder="123456789:ABCdefGHI...">
+        {% endif %}
+      </div>
+
+      <button type="submit" class="btn btn-primary">Сохранить и запустить Telegram</button>
+    </form>
+
+    <!-- WhatsApp Section -->
+    <div class="channel-section" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+      <h2 class="section-title">WhatsApp</h2>
+      
+      {% if not whatsapp_access %}
+      <div class="alert alert-error">
+        {{ whatsapp_error }}
+      </div>
+      {% else %}
+      {% if whatsapp_status.status == "connected" %}
+      <div class="alert alert-success">
+        WhatsApp подключён: {{ whatsapp_status.external_account_id }}
+        <form method="post" action="/api/agent/{{ agent.id }}/channel/whatsapp/disconnect" style="display: inline;">
+          <button type="submit" class="btn btn-secondary btn-sm">Отключить</button>
+        </form>
+      </div>
+      {% else %}
+      <p class="hint">Подключите WhatsApp через QR-код</p>
+      
+      <div id="whatsapp-qr-section">
+        <button type="button" id="generate-qr-btn" class="btn btn-primary btn-lg">Сгенерировать QR-код</button>
+        
+        <div id="qr-result" style="display: none; margin-top: 1rem;">
+          <div class="card" style="background: var(--success-bg); padding: 1rem;">
+            <p style="font-weight: 600;">Отсканируйте QR-код в WhatsApp:</p>
+            <div id="qr-code-container" style="width: 250px; height: 250px; background: white; margin: 1rem auto; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: 8px;">
+              <img id="qr-code-image" style="max-width: 100%; max-height: 100%; display: none;">
+              <span id="qr-code-placeholder" style="color: var(--text-muted);">Генерация...</span>
+            </div>
+            <p class="hint" style="text-align: center;">WhatsApp → Настройки → Связанные устройства → Связать устройство</p>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% endif %}
+    </div>
+
+    <!-- Instagram Section -->
+    <div class="channel-section" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+      <h2 class="section-title">Instagram</h2>
+      
+      {% if not instagram_access %}
+      <div class="alert alert-error">
+        {{ instagram_error }}
+      </div>
+      {% else %}
+      {% if instagram_status.status == "connected" %}
+      <div class="alert alert-success">
+        Instagram подключён
+        <form method="post" action="/api/agent/{{ agent.id }}/channel/instagram/disconnect" style="display: inline;">
+          <button type="submit" class="btn btn-secondary btn-sm">Отключить</button>
+        </form>
+      </div>
+      {% else %}
+      <p class="hint">Подключите Instagram Direct через логин и пароль</p>
+      
+      <form id="instagram-form" class="form">
+        <div class="field">
+          <label for="instagram_username">Instagram username</label>
+          <input type="text" id="instagram_username" placeholder="your_username" required>
+        </div>
+        <div class="field">
+          <label for="instagram_password">Пароль</label>
+          <input type="password" id="instagram_password" placeholder="••••••••" required>
+        </div>
+        <button type="button" id="validate-instagram-btn" class="btn btn-primary">Проверить и подключить</button>
+      </form>
+      
+      <div id="instagram-status" style="display: none; margin-top: 1rem;">
+        <div class="alert alert-info">
+          Проверка учетных данных...
+        </div>
+      </div>
+      {% endif %}
+      {% endif %}
+    </div>
+
+    <div class="agent-summary">
+      <h3>Настройки агента</h3>
+      <p><strong>Суперпромпт:</strong> {{ agent.superprompt[:120] }}{% if agent.superprompt|length > 120 %}...{% endif %}</p>
+      <p><strong>Знания:</strong> {{ agent.knowledge[:120] }}{% if agent.knowledge|length > 120 %}...{% endif %}</p>
+      <ul>
+        {% for cmd in agent.commands %}
+        <li>{{ cmd.name }} → {{ cmd.action }} ({{ cmd.get_triggers()|join(', ') }})</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+
+  <section class="card chat-card">
+    <h2 class="section-title">Тестовый чат</h2>
+    <p class="hint">Проверьте ответы Gemini до подключения Telegram</p>
+    <div id="chat-messages" class="chat-messages"></div>
+    <form id="chat-form" class="chat-form">
+      <input type="text" id="chat-input" class="chat-input" placeholder="Напишите агенту..." autocomplete="off">
+      <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+  </section>
+</div>
+
+<div id="token-modal" class="modal hidden">
+  <div class="modal-backdrop"></div>
+  <div class="modal-box">
+    <h3 id="token-modal-title">Токен</h3>
+    <pre id="token-modal-value" class="token-modal-value"></pre>
+    <div class="modal-actions">
+      <button type="button" id="token-modal-copy" class="btn btn-secondary btn-sm">Копировать</button>
+      <button type="button" id="token-modal-close" class="btn btn-primary btn-sm">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<a href="/dashboard" class="back-link">← Назад к агентам</a>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/script.js"></script>
+<script>
+  const agentId = {{ agent.id }};
+  
+  initTestChat(agentId);
+  initMaskedTokens(agentId);
+  
+  // WhatsApp QR Code generation
+  document.getElementById('generate-qr-btn')?.addEventListener('click', async () => {
+    try {
+      const response = await fetch(`/api/agent/${agentId}/whatsapp/qr`, {
+        method: 'POST'
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        document.getElementById('qr-result').style.display = 'block';
+        
+        // Display QR code image if available
+        if (data.qr_code && data.qr_code.startsWith('data:image')) {
+          const img = document.getElementById('qr-code-image');
+          img.src = data.qr_code;
+          img.style.display = 'block';
+          document.getElementById('qr-code-placeholder').style.display = 'none';
+        } else {
+          // Fallback for simulated QR code
+          document.getElementById('qr-code-placeholder').textContent = 'QR-код: ' + data.qr_code;
+        }
+      } else {
+        alert('Ошибка: ' + (data.error || 'Не удалось сгенерировать QR-код'));
+      }
+    } catch (error) {
+      alert('Ошибка: ' + error.message);
+    }
+  });
+  
+  // Instagram connection
+  document.getElementById('validate-instagram-btn')?.addEventListener('click', async () => {
+    const username = document.getElementById('instagram_username').value;
+    const password = document.getElementById('instagram_password').value;
+    
+    if (!username || !password) {
+      alert('Введите логин и пароль Instagram');
+      return;
+    }
+    
+    const statusDiv = document.getElementById('instagram-status');
+    statusDiv.style.display = 'block';
+    statusDiv.innerHTML = '<div class="alert alert-info">Проверка учетных данных...</div>';
+    
+    try {
+      const formData = new FormData();
+      formData.append('username', username);
+      formData.append('password', password);
+      
+      const response = await fetch(`/api/agent/${agentId}/instagram/connect`, {
+        method: 'POST',
+        body: formData
+      });
+      
+      const data = await response.json();
+      
+      if (data.ok) {
+        statusDiv.innerHTML = '<div class="alert alert-success">Instagram подключён успешно!</div>';
+        setTimeout(() => location.reload(), 1500);
+      } else {
+        statusDiv.innerHTML = '<div class="alert alert-error">Ошибка: ' + (data.error || 'Не удалось подключить Instagram') + '</div>';
+      }
+    } catch (error) {
+      statusDiv.innerHTML = '<div class="alert alert-error">Ошибка: ' + error.message + '</div>';
+    }
+  });
+</script>
+{% endblock %}

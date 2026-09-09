@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login — Rezaru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="main-content">
+    <section class="auth-card card">
+      <h1 class="page-title">Admin Login</h1>
+      <p class="page-subtitle">Enter admin password to access the admin panel</p>
+      
+      {% if error %}
+      <div class="alert alert-error">{{ error }}</div>
+      {% endif %}
+      
+      <form method="post" action="/admin/login" class="form">
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required placeholder="Enter admin password">
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg">Login</button>
+      </form>
+      
+      <div class="auth-switch">
+        <a href="/dashboard">Back to Dashboard</a>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

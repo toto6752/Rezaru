@@ -35,7 +35,10 @@ export default async function DashboardPage() {
     <div className="dashboard">
       <header className="page-header dashboard-header">
         <div><span className="page-eyebrow"><T k="dash.eyebrow" /></span><h1><T k={greeting} /></h1><p>{context.workspaceName} <T k="dash.leadTail" /></p></div>
-        <Link className="button button-primary" href="/app/outcomes/new"><Zap size={15} /> <T k="dash.create" /></Link>
+        <div style={{ display: "flex", gap: 8 }}>
+          <a className="button button-secondary" href="/agent/new"><Sparkles size={15} /> Создать AI-агента</a>
+          <Link className="button button-primary" href="/app/outcomes/new"><Zap size={15} /> <T k="dash.create" /></Link>
+        </div>
       </header>
 
       <section className="metric-grid">
