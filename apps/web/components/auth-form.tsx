@@ -45,7 +45,9 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
           const body = await bootstrap.json() as { error?: { message?: string } };
           throw new Error(body.error?.message ?? t("auth.workspaceFailed"));
         }
-        router.push("/app/onboarding");
+        // New accounts land straight on the AI-agent builder instead of the
+        // dashboard/onboarding - creating the first agent IS the onboarding.
+        router.push("/agent/new");
         router.refresh();
       } else if (mode === "login") {
         const result = await authClient.signIn.email({ email, password, callbackURL: "/app" });
@@ -76,7 +78,9 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
       return;
     }
     setLoading(true);
-    const result = await authClient.signIn.magicLink({ email, callbackURL: "/app" });
+    // Same rule as the password flow: a fresh account goes straight to
+    // creating its first agent, not the dashboard.
+    const result = await authClient.signIn.magicLink({ email, callbackURL: mode === "register" ? "/agent/new" : "/app" });
     setLoading(false);
     setMessage(result.error
       ? { tone: "error", text: result.error.message ?? t("auth.linkFailed") }

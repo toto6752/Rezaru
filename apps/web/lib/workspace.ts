@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 
 export type WorkspaceContext = {
   userId: string;
+  userEmail: string;
   workspaceId: string;
   workspaceName: string;
   role: WorkspaceRole;
@@ -12,13 +13,17 @@ export type WorkspaceContext = {
 
 export async function getWorkspaceContext(): Promise<WorkspaceContext | null> {
   let userId: string | undefined;
+  let userEmail: string | undefined;
   const session = await auth.api.getSession({ headers: await headers() });
   userId = session?.user.id;
+  userEmail = session?.user.email;
 
   if (!userId && process.env.DEMO_AUTH_BYPASS === "true") {
-    userId = (await prisma.user.findUnique({ where: { email: "demo@rezaru.local" }, select: { id: true } }))?.id;
+    const demoUser = await prisma.user.findUnique({ where: { email: "demo@rezaru.local" }, select: { id: true, email: true } });
+    userId = demoUser?.id;
+    userEmail = demoUser?.email;
   }
-  if (!userId) return null;
+  if (!userId || !userEmail) return null;
 
   const membership = await prisma.workspaceMember.findFirst({
     where: { userId, workspace: { deletedAt: null } },
@@ -28,6 +33,7 @@ export async function getWorkspaceContext(): Promise<WorkspaceContext | null> {
   if (!membership) return null;
   return {
     userId,
+    userEmail,
     workspaceId: membership.workspace.id,
     workspaceName: membership.workspace.name,
     role: membership.role,

@@ -1,7 +1,8 @@
 import { prisma } from "@rezaru/database";
-import { ArrowRight, CheckCircle2, Clock3, Sparkles, TriangleAlert, Zap } from "lucide-react";
+import { ArrowRight, Bot, CheckCircle2, Clock3, Sparkles, TriangleAlert, Zap } from "lucide-react";
 import Link from "next/link";
 import { requireWorkspace } from "@/lib/workspace";
+import { getAiAgents } from "@/lib/ai-agents";
 import { StatusDot } from "@/components/ui";
 import { LocalDate, T } from "@/components/i18n";
 import type { UiCopyKey } from "@/components/ui-copy";
@@ -10,13 +11,14 @@ export default async function DashboardPage() {
   const context = await requireWorkspace();
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  const [outcomes, executions, todayCount, successCount, attention, suggestions] = await Promise.all([
+  const [outcomes, executions, todayCount, successCount, attention, suggestions, aiAgents] = await Promise.all([
     prisma.outcome.findMany({ where: { workspaceId: context.workspaceId, deletedAt: null }, orderBy: { updatedAt: "desc" }, take: 5 }),
     prisma.execution.findMany({ where: { workspaceId: context.workspaceId }, include: { outcome: { select: { name: true } } }, orderBy: { createdAt: "desc" }, take: 7 }),
     prisma.execution.count({ where: { workspaceId: context.workspaceId, createdAt: { gte: today } } }),
     prisma.execution.count({ where: { workspaceId: context.workspaceId, createdAt: { gte: today }, status: "SUCCEEDED" } }),
     prisma.outcome.findMany({ where: { workspaceId: context.workspaceId, status: "NEEDS_ATTENTION", deletedAt: null }, take: 3 }),
-    prisma.improvementSuggestion.findMany({ where: { workspaceId: context.workspaceId, status: "PENDING" }, orderBy: { createdAt: "desc" }, take: 3 })
+    prisma.improvementSuggestion.findMany({ where: { workspaceId: context.workspaceId, status: "PENDING" }, orderBy: { createdAt: "desc" }, take: 3 }),
+    getAiAgents(context.userEmail)
   ]);
   const active = outcomes.filter((outcome) => outcome.status === "ACTIVE").length;
   const timeSaved = outcomes.reduce((sum, outcome) => sum + outcome.estimatedMinutesSaved, 0);
@@ -46,6 +48,26 @@ export default async function DashboardPage() {
           const MetricIcon = metric.icon;
           return <article key={metric.label}><div><span><T k={metric.label} /></span><b>{metric.value}</b><small>{metric.detail}</small></div><i className={`metric-icon ${metric.tone}`}><MetricIcon size={18} /></i></article>;
         })}
+      </section>
+
+      <section className="dashboard-grid" style={{ gridTemplateColumns: "1fr" }}>
+        <div className="dashboard-panel ai-agents-panel">
+          <div className="panel-heading">
+            <div><h2>AI-агенты</h2><p>Конструктор агентов для Telegram, Instagram и WhatsApp</p></div>
+            <a href="/agent/new"><Sparkles size={14} /> Создать агента</a>
+          </div>
+          {aiAgents.length ? <div className="mini-outcomes ai-agents-list">
+            {aiAgents.map((agent) => <a href={`/agent/${agent.id}/telegram`} key={agent.id}>
+              <span><Bot size={15} /></span>
+              <div><b>{agent.name}</b><small>{agent.businessType}</small></div>
+              <StatusDot status="ACTIVE" />
+            </a>)}
+          </div> : <div className="all-clear">
+            <Bot size={22} />
+            <b>Ещё нет ни одного агента</b>
+            <p>Создайте первого — это займёт пару минут.</p>
+          </div>}
+        </div>
       </section>
 
       <section className="dashboard-grid">

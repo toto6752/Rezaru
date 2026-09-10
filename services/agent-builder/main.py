@@ -395,7 +395,11 @@ async def agent_create(
     db.commit()
     db.refresh(agent)
 
-    return RedirectResponse(f"/agent/{agent.id}/telegram", status_code=303)
+    # Land back on the Rezaru dashboard right after the agent is created -
+    # it shows up there as active. Connecting a channel (Telegram etc.) is a
+    # separate step the user reaches from the dashboard, not a forced part
+    # of creation.
+    return RedirectResponse("/app", status_code=303)
 
 
 @app.get("/agent/{agent_id}/telegram")
